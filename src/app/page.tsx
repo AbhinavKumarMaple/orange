@@ -6,6 +6,8 @@ import ServicesSection from "@/components/custom/ServicesSection";
 import WhyUsSection from "@/components/custom/WhyUsSection";
 import ClientResultsSection from "@/components/custom/ClientResultsSection";
 import PricingSection from "@/components/custom/PricingSection";
+import BlogSection from "@/components/custom/BlogSection";
+import FaqSection from "@/components/custom/FaqSection";
 
 export default function Home() {
   return (
@@ -18,6 +20,8 @@ export default function Home() {
       <WhyUsSection />
       <ClientResultsSection />
       <PricingSection />
+      <BlogSection />
+      <FaqSection />
     </>
   );
 }

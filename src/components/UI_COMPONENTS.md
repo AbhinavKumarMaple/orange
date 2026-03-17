@@ -26,3 +26,5 @@
 | PricingSection       | —                                                                               | Section 7: pricing toggle (project/monthly) with 3 plan cards           |
 | SectionLayout        | label, heading, description, bg, textColor, headerRight, headingStyle, headerMb | Shared section wrapper: label + h2 + description header row             |
 | PricingSection       | —                                                                               | Section 7: pricing toggle (project/monthly) with 3 plan cards           |
+| BlogSection          | —                                                                               | Section 8: 2-col blog cards with cover image, title, category, date     |
+| FaqSection           | —                                                                               | Section 10: accordion FAQ with +/× toggle, heading left, items right    |
