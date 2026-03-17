@@ -25,6 +25,14 @@ export default function HeroSection() {
                 className="object-cover object-center"
                 priority
             />
+            {/* Blue tint overlay image */}
+            <Image
+                src="https://framerusercontent.com/images/m4n0B2QJMVZOeIGk5AiOqozWVg.png"
+                alt=""
+                fill
+                className="object-cover object-center"
+                sizes="100vw"
+            />
 
             <Navbar
                 isMenuOpen={menuOpen}
@@ -32,15 +40,15 @@ export default function HeroSection() {
             />
             <NavOverlay isOpen={menuOpen} />
 
-            {/* H1 — top=56, left=37, nearly full width */}
-            <div className="absolute overflow-hidden" style={{ top: 56, left: 37, right: 37 }}>
+            {/* H1 — top=56, full width */}
+            <div className="absolute overflow-hidden" style={{ top: 56, left: 0, right: 0 }}>
                 <motion.h1
-                    className="font-medium leading-none"
+                    className="font-medium leading-none text-center"
                     style={{
                         color: colors.light,
-                        fontSize: "clamp(60px, 12.9vw, 247px)",
+                        fontSize: "18.5vw",
                         letterSpacing: "-0.05em",
-                        lineHeight: "0.9",
+                        lineHeight: "0.85",
                     }}
                     initial={slideUp.hidden}
                     animate={slideUp.visible}

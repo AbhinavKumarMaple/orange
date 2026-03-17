@@ -28,3 +28,5 @@
 | PricingSection       | —                                                                               | Section 7: pricing toggle (project/monthly) with 3 plan cards           |
 | BlogSection          | —                                                                               | Section 8: 2-col blog cards with cover image, title, category, date     |
 | FaqSection           | —                                                                               | Section 10: accordion FAQ with +/× toggle, heading left, items right    |
+| ContactSection       | —                                                                               | Contact section: blue bg, heading left, form card right                 |
+| Footer               | —                                                                               | Footer: newsletter, nav links, giant Nori Studio text, bottom bar       |

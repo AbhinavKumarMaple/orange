@@ -8,6 +8,8 @@ import ClientResultsSection from "@/components/custom/ClientResultsSection";
 import PricingSection from "@/components/custom/PricingSection";
 import BlogSection from "@/components/custom/BlogSection";
 import FaqSection from "@/components/custom/FaqSection";
+import ContactSection from "@/components/custom/ContactSection";
+import Footer from "@/components/custom/Footer";
 
 export default function Home() {
   return (
@@ -22,6 +24,8 @@ export default function Home() {
       <PricingSection />
       <BlogSection />
       <FaqSection />
+      <ContactSection />
+      <Footer />
     </>
   );
 }
