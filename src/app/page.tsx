@@ -4,6 +4,7 @@ import ShowreelSection from "@/components/custom/ShowreelSection";
 import PortfolioSection from "@/components/custom/PortfolioSection";
 import ServicesSection from "@/components/custom/ServicesSection";
 import WhyUsSection from "@/components/custom/WhyUsSection";
+import ClientResultsSection from "@/components/custom/ClientResultsSection";
 
 export default function Home() {
   return (
@@ -14,6 +15,7 @@ export default function Home() {
       <PortfolioSection />
       <ServicesSection />
       <WhyUsSection />
+      <ClientResultsSection />
     </>
   );
 }
