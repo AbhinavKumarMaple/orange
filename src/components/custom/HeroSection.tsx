@@ -8,6 +8,7 @@ import { colors } from "@/lib/colors";
 import Navbar from "./Navbar";
 import NavOverlay from "./NavOverlay";
 import StarRating from "./StarRating";
+import Button from "./Button";
 
 export default function HeroSection() {
     const [menuOpen, setMenuOpen] = useState(false);
@@ -122,22 +123,10 @@ export default function HeroSection() {
                     3.2x Average ROI
                 </span>
 
-                {/* CTA — white bg, blue text, radius=10px, 138×36 */}
-                <a
-                    href="#"
-                    className="flex items-center justify-center font-medium"
-                    style={{
-                        backgroundColor: "#ffffff",
-                        color: colors.blue,
-                        borderRadius: 10,
-                        width: 138,
-                        height: 36,
-                        fontSize: 16,
-                        letterSpacing: "-0.48px",
-                    }}
-                >
+                {/* CTA — white bg, blue text, radius=2px */}
+                <Button href="#" variant="light" style={{ width: 138, height: 36, fontSize: 16 }}>
                     Start your project
-                </a>
+                </Button>
             </motion.div>
         </section>
     );

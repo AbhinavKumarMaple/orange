@@ -15,6 +15,7 @@ export default function ServicesSection() {
         <SectionLayout
             label="//04 Our services"
             heading="Our Services"
+            description="Our Services"
             bg={dark}
             textColor={colors.light}
             headingStyle={{

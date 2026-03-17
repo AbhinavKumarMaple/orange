@@ -1,10 +1,10 @@
 "use client";
 
 import { useState } from "react";
-import Link from "next/link";
 import { motion, AnimatePresence } from "motion/react";
 import { colors } from "@/lib/colors";
 import { easings, durations } from "@/lib/motion";
+import Button from "./Button";
 
 const faqs = [
     {
@@ -62,19 +62,15 @@ export default function FaqSection() {
                     >
                         Every project timeline is confirmed during onboarding, so you always know what to expect.
                     </p>
-                    <Link
-                        href="#"
-                        className="inline-block px-5 py-2.5 text-[14px] font-medium text-white rounded-lg"
-                        style={{ backgroundColor: colors.blue }}
-                    >
+                    <Button href="#" variant="primary" style={{ fontSize: 14 }}>
                         Start your project
-                    </Link>
+                    </Button>
                 </div>
 
                 {/* Right — accordion */}
                 <div className="flex flex-col gap-3">
                     {faqs.map((faq, i) => (
-                        <div key={i} className="bg-white rounded-xl border border-gray-100 overflow-hidden">
+                        <div key={i} className="bg-white border border-gray-100 overflow-hidden" style={{ borderRadius: 8 }}>
                             <button
                                 onClick={() => setOpen(open === i ? null : i)}
                                 className="w-full flex items-center justify-between px-6 py-5 text-left cursor-pointer"

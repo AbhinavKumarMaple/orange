@@ -72,7 +72,7 @@ export default function ShowreelContent() {
             {/* Video — left=32, right=47 from viewport, border-radius 12px */}
             <motion.div
                 className="overflow-hidden"
-                style={{ borderRadius: 12 }}
+                style={{ borderRadius: 8 }}
                 initial={fadeUp.hidden}
                 whileInView={fadeUp.visible}
                 viewport={{ once: true }}

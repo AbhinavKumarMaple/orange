@@ -128,7 +128,7 @@
   }
 }
 
-@keyframes marquee {
+@keyframes marquee-rtl {
   from {
     transform: translateX(0);
   }
@@ -137,6 +137,6 @@
   }
 }
 
-.animate-marquee {
-  animation: marquee 30s linear infinite;
+.animate-marquee-rtl {
+  animation: marquee-rtl 30s linear infinite;
 }

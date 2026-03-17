@@ -42,13 +42,14 @@ export default function PortfolioGrid() {
                     viewport={{ once: true }}
                     transition={createTransition({ duration: "medium", ease: "snappy", delay: (i % 2) * 0.1 })}
                 >
-                    {/* Image */}
-                    <div className="relative w-full overflow-hidden" style={{ borderRadius: 8, aspectRatio: "909 / 838" }}>
+                    {/* Image clip wrapper */}
+                    <div style={{ borderRadius: 8, overflow: "hidden", aspectRatio: "909 / 838", position: "relative", width: "100%" }} className="group">
                         <Image
                             src={`${project.image}?width=1818&height=1676`}
                             alt={project.name}
                             fill
-                            className="object-cover"
+                            className="object-cover transition-transform duration-500 group-hover:scale-105"
+                            style={{ borderRadius: 8 }}
                         />
                     </div>
 

@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { colors } from "@/lib/colors";
 import SectionLayout from "./SectionLayout";
+import Button from "./Button";
 
 const posts = [
     {
@@ -28,13 +29,9 @@ const headerRight = (
         >
             Free advice on branding, design, marketing, and business growth from our team of experts.
         </p>
-        <Link
-            href="#"
-            className="px-5 py-2.5 text-[14px] font-medium text-white rounded-lg"
-            style={{ backgroundColor: colors.blue }}
-        >
+        <Button href="#" variant="primary" style={{ fontSize: 14, padding: "10px 20px" }}>
             Read all articles
-        </Link>
+        </Button>
     </div>
 );
 
@@ -49,8 +46,8 @@ export default function BlogSection() {
         >
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 {posts.map((post) => (
-                    <Link key={post.title} href={post.href} className="group block bg-white rounded-2xl p-4">
-                        <div className="relative w-full overflow-hidden rounded-xl border border-white" style={{ height: 580 }}>
+                    <Link key={post.title} href={post.href} className="group block bg-white p-4" style={{ borderRadius: 8 }}>
+                        <div className="relative w-full overflow-hidden" style={{ height: 580, borderRadius: 8 }}>
                             <Image
                                 src={post.image}
                                 alt={post.title}

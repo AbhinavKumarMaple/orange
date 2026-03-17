@@ -48,7 +48,7 @@ export default function WhyUsSection() {
                     <div
                         key={logo.alt}
                         className="flex items-center justify-center"
-                        style={{ backgroundColor: dark, borderRadius: 4, height: 132, border: "1px solid rgba(240,245,249,0.1)" }}
+                        style={{ backgroundColor: dark, borderRadius: 8, height: 132, border: "1px solid rgba(240,245,249,0.1)" }}
                     >
                         <Image
                             src={`${logo.src}?width=320&height=104`}

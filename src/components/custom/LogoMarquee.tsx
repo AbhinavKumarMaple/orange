@@ -18,14 +18,14 @@ export default function LogoMarquee() {
     return (
         <div className="w-full overflow-hidden border-y border-black/10" style={{ height: 132 }}>
             <div
-                className="flex items-center h-full animate-marquee"
+                className="flex items-center h-full animate-marquee-rtl"
                 style={{ width: "max-content" }}
             >
                 {items.map((logo, i) => (
                     <div
                         key={i}
-                        className="flex items-center justify-center border-r border-black/10 shrink-0"
-                        style={{ width: 286, height: "100%" }}
+                        className="flex items-center justify-center shrink-0"
+                        style={{ width: 286, height: "100%", borderRight: "1px solid rgba(0,0,0,0.1)", paddingLeft: 40, paddingRight: 40 }}
                     >
                         <Image
                             src={`${logo.src}?width=${logo.w * 2}&height=${logo.h * 2}`}

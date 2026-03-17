@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { colors } from "@/lib/colors";
 import SectionLayout from "./SectionLayout";
+import Button from "./Button";
 
 type BillingMode = "project" | "monthly";
 
@@ -70,9 +71,9 @@ function PricingCard({ plan, billing, featured = false }: { plan: Plan; billing:
     const suffix = billing === "project" ? "/per project" : "/monthly";
 
     return (
-        <div className={`relative bg-white rounded-xl flex flex-col gap-5 border border-gray-100 ${featured ? "p-8 pt-12 -mt-8 shadow-md" : "p-8"}`}>
+        <div className={`relative bg-white flex flex-col gap-5 border border-gray-100 ${featured ? "p-8 pt-12 -mt-8 shadow-md" : "p-8"}`} style={{ borderRadius: 8 }}>
             {plan.badge && (
-                <span className="absolute -top-4 left-8 bg-[#1F75B2] text-white text-[13px] font-medium px-4 py-1.5 rounded-full">
+                <span className="absolute -top-4 left-8 text-white text-[13px] font-medium px-4 py-1.5" style={{ backgroundColor: colors.blue, borderRadius: 2 }}>
                     {plan.badge}
                 </span>
             )}
@@ -92,9 +93,9 @@ function PricingCard({ plan, billing, featured = false }: { plan: Plan; billing:
                     </li>
                 ))}
             </ul>
-            <button className="mt-auto w-full bg-[#1F75B2] hover:bg-[#1a6699] text-white text-[15px] font-medium py-4 rounded-lg transition-colors cursor-pointer">
+            <Button variant="primary" className="mt-auto w-full" style={{ fontSize: 15, padding: "16px 24px" }}>
                 Choose this plan
-            </button>
+            </Button>
             <p className="text-center text-[13px] text-gray-400">Delivery time: {plan.delivery}</p>
         </div>
     );
@@ -111,7 +112,7 @@ export default function PricingSection() {
             >
                 Pick a plan that fits your needs, with fair prices and no hidden surprises.
             </p>
-            <div className="flex rounded-lg border overflow-hidden" style={{ borderColor: colors.blue }}>
+            <div className="flex border overflow-hidden" style={{ borderColor: colors.blue, borderRadius: 2 }}>
                 <button
                     onClick={() => setBilling("project")}
                     className="px-4 py-2 text-[14px] font-medium transition-colors cursor-pointer"

@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { colors } from "@/lib/colors";
+import Button from "./Button";
 
 const perks = [
     { icon: "⏱", text: "Quick 24-hour response" },
@@ -34,13 +35,9 @@ export default function ContactSection() {
                     >
                         Reach out today, we&apos;ll respond fast and keep things simple.
                     </p>
-                    <Link
-                        href="#"
-                        className="inline-flex items-center justify-center px-6 py-3 rounded-lg font-medium"
-                        style={{ backgroundColor: colors.light, color: colors.blue, fontSize: 16 }}
-                    >
+                    <Button href="#" variant="light" style={{ fontSize: 16, padding: "12px 24px" }}>
                         Email us directly
-                    </Link>
+                    </Button>
 
                     <div className="flex flex-col gap-3 mt-10">
                         {perks.map((p) => (
@@ -58,7 +55,7 @@ export default function ContactSection() {
                 </div>
 
                 {/* Right — form card */}
-                <div className="bg-white rounded-2xl p-8">
+                <div className="bg-white p-8" style={{ borderRadius: 8 }}>
                     <form className="flex flex-col gap-6" onSubmit={(e) => e.preventDefault()}>
                         <div>
                             <label className="block font-sans mb-2" style={{ fontSize: 16, fontWeight: 500, color: "rgb(6,18,24)" }}>
@@ -104,13 +101,9 @@ export default function ContactSection() {
                                 style={{ fontSize: 16, color: "rgb(6,18,24)" }}
                             />
                         </div>
-                        <button
-                            type="submit"
-                            className="w-full py-3.5 rounded-xl font-sans font-medium text-white cursor-pointer"
-                            style={{ backgroundColor: colors.blue, fontSize: 16 }}
-                        >
+                        <Button type="submit" variant="primary" className="w-full" style={{ fontSize: 16, padding: "14px 24px" }}>
                             Send request
-                        </button>
+                        </Button>
                         <p className="text-center font-sans" style={{ fontSize: 14, color: "rgb(6,18,24)", opacity: 0.5 }}>
                             By submitting, you agree to our{" "}
                             <Link href="#" className="underline">Terms</Link> and{" "}
