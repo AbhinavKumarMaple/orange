@@ -8,6 +8,7 @@ import {
     createTransition,
     introTiming,
 } from "@/lib/motion";
+import { colors } from "@/lib/colors";
 
 export default function IntroOverlay() {
     const [showText, setShowText] = useState(false);
@@ -28,13 +29,14 @@ export default function IntroOverlay() {
             {!dismiss && (
                 <motion.div
                     className="fixed inset-0 z-50 flex flex-col items-center justify-center"
-                    style={{ backgroundColor: "#2E7EB5" }}
+                    style={{ backgroundColor: colors.blue }}
                     {...overlayExit}
                     transition={createTransition({ duration: "slow", ease: "snappy" })}
                 >
                     <div className="overflow-hidden">
                         <motion.h1
-                            className="text-white text-3xl md:text-4xl font-light tracking-wide"
+                            className="text-3xl md:text-4xl font-medium tracking-tight"
+                            style={{ color: colors.light }}
                             initial={slideUp.hidden}
                             animate={showText ? slideUp.visible : slideUp.hidden}
                             transition={createTransition({ duration: "medium", ease: "snappy" })}
@@ -45,7 +47,8 @@ export default function IntroOverlay() {
 
                     <div className="overflow-hidden mt-2">
                         <motion.p
-                            className="text-white/70 text-sm md:text-base font-light tracking-wide"
+                            className="text-sm md:text-base font-normal"
+                            style={{ color: colors.light, opacity: 0.7, letterSpacing: "-0.48px" }}
                             initial={slideUp.hidden}
                             animate={showText ? slideUp.visible : slideUp.hidden}
                             transition={createTransition({

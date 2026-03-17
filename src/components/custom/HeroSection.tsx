@@ -1,44 +1,66 @@
 "use client";
 
 import { useState } from "react";
+import Image from "next/image";
 import { motion } from "motion/react";
 import { slideUp, fadeUp, createTransition } from "@/lib/motion";
+import { colors } from "@/lib/colors";
 import Navbar from "./Navbar";
 import NavOverlay from "./NavOverlay";
+import StarRating from "./StarRating";
 
 export default function HeroSection() {
     const [menuOpen, setMenuOpen] = useState(false);
 
     return (
         <section
-            className="relative h-screen w-full overflow-hidden"
-            style={{ backgroundColor: "#2E7EB5" }}
+            className="relative w-full overflow-hidden"
+            style={{ backgroundColor: colors.blue, height: "100svh" }}
         >
+            {/* Full-bleed background image */}
+            <Image
+                src="https://framerusercontent.com/images/PvGkgeiMfJS3ppQqn74U9dVhHg.png"
+                alt=""
+                fill
+                className="object-cover object-center"
+                priority
+            />
+
             <Navbar
                 isMenuOpen={menuOpen}
                 onMenuToggle={() => setMenuOpen((prev) => !prev)}
             />
             <NavOverlay isOpen={menuOpen} />
 
-            {/* Giant title */}
-            <div className="absolute inset-0 flex items-start px-6 md:px-10 pt-16 md:pt-20">
-                <div className="overflow-hidden">
-                    <motion.h1
-                        className="text-white text-[15vw] md:text-[12vw] font-bold leading-[0.9] tracking-tight"
-                        initial={slideUp.hidden}
-                        animate={slideUp.visible}
-                        transition={createTransition({ duration: "slow", ease: "snappy", delay: "long" })}
-                    >
-                        Nori Studio
-                    </motion.h1>
-                </div>
+            {/* H1 — top=56, left=37, nearly full width */}
+            <div className="absolute overflow-hidden" style={{ top: 56, left: 37, right: 37 }}>
+                <motion.h1
+                    className="font-medium leading-none"
+                    style={{
+                        color: colors.light,
+                        fontSize: "clamp(60px, 12.9vw, 247px)",
+                        letterSpacing: "-0.05em",
+                        lineHeight: "0.9",
+                    }}
+                    initial={slideUp.hidden}
+                    animate={slideUp.visible}
+                    transition={createTransition({ duration: "slow", ease: "snappy", delay: "long" })}
+                >
+                    Nori Studio
+                </motion.h1>
             </div>
 
-            {/* Since 2019 */}
+            {/* Since 2019 — ~43% down from top, left=57 */}
             <motion.p
-                className="absolute left-6 md:left-10 top-[55%] text-white/70 text-sm font-light tracking-wider"
-                style={{ fontFamily: "monospace" }}
-                {...fadeUp}
+                className="absolute font-mono font-medium"
+                style={{
+                    top: "43%",
+                    left: 57,
+                    color: colors.light,
+                    fontSize: 20,
+                    lineHeight: "26px",
+                    letterSpacing: "-0.4px",
+                }}
                 initial={fadeUp.hidden}
                 animate={fadeUp.visible}
                 transition={createTransition({ duration: "medium", ease: "gentle", delay: "xlong" })}
@@ -46,44 +68,69 @@ export default function HeroSection() {
                 Since 2019
             </motion.p>
 
-            {/* Bottom left description */}
+            {/* Description — bottom=48, left=57, width=448 */}
             <motion.p
-                className="absolute left-6 md:left-10 bottom-8 md:bottom-10 text-white/80 text-sm md:text-base font-light leading-relaxed max-w-xs md:max-w-sm"
+                className="absolute font-medium"
+                style={{
+                    bottom: 48,
+                    left: 57,
+                    width: 448,
+                    color: colors.light,
+                    fontSize: 20,
+                    lineHeight: "26px",
+                    letterSpacing: "-0.6px",
+                }}
                 initial={fadeUp.hidden}
                 animate={fadeUp.visible}
                 transition={createTransition({ duration: "medium", ease: "gentle", delay: "xlong" })}
             >
-                We are a creative studio from Canada building
-                brands and websites that stand out, scale
-                with growth and deliver measurable results.
+                We are a creative studio from Canada building brands and websites that stand out, scale with growth and deliver measurable results.
             </motion.p>
 
-            {/* Bottom right stats + CTA */}
-            <div className="absolute right-6 md:right-10 bottom-8 md:bottom-10 flex flex-col items-end gap-3">
-                <motion.div
-                    className="flex flex-col items-end gap-1"
-                    initial={fadeUp.hidden}
-                    animate={fadeUp.visible}
-                    transition={createTransition({ duration: "medium", ease: "gentle", delay: "xlong" })}
-                >
-                    <span className="text-white text-sm">
-                        ★★★★★ 4.8/5
+            {/* Bottom right — stars, ROI, CTA */}
+            <motion.div
+                className="absolute flex flex-col items-end"
+                style={{ bottom: 21, right: 36 }}
+                initial={fadeUp.hidden}
+                animate={fadeUp.visible}
+                transition={createTransition({ duration: "medium", ease: "gentle", delay: "xlong" })}
+            >
+                {/* Stars + 4.8/5 */}
+                <div className="flex items-center gap-2 mb-1">
+                    <StarRating />
+                    <span
+                        className="font-normal"
+                        style={{ color: colors.light, fontSize: 16, lineHeight: "20.8px", letterSpacing: "-0.48px" }}
+                    >
+                        4.8/5
                     </span>
-                    <span className="text-white/70 text-sm">
-                        3.2x Average ROI
-                    </span>
-                </motion.div>
+                </div>
 
-                <motion.a
+                {/* 3.2x Average ROI */}
+                <span
+                    className="font-normal mb-3"
+                    style={{ color: colors.light, fontSize: 16, lineHeight: "20.8px", letterSpacing: "-0.48px" }}
+                >
+                    3.2x Average ROI
+                </span>
+
+                {/* CTA — white bg, blue text, radius=10px, 138×36 */}
+                <a
                     href="#"
-                    className="border border-white text-white text-sm px-5 py-2.5 rounded-full hover:bg-white hover:text-[#2E7EB5] transition-colors"
-                    initial={fadeUp.hidden}
-                    animate={fadeUp.visible}
-                    transition={createTransition({ duration: "medium", ease: "gentle", delay: "xlong" })}
+                    className="flex items-center justify-center font-medium"
+                    style={{
+                        backgroundColor: "#ffffff",
+                        color: colors.blue,
+                        borderRadius: 10,
+                        width: 138,
+                        height: 36,
+                        fontSize: 16,
+                        letterSpacing: "-0.48px",
+                    }}
                 >
                     Start your project
-                </motion.a>
-            </div>
+                </a>
+            </motion.div>
         </section>
     );
 }

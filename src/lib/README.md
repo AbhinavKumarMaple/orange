@@ -3,6 +3,7 @@
 | Function / Export | Description                                                             |
 | ----------------- | ----------------------------------------------------------------------- |
 | cn                | Merges Tailwind classes via clsx + tailwind-merge                       |
+| colors            | Centralized color tokens (blue, light, background, ctaText)             |
 | easings           | Named cubic-bezier presets (snappy, smooth, bounce, gentle)             |
 | durations         | Named duration presets in seconds (fast, normal, medium, slow, xslow)   |
 | delays            | Named delay presets in seconds (none, tiny, short, normal, long, xlong) |

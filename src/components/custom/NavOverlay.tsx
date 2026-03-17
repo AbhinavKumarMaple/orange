@@ -2,6 +2,7 @@
 
 import { motion, AnimatePresence } from "motion/react";
 import { slideDown, createTransition, stagger } from "@/lib/motion";
+import { colors } from "@/lib/colors";
 
 const navLinks = ["Home", "Our work", "About us", "Contact", "Blog"];
 
@@ -15,7 +16,7 @@ export default function NavOverlay({ isOpen }: NavOverlayProps) {
             {isOpen && (
                 <motion.div
                     className="fixed inset-0 z-30 flex items-center justify-center"
-                    style={{ backgroundColor: "#2E7EB5" }}
+                    style={{ backgroundColor: colors.blue }}
                     initial={slideDown.hidden}
                     animate={slideDown.visible}
                     exit={slideDown.hidden}
@@ -26,7 +27,8 @@ export default function NavOverlay({ isOpen }: NavOverlayProps) {
                             <div key={link} className="overflow-hidden">
                                 <motion.a
                                     href="#"
-                                    className="block text-white text-4xl md:text-5xl font-light tracking-wide hover:opacity-70 transition-opacity py-1"
+                                    className="block text-4xl md:text-5xl font-medium tracking-tight hover:opacity-70 transition-opacity py-1"
+                                    style={{ color: colors.light }}
                                     initial={{ y: "-100%" }}
                                     animate={{ y: 0 }}
                                     exit={{ y: "-100%" }}
