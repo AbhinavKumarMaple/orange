@@ -1,4 +1,5 @@
 import { colors } from "@/lib/colors";
+import SectionLayout from "./SectionLayout";
 
 const services = [
     { num: "001", name: "Branding", desc: "Visual systems that make your business unforgettable and differentiate you from competitors." },
@@ -7,33 +8,25 @@ const services = [
     { num: "004", name: "Digital marketing", desc: "Data-driven campaigns that grow your audience and turn clicks into measurable revenue." },
 ];
 
+const dark = "rgb(6, 18, 24)";
+
 export default function ServicesSection() {
     return (
-        <section style={{ backgroundColor: "rgb(6, 18, 24)" }} className="px-8 pt-16 pb-16">
-            {/* Label */}
-            <p
-                className="font-mono font-medium mb-4"
-                style={{ color: colors.light, fontSize: 20, lineHeight: "26px", letterSpacing: "-0.4px" }}
-            >
-        //04 Our services
-            </p>
-
-            {/* Giant heading — full width */}
-            <h2
-                className="font-sans font-medium uppercase w-full mb-16"
-                style={{
-                    color: colors.light,
-                    fontSize: "clamp(60px, 8.85vw, 170px)",
-                    lineHeight: "0.9",
-                    letterSpacing: "-0.05em",
-                }}
-            >
-                Our Services
-            </h2>
-
-            {/* Service rows */}
+        <SectionLayout
+            label="//04 Our services"
+            heading="Our Services"
+            bg={dark}
+            textColor={colors.light}
+            headingStyle={{
+                fontSize: "clamp(60px, 8.85vw, 170px)",
+                lineHeight: "0.9",
+                letterSpacing: "-0.05em",
+                marginBottom: "4rem",
+            }}
+            headerMb="mb-0"
+        >
             <div className="flex flex-col">
-                {services.map((s, i) => (
+                {services.map((s) => (
                     <div
                         key={s.num}
                         className="flex items-center justify-between py-8 border-t"
@@ -55,22 +48,14 @@ export default function ServicesSection() {
                         </div>
                         <p
                             className="font-sans font-normal text-right"
-                            style={{
-                                color: colors.light,
-                                fontSize: 20,
-                                lineHeight: "26px",
-                                letterSpacing: "-0.6px",
-                                maxWidth: 280,
-                                opacity: 0.5,
-                            }}
+                            style={{ color: colors.light, fontSize: 20, lineHeight: "26px", letterSpacing: "-0.6px", maxWidth: 280, opacity: 0.5 }}
                         >
                             {s.desc}
                         </p>
                     </div>
                 ))}
-                {/* Bottom border */}
                 <div className="border-t" style={{ borderColor: "rgba(240, 245, 249, 0.15)" }} />
             </div>
-        </section>
+        </SectionLayout>
     );
 }
