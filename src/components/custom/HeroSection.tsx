@@ -124,7 +124,7 @@ export default function HeroSection() {
                 </span>
 
                 {/* CTA — white bg, blue text, radius=2px */}
-                <Button href="#" variant="light" style={{ width: 138, height: 36, fontSize: 16 }}>
+                <Button href="#" variant="light" style={{ fontSize: 16, whiteSpace: "nowrap", paddingLeft: 24, paddingRight: 24, paddingTop: 10, paddingBottom: 10 }}>
                     Start your project
                 </Button>
             </motion.div>
