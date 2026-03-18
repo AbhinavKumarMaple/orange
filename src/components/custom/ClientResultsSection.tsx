@@ -5,6 +5,7 @@ import { motion, useScroll, useTransform } from "motion/react";
 import Image from "next/image";
 
 interface Testimonial {
+    id: number;
     company: string;
     quote: string;
     avatar: string;
@@ -12,50 +13,12 @@ interface Testimonial {
     role: string;
     /** Horizontal position as % of container width */
     xPercent: string;
+    order: number;
 }
 
-const testimonials: Testimonial[] = [
-    {
-        company: "Urban bites",
-        quote:
-            "Our digital ordering system finally feels effortless. Customers find it easy to navigate, and we've seen orders skyrocket since launch.",
-        avatar:
-            "https://framerusercontent.com/images/PvGkgeiMfJS3ppQqn74U9dVhHg.png",
-        name: "Isabella Rodriguez",
-        role: "Founder of Urban Bites",
-        xPercent: "28%",
-    },
-    {
-        company: "Baseline Sports",
-        quote:
-            "The new brand identity gave us the confidence to stand out. Athletes now recognize us instantly, and engagement from our community grew stronger than ever.",
-        avatar:
-            "https://framerusercontent.com/images/PvGkgeiMfJS3ppQqn74U9dVhHg.png",
-        name: "Derek Thompson",
-        role: "Founder of Baseline sports",
-        xPercent: "55%",
-    },
-    {
-        company: "Northcap Supply",
-        quote:
-            "The rebrand captured exactly what we stand for. Clean, minimal, and bold, it gave our streetwear label the edge we needed to break through.",
-        avatar:
-            "https://framerusercontent.com/images/PvGkgeiMfJS3ppQqn74U9dVhHg.png",
-        name: "Sarah Kim",
-        role: "Founder of Northcap Supply",
-        xPercent: "15%",
-    },
-    {
-        company: "Velo Studio",
-        quote:
-            "The new website completely reflects our creative energy. It's smooth, dynamic, and has opened the door to exciting new collaborations",
-        avatar:
-            "https://framerusercontent.com/images/PvGkgeiMfJS3ppQqn74U9dVhHg.png",
-        name: "Marcus Chen",
-        role: "Director of Velo Studio",
-        xPercent: "42%",
-    },
-];
+interface ClientResultsSectionProps {
+    testimonials: Testimonial[];
+}
 
 const companyIcons: Record<string, React.ReactNode> = {
     "Urban bites": (
@@ -139,7 +102,7 @@ function FloatingCard({
     );
 }
 
-export default function ClientResultsSection() {
+export default function ClientResultsSection({ testimonials }: ClientResultsSectionProps) {
     const sectionRef = useRef<HTMLDivElement>(null);
 
     const { scrollYProgress } = useScroll({
