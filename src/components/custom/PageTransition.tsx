@@ -15,54 +15,72 @@ export function usePageTransition() {
     return useContext(TransitionContext);
 }
 
-// How long the overlay stays covering the screen after navigation fires (ms).
-// Gives Next.js time to render the new page before we slide out.
-const HOLD_DURATION = 600;
+// Minimum ms to hold the overlay after the new page is ready (prevents flash)
+const MIN_HOLD = 300;
 
 export default function PageTransitionProvider({ children }: { children: ReactNode }) {
     const router = useRouter();
     const pathname = usePathname();
+
     const [visible, setVisible] = useState(false);
     const [phase, setPhase] = useState<"in" | "hold" | "out">("in");
     const [isExiting, setIsExiting] = useState(false);
+
+    // Track whether each condition is met before sliding out
+    const overlayFull = useRef(false);   // overlay has fully covered the screen
+    const pageReady = useRef(false);     // new pathname has rendered
     const pendingHref = useRef<string | null>(null);
     const holdTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+    const startSlideOut = useCallback(() => {
+        if (overlayFull.current && pageReady.current) {
+            if (holdTimer.current) clearTimeout(holdTimer.current);
+            holdTimer.current = setTimeout(() => setPhase("out"), MIN_HOLD);
+        }
+    }, []);
 
     const navigate = useCallback((href: string) => {
         if (holdTimer.current) clearTimeout(holdTimer.current);
         pendingHref.current = href;
+        overlayFull.current = false;
+        pageReady.current = false;
         setIsExiting(true);
         setPhase("in");
         setVisible(true);
     }, []);
 
-    // When overlay finishes sliding IN — navigate immediately, then hold
+    // Overlay animation complete handler
     const handleAnimationComplete = useCallback(() => {
         if (phase === "in") {
+            // Overlay is now fully covering the screen — fire navigation
             if (pendingHref.current) {
                 router.push(pendingHref.current);
                 pendingHref.current = null;
             }
             setIsExiting(false);
             setPhase("hold");
-            // Hold the overlay for HOLD_DURATION, then slide out
-            holdTimer.current = setTimeout(() => setPhase("out"), HOLD_DURATION);
+            overlayFull.current = true;
+            startSlideOut();
         } else if (phase === "out") {
             setVisible(false);
+            overlayFull.current = false;
+            pageReady.current = false;
         }
-    }, [phase, router]);
+    }, [phase, router, startSlideOut]);
 
-    // Also watch pathname — if the route changed while we're still holding,
-    // we can exit sooner (page is ready). Minimum hold is still respected via
-    // the timer, but if the page loads faster the timer fires first anyway.
+    // Pathname changed = new page has rendered, safe to slide out
+    useEffect(() => {
+        if (!visible) return;
+        pageReady.current = true;
+        startSlideOut();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [pathname]);
+
     useEffect(() => {
         return () => {
             if (holdTimer.current) clearTimeout(holdTimer.current);
         };
     }, []);
-
-    // Suppress unused warning — pathname is intentionally watched
-    void pathname;
 
     return (
         <TransitionContext.Provider value={{ navigate, isExiting }}>
@@ -74,7 +92,7 @@ export default function PageTransitionProvider({ children }: { children: ReactNo
                 {children}
             </motion.div>
 
-            {/* Overlay — rises from below, holds, then exits upward */}
+            {/* Overlay — rises from below, holds until new page is ready, then exits upward */}
             <AnimatePresence>
                 {visible && (
                     <motion.div
