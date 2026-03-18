@@ -13,8 +13,17 @@ import { colors } from "@/lib/colors";
 export default function IntroOverlay() {
     const [showText, setShowText] = useState(false);
     const [dismiss, setDismiss] = useState(false);
+    const [skip, setSkip] = useState(true); // start hidden, reveal only if first visit
 
     useEffect(() => {
+        const alreadySeen = sessionStorage.getItem("intro_seen");
+        if (alreadySeen) {
+            setDismiss(true);
+            return;
+        }
+        sessionStorage.setItem("intro_seen", "1");
+        setSkip(false);
+
         const textTimer = setTimeout(() => setShowText(true), introTiming.textAppear);
         const dismissTimer = setTimeout(() => setDismiss(true), introTiming.dismiss);
 
@@ -23,6 +32,8 @@ export default function IntroOverlay() {
             clearTimeout(dismissTimer);
         };
     }, []);
+
+    if (skip) return null;
 
     return (
         <AnimatePresence>
