@@ -1,4 +1,4 @@
-/** Centralized color tokens matching the Nori Studio design */
+/** Centralized color tokens matching the Orange Studios design */
 export const colors = {
   /** Hero / intro background blue */
   blue: "#1F75B2",

@@ -5,25 +5,16 @@ import { colors } from "@/lib/colors";
 import SectionLayout from "./SectionLayout";
 import Button from "./Button";
 import { usePageTransition } from "./PageTransition";
+import type { articles } from "@/db/schema";
+import type { InferSelectModel } from "drizzle-orm";
 
-const posts = [
-    {
-        slug: "psychology-of-high-converting-landing-pages",
-        title: "Psychology of High-Converting Landing Pages",
-        category: "Website design",
-        date: "Jun 17, 2025",
-        image: "https://framerusercontent.com/images/S2QOyOk4A16i6x2jsTudO4LAKA.png?scale-down-to=1024&width=1200&height=673",
-    },
-    {
-        slug: "5-signs-your-brand-identity-needs-a-refresh",
-        title: "5 Signs Your Brand Identity Needs a Refresh",
-        category: "Brand identity",
-        date: "May 16, 2025",
-        image: "https://framerusercontent.com/images/kf0L3mld1QAbDZWfDp3yi4LfwV8.png?scale-down-to=1024&width=2400&height=1800",
-    },
-];
+type Article = InferSelectModel<typeof articles>;
 
-export default function BlogSection() {
+interface Props {
+    articles: Article[];
+}
+
+export default function BlogSection({ articles }: Props) {
     const { navigate } = usePageTransition();
 
     const headerRight = (
@@ -49,7 +40,7 @@ export default function BlogSection() {
             headerMb="mb-12"
         >
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                {posts.map((post) => (
+                {articles.slice(0, 2).map((post) => (
                     <div
                         key={post.slug}
                         className="group block bg-white cursor-pointer p-4"
@@ -58,7 +49,7 @@ export default function BlogSection() {
                     >
                         <div className="relative w-full overflow-hidden" style={{ height: 580, borderRadius: 8 }}>
                             <Image
-                                src={post.image}
+                                src={`${post.image}?scale-down-to=1024&width=1200&height=673`}
                                 alt={post.title}
                                 fill
                                 className="object-cover group-hover:scale-105 transition-transform duration-500"

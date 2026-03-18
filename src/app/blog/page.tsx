@@ -1,12 +1,13 @@
 import { Metadata } from "next";
-import { articles } from "@/lib/articles";
+import { getArticles } from "@/lib/queries";
 import BlogPageClient from "./BlogPageClient";
 
 export const metadata: Metadata = {
-    title: "Blog — Nori Studio",
+    title: "Blog — Orange Studios",
     description: "Ideas that drive growth. Practical tips and fresh insights on branding, design, and marketing.",
 };
 
-export default function BlogPage() {
+export default async function BlogPage() {
+    const articles = await getArticles();
     return <BlogPageClient articles={articles} />;
 }

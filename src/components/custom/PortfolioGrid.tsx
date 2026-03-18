@@ -4,22 +4,23 @@ import Image from "next/image";
 import { motion } from "motion/react";
 import { fadeUp, createTransition } from "@/lib/motion";
 import { usePageTransition } from "./PageTransition";
+import type { projects } from "@/db/schema";
+import type { InferSelectModel } from "drizzle-orm";
 
-const projects = [
-    { slug: "baseline-sports", name: "Baseline Sports", category: "Web Design & Development", year: "2025", image: "https://framerusercontent.com/images/kf0L3mld1QAbDZWfDp3yi4LfwV8.png" },
-    { slug: "urban-bites", name: "Urban Bites", category: "UI/UX Design", year: "2024", image: "https://framerusercontent.com/images/Vzqe1Y7Hjtxberq3o9cKXZ514.png" },
-    { slug: "northcap-supply", name: "Northcap supply", category: "Brand identity", year: "2024", image: "https://framerusercontent.com/images/FZLSLkf4KypXwztwnGP7AfQOpo.png" },
-    { slug: "velo-studio", name: "Velo Studio", category: "Web Design & Development", year: "2023", image: "https://framerusercontent.com/images/RAVhlibsB1Uz6MJmEED2G3SQc.png" },
-];
+type Project = InferSelectModel<typeof projects>;
 
-export default function PortfolioGrid() {
+interface Props {
+    projects: Project[];
+}
+
+export default function PortfolioGrid({ projects }: Props) {
     const { navigate } = usePageTransition();
 
     return (
         <div className="grid grid-cols-2 gap-6">
             {projects.map((project, i) => (
                 <motion.div
-                    key={project.name}
+                    key={project.slug}
                     initial={fadeUp.hidden}
                     whileInView={fadeUp.visible}
                     viewport={{ once: true }}
@@ -29,7 +30,7 @@ export default function PortfolioGrid() {
                 >
                     <div style={{ borderRadius: 8, overflow: "hidden", aspectRatio: "909 / 838", position: "relative", width: "100%" }}>
                         <Image
-                            src={`${project.image}?width=1818&height=1676`}
+                            src={`${project.heroImage}?width=1818&height=1676`}
                             alt={project.name}
                             fill
                             className="object-cover transition-transform duration-500 group-hover:scale-105"

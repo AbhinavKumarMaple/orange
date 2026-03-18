@@ -1,8 +1,16 @@
 import { colors } from "@/lib/colors";
 import SectionLayout from "./SectionLayout";
 import PortfolioGrid from "./PortfolioGrid";
+import type { projects } from "@/db/schema";
+import type { InferSelectModel } from "drizzle-orm";
 
-export default function PortfolioSection() {
+type Project = InferSelectModel<typeof projects>;
+
+interface Props {
+    projects: Project[];
+}
+
+export default function PortfolioSection({ projects }: Props) {
     return (
         <SectionLayout
             label="//03 Portfolio"
@@ -10,7 +18,7 @@ export default function PortfolioSection() {
             description="Our portfolio showcases crafted work that blends creativity and strategy to help brands grow with impact."
             bg={colors.background}
         >
-            <PortfolioGrid />
+            <PortfolioGrid projects={projects} />
         </SectionLayout>
     );
 }

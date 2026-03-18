@@ -21,7 +21,7 @@ export default function Navbar({ onMenuToggle, isMenuOpen, variant = "light" }: 
                     className="font-sans font-medium text-sm"
                     style={{ color: fg, letterSpacing: "-0.02em" }}
                 >
-                    Nori<sup className="text-[8px]">®</sup>
+                    Orange<sup className="text-[8px]">®</sup>
                 </span>
             </div>
 

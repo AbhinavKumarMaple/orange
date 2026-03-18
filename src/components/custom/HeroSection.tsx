@@ -55,7 +55,7 @@ export default function HeroSection() {
                     animate={slideUp.visible}
                     transition={createTransition({ duration: "slow", ease: "snappy", delay: "long" })}
                 >
-                    Nori Studio
+                    Orange Studios
                 </motion.h1>
             </div>
 

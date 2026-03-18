@@ -10,20 +10,38 @@ import BlogSection from "@/components/custom/BlogSection";
 import FaqSection from "@/components/custom/FaqSection";
 import ContactSection from "@/components/custom/ContactSection";
 import Footer from "@/components/custom/Footer";
+import {
+  getProjects,
+  getArticles,
+  getTestimonials,
+  getFaqs,
+  getServices,
+  getPricingPlans,
+} from "@/lib/queries";
 
-export default function Home() {
+export default async function Home() {
+  const [projects, articles, testimonials, faqs, services, pricingPlans] =
+    await Promise.all([
+      getProjects(),
+      getArticles(),
+      getTestimonials(),
+      getFaqs(),
+      getServices(),
+      getPricingPlans(),
+    ]);
+
   return (
     <>
       <IntroOverlay />
       <HeroSection />
       <ShowreelSection />
-      <PortfolioSection />
-      <ServicesSection />
+      <PortfolioSection projects={projects} />
+      <ServicesSection services={services} />
       <WhyUsSection />
-      <ClientResultsSection />
-      <PricingSection />
-      <BlogSection />
-      <FaqSection />
+      <ClientResultsSection testimonials={testimonials} />
+      <PricingSection plans={pricingPlans} />
+      <BlogSection articles={articles} />
+      <FaqSection faqs={faqs} />
       <ContactSection />
       <Footer />
     </>

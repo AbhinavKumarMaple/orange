@@ -5,10 +5,13 @@ import { motion } from "motion/react";
 import { usePageTransition } from "@/components/custom/PageTransition";
 import { colors } from "@/lib/colors";
 import { fadeUp, slideUp, createTransition } from "@/lib/motion";
-import type { Project } from "@/lib/projects";
 import Navbar from "@/components/custom/Navbar";
 import NavOverlay from "@/components/custom/NavOverlay";
 import { useState } from "react";
+import type { projects } from "@/db/schema";
+import type { InferSelectModel } from "drizzle-orm";
+
+type Project = InferSelectModel<typeof projects>;
 
 interface Props {
     project: Project;

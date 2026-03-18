@@ -94,7 +94,7 @@ export default function Footer() {
                 </div>
             </div>
 
-            {/* Giant Nori Studio text */}
+            {/* Giant Orange Studios text */}
             <div className="overflow-hidden mb-8 -mx-8">
                 <h1
                     className="font-sans font-medium whitespace-nowrap text-center"
@@ -105,14 +105,14 @@ export default function Footer() {
                         letterSpacing: "-0.05em",
                     }}
                 >
-                    Nori Studio
+                    Orange Studios
                 </h1>
             </div>
 
             {/* Bottom bar */}
             <div className="flex items-center justify-between">
                 <p className="font-sans" style={{ color: colors.light, fontSize: 16, opacity: 0.7 }}>
-                    Framer template created by Lazar Filipovic
+                    © 2026 Orange Studios. All rights reserved.
                 </p>
                 <div className="flex items-center gap-12">
                     <Link href="#" className="font-sans" style={{ color: colors.light, fontSize: 16, opacity: 0.7 }}>
@@ -123,7 +123,7 @@ export default function Footer() {
                     </Link>
                 </div>
                 <p className="font-sans" style={{ color: colors.light, fontSize: 16, opacity: 0.7 }}>
-                    © 2026 Nori. All rights reserved.
+                    © 2026 Orange Studios. All rights reserved.
                 </p>
             </div>
         </footer>

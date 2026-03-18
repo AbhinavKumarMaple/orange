@@ -4,80 +4,34 @@ import { useState } from "react";
 import { colors } from "@/lib/colors";
 import SectionLayout from "./SectionLayout";
 import Button from "./Button";
+import type { pricingPlans } from "@/db/schema";
+import type { InferSelectModel } from "drizzle-orm";
 
+type Plan = InferSelectModel<typeof pricingPlans>;
 type BillingMode = "project" | "monthly";
 
-interface Plan {
-    name: string;
-    subtitle: string;
-    badge?: string;
-    projectPrice: string;
-    monthlyPrice: string;
-    features: string[];
-    delivery: string;
+interface Props {
+    plans: Plan[];
 }
 
-const plans: Plan[] = [
-    {
-        name: "Essential Plan",
-        subtitle: "For Startups, new businesses, single location companies",
-        projectPrice: "$3499",
-        monthlyPrice: "$999",
-        features: [
-            "Brand identity design",
-            "Basic website (5 pages)",
-            "Social media templates",
-            "Monthly strategy session",
-            "Project kickoff workshop",
-            "2 revision rounds per month",
-        ],
-        delivery: "3-4 weeks",
-    },
-    {
-        name: "Professional Plan",
-        subtitle: "Best for growing businesses ready to scale",
-        badge: "Most chosen",
-        projectPrice: "$6499",
-        monthlyPrice: "$1999",
-        features: [
-            "Advanced brand identity system",
-            "Custom website (up to 10 pages)",
-            "Digital marketing strategy",
-            "Monthly strategy session",
-            "Unlimited revisions",
-            "SEO optimization",
-        ],
-        delivery: "6-8 weeks",
-    },
-    {
-        name: "Premium Plan",
-        subtitle: "For companies serious about market leadership",
-        projectPrice: "$11999",
-        monthlyPrice: "$3499",
-        features: [
-            "Complete brand ecosystem",
-            "Enterprise web platform",
-            "Comprehensive marketing system",
-            "12 months partnership support",
-            "Dedicated account manager",
-            "Quarterly strategy reviews",
-        ],
-        delivery: "8-12 weeks",
-    },
-];
-
 function PricingCard({ plan, billing, featured = false }: { plan: Plan; billing: BillingMode; featured?: boolean }) {
-    const price = billing === "project" ? plan.projectPrice : plan.monthlyPrice;
+    const price = billing === "project" ? `$${plan.priceProject}` : `$${plan.priceMonthly}`;
     const suffix = billing === "project" ? "/per project" : "/monthly";
 
     return (
-        <div className={`relative bg-white flex flex-col gap-5 border border-gray-100 ${featured ? "p-8 pt-12 -mt-8 shadow-md" : "p-8"}`} style={{ borderRadius: 8 }}>
-            {plan.badge && (
-                <span className="absolute -top-4 left-8 text-white text-[13px] font-medium px-4 py-1.5" style={{ backgroundColor: colors.blue, borderRadius: 2 }}>
-                    {plan.badge}
+        <div
+            className={`relative bg-white flex flex-col gap-5 border border-gray-100 ${featured ? "p-8 pt-12 -mt-8 shadow-md" : "p-8"}`}
+            style={{ borderRadius: 8 }}
+        >
+            {plan.isFeatured && (
+                <span
+                    className="absolute -top-4 left-8 text-white text-[13px] font-medium px-4 py-1.5"
+                    style={{ backgroundColor: colors.blue, borderRadius: 2 }}
+                >
+                    Most chosen
                 </span>
             )}
-            <div className={plan.badge ? "mt-2" : ""}>
+            <div className={plan.isFeatured ? "mt-2" : ""}>
                 <h3 className="text-[22px] font-bold text-gray-900">{plan.name}</h3>
                 <p className="text-[14px] text-gray-600 mt-1">{plan.subtitle}</p>
             </div>
@@ -101,7 +55,7 @@ function PricingCard({ plan, billing, featured = false }: { plan: Plan; billing:
     );
 }
 
-export default function PricingSection() {
+export default function PricingSection({ plans }: Props) {
     const [billing, setBilling] = useState<BillingMode>("project");
 
     const toggle = (
@@ -141,7 +95,7 @@ export default function PricingSection() {
         >
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6 items-end mt-8">
                 {plans.map((plan) => (
-                    <PricingCard key={plan.name} plan={plan} billing={billing} featured={plan.badge === "Most chosen"} />
+                    <PricingCard key={plan.id} plan={plan} billing={billing} featured={plan.isFeatured} />
                 ))}
             </div>
         </SectionLayout>

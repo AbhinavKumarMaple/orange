@@ -1,21 +1,25 @@
 import { notFound } from "next/navigation";
-import { getArticle, articles } from "@/lib/articles";
+import { getArticle, getArticles, getRelatedArticles } from "@/lib/queries";
 import ArticlePageClient from "./ArticlePageClient";
 
-export function generateStaticParams() {
+export async function generateStaticParams() {
+    const articles = await getArticles();
     return articles.map((a) => ({ slug: a.slug }));
 }
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
     const { slug } = await params;
-    const article = getArticle(slug);
+    const article = await getArticle(slug);
     if (!article) return {};
-    return { title: `${article.title} — Nori Studio` };
+    return { title: `${article.title} — Orange Studios` };
 }
 
 export default async function ArticlePage({ params }: { params: Promise<{ slug: string }> }) {
     const { slug } = await params;
-    const article = getArticle(slug);
+    const [article, related] = await Promise.all([
+        getArticle(slug),
+        getRelatedArticles(slug),
+    ]);
     if (!article) notFound();
-    return <ArticlePageClient article={article} />;
+    return <ArticlePageClient article={article} related={related} />;
 }

@@ -41,7 +41,7 @@ export default function IntroOverlay() {
                             animate={showText ? slideUp.visible : slideUp.hidden}
                             transition={createTransition({ duration: "medium", ease: "snappy" })}
                         >
-                            Nori Studio<sup className="text-sm align-super">®</sup>
+                            Orange Studios<sup className="text-sm align-super">®</sup>
                         </motion.h1>
                     </div>
 

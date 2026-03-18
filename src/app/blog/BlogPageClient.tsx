@@ -9,7 +9,10 @@ import NavOverlay from "@/components/custom/NavOverlay";
 import Footer from "@/components/custom/Footer";
 import { colors } from "@/lib/colors";
 import { fadeUp, slideUp, createTransition } from "@/lib/motion";
-import type { Article } from "@/lib/articles";
+import type { articles } from "@/db/schema";
+import type { InferSelectModel } from "drizzle-orm";
+
+type Article = InferSelectModel<typeof articles>;
 
 export default function BlogPageClient({ articles }: { articles: Article[] }) {
     const [menuOpen, setMenuOpen] = useState(false);

@@ -5,43 +5,23 @@ import { motion, AnimatePresence } from "motion/react";
 import { colors } from "@/lib/colors";
 import { easings, durations } from "@/lib/motion";
 import Button from "./Button";
+import type { faqs } from "@/db/schema";
+import type { InferSelectModel } from "drizzle-orm";
 
-const faqs = [
-    {
-        q: "How long does a typical project take?",
-        a: "Most brand projects take 4-6 weeks, websites take 6-8 weeks, and marketing campaigns launch within 2-3 weeks.",
-    },
-    {
-        q: "What does your process look like?",
-        a: "We usually start with a discovery call to understand your goals. Then we move into strategy and initial concepts, refine them through feedback rounds, and deliver a polished final product. Every step is transparent so you always know where we are in the process.",
-    },
-    {
-        q: "What's included in ongoing support?",
-        a: "All projects include 30 days of support post-launch, including updates and technical assistance.",
-    },
-    {
-        q: "How much should I budget for a project?",
-        a: "Projects typically range from $8,000 to $25,000 depending on scope. We provide detailed quotes after discovery calls.",
-    },
-    {
-        q: "What if I'm not happy with initial concepts?",
-        a: "We include revision rounds in every project and won't proceed until you're satisfied with the direction.",
-    },
-    {
-        q: "Do you offer payment plans?",
-        a: "Yes, most projects can be split into 2-3 payments aligned with project milestones.",
-    },
-];
+type Faq = InferSelectModel<typeof faqs>;
+
+interface Props {
+    faqs: Faq[];
+}
 
 const transition = { duration: durations.fast, ease: easings.snappy };
 
-export default function FaqSection() {
+export default function FaqSection({ faqs }: Props) {
     const [open, setOpen] = useState<number | null>(null);
 
     return (
         <section style={{ backgroundColor: colors.background }} className="px-8 pt-16 pb-16">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
-
                 {/* Left */}
                 <div>
                     <p
@@ -70,7 +50,7 @@ export default function FaqSection() {
                 {/* Right — accordion */}
                 <div className="flex flex-col gap-3">
                     {faqs.map((faq, i) => (
-                        <div key={i} className="bg-white border border-gray-100 overflow-hidden" style={{ borderRadius: 8 }}>
+                        <div key={faq.id} className="bg-white border border-gray-100 overflow-hidden" style={{ borderRadius: 8 }}>
                             <button
                                 onClick={() => setOpen(open === i ? null : i)}
                                 className="w-full flex items-center justify-between px-6 py-5 text-left cursor-pointer"
@@ -79,9 +59,8 @@ export default function FaqSection() {
                                     className="font-sans pr-8"
                                     style={{ color: "rgb(6,18,24)", fontSize: 20, fontWeight: 500, lineHeight: "26px", letterSpacing: "-0.6px" }}
                                 >
-                                    {faq.q}
+                                    {faq.question}
                                 </span>
-                                {/* Spinning + icon */}
                                 <motion.span
                                     animate={{ rotate: open === i ? 45 : 0 }}
                                     transition={transition}
@@ -91,8 +70,6 @@ export default function FaqSection() {
                                     +
                                 </motion.span>
                             </button>
-
-                            {/* Smooth height expand */}
                             <AnimatePresence initial={false}>
                                 {open === i && (
                                     <motion.div
@@ -108,7 +85,7 @@ export default function FaqSection() {
                                                 className="font-sans"
                                                 style={{ color: "rgb(6,18,24)", fontSize: 16, fontWeight: 400, lineHeight: "20.8px", letterSpacing: "-0.48px", opacity: 0.6 }}
                                             >
-                                                {faq.a}
+                                                {faq.answer}
                                             </p>
                                         </div>
                                     </motion.div>
@@ -117,7 +94,6 @@ export default function FaqSection() {
                         </div>
                     ))}
                 </div>
-
             </div>
         </section>
     );
