@@ -80,19 +80,26 @@ export default function ContactSection() {
                 </div>
 
                 {/* Right — form card */}
-                <div className="bg-white p-8" style={{ borderRadius: 8 }}>
+                <div className="bg-white p-8" style={{ borderRadius: 8, minHeight: 560 }}>
                     {sent ? (
-                        <div className="flex flex-col items-center justify-center py-12 gap-4 text-center">
-                            <span style={{ fontSize: 48 }}>✅</span>
-                            <h3 className="font-sans font-semibold text-xl" style={{ color: "rgb(6,18,24)" }}>
-                                Message received!
-                            </h3>
-                            <p className="font-sans text-sm" style={{ color: "rgb(6,18,24)", opacity: 0.6 }}>
-                                We&apos;ll get back to you within 24 hours.
-                            </p>
-                            <button className="text-sm underline mt-2" style={{ color: colors.blue }} onClick={() => setSent(false)}>
+                        <div className="flex flex-col items-start justify-between h-full" style={{ minHeight: 496 }}>
+                            <div>
+                                <p className="font-mono font-medium mb-4"
+                                    style={{ color: colors.blue, fontSize: 20, lineHeight: "26px", letterSpacing: "-0.4px" }}>
+                                    //Sent
+                                </p>
+                                <h3 className="font-sans font-medium uppercase"
+                                    style={{ color: "rgb(6,18,24)", fontSize: 48, lineHeight: "52.8px", letterSpacing: "-1.92px" }}>
+                                    MESSAGE<br />RECEIVED
+                                </h3>
+                                <p className="font-sans mt-4"
+                                    style={{ color: "rgb(6,18,24)", opacity: 0.5, fontSize: 16, lineHeight: "20.8px", letterSpacing: "-0.48px", maxWidth: 300 }}>
+                                    Thanks for reaching out. We&apos;ll get back to you within 24 hours.
+                                </p>
+                            </div>
+                            <Button variant="primary" onClick={() => setSent(false)} style={{ fontSize: 16, padding: "14px 24px" }}>
                                 Send another message
-                            </button>
+                            </Button>
                         </div>
                     ) : (
                         <form className="flex flex-col gap-6" onSubmit={handleSubmit}>
