@@ -1,10 +1,10 @@
-import { getProjects, getArticles, getServices, getFaqs, getTestimonials, getPricingPlans } from "@/lib/queries";
+import { getProjects, getArticles, getServices, getFaqs, getTestimonials, getPricingPlans, getContactSubmissions } from "@/lib/queries";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import Link from "next/link";
 
 export default async function CrmDashboard() {
-    const [projects, articles, services, faqs, testimonials, pricing] = await Promise.all([
-        getProjects(), getArticles(), getServices(), getFaqs(), getTestimonials(), getPricingPlans(),
+    const [projects, articles, services, faqs, testimonials, pricing, contacts] = await Promise.all([
+        getProjects(), getArticles(), getServices(), getFaqs(), getTestimonials(), getPricingPlans(), getContactSubmissions(),
     ]);
 
     const stats = [
@@ -14,6 +14,7 @@ export default async function CrmDashboard() {
         { label: "Pricing Plans", count: pricing.length, href: "/crm/pricing" },
         { label: "Testimonials", count: testimonials.length, href: "/crm/testimonials" },
         { label: "FAQs", count: faqs.length, href: "/crm/faqs" },
+        { label: "Contact Requests", count: contacts.length, href: "/crm/contact" },
     ];
 
     return (

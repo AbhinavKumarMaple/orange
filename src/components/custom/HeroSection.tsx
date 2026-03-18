@@ -47,9 +47,10 @@ export default function HeroSection() {
                     className="font-medium leading-none text-center"
                     style={{
                         color: colors.light,
-                        fontSize: "18.5vw",
+                        fontSize: "12.5vw",
                         letterSpacing: "-0.05em",
-                        lineHeight: "0.85",
+                        lineHeight: "1.03",
+                        // overflow: "visible"
                     }}
                     initial={slideUp.hidden}
                     animate={slideUp.visible}

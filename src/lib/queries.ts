@@ -6,8 +6,9 @@ import {
   faqs,
   services,
   pricingPlans,
+  contactSubmissions,
 } from "@/db/schema";
-import { eq, asc, ne } from "drizzle-orm";
+import { eq, asc, ne, desc } from "drizzle-orm";
 
 export async function getProjects() {
   return db.select().from(projects).orderBy(asc(projects.order));
@@ -58,4 +59,25 @@ export async function getServices() {
 
 export async function getPricingPlans() {
   return db.select().from(pricingPlans).orderBy(asc(pricingPlans.order));
+}
+
+export async function getContactSubmissions() {
+  return db
+    .select()
+    .from(contactSubmissions)
+    .orderBy(desc(contactSubmissions.createdAt));
+}
+
+export async function createContactSubmission(data: {
+  name: string;
+  email: string;
+  company?: string;
+  message: string;
+}) {
+  const rows = await db.insert(contactSubmissions).values(data).returning();
+  return rows[0];
+}
+
+export async function deleteContactSubmission(id: number) {
+  await db.delete(contactSubmissions).where(eq(contactSubmissions.id, id));
 }

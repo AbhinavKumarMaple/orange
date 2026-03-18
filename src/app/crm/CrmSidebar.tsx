@@ -12,6 +12,7 @@ const nav = [
     { label: "Pricing", href: "/crm/pricing" },
     { label: "Testimonials", href: "/crm/testimonials" },
     { label: "FAQs", href: "/crm/faqs" },
+    { label: "Contact Requests", href: "/crm/contact" },
 ];
 
 export default function CrmSidebar() {

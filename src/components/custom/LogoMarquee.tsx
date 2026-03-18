@@ -18,7 +18,7 @@ export default function LogoMarquee() {
     return (
         <div className="w-full overflow-hidden border-y border-black/10" style={{ height: 132 }}>
             <div
-                className="flex items-center h-full animate-marquee-rtl"
+                className="flex items-center h-full animate-marquee-ltr"
                 style={{ width: "max-content" }}
             >
                 {items.map((logo, i) => (

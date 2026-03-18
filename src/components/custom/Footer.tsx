@@ -101,7 +101,7 @@ export default function Footer() {
                     style={{
                         color: colors.light,
                         fontSize: "18.5vw",
-                        lineHeight: 0.85,
+                        lineHeight: 1.02,
                         letterSpacing: "-0.05em",
                     }}
                 >
