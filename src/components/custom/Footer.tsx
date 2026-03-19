@@ -100,7 +100,7 @@ export default function Footer() {
                     className="font-sans font-medium whitespace-nowrap text-center"
                     style={{
                         color: colors.light,
-                        fontSize: "18.5vw",
+                        fontSize: "14vw",
                         lineHeight: 1.02,
                         letterSpacing: "-0.05em",
                     }}

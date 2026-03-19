@@ -11,6 +11,8 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/u
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import type { InferSelectModel } from "drizzle-orm";
 import type { projects } from "@/db/schema";
+import MediaInput from "@/components/custom/MediaInput";
+import GalleryInput from "./GalleryInput";
 
 type Project = InferSelectModel<typeof projects>;
 
@@ -100,16 +102,23 @@ export default function ProjectsClient({ initialData }: { initialData: Project[]
                 <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
                     <DialogHeader><DialogTitle>{editing ? "Edit Project" : "New Project"}</DialogTitle></DialogHeader>
                     <div className="grid grid-cols-2 gap-4 mt-2">
-                        {(["name", "slug", "category", "year", "industry", "timeline", "icon"] as const).map((k) => (
-                            <div key={k} className={k === "slug" || k === "icon" ? "col-span-2" : ""}>
+                        {(["name", "slug", "category", "year", "industry", "timeline"] as const).map((k) => (
+                            <div key={k} className={k === "slug" ? "col-span-2" : ""}>
                                 <Label className="capitalize mb-1 block">{k}</Label>
                                 <Input value={form[k] as string} onChange={f(k)} placeholder={k} />
                             </div>
                         ))}
-                        <div className="col-span-2"><Label className="mb-1 block">Hero Image URL</Label><Input value={form.heroImage} onChange={f("heroImage")} /></div>
                         <div className="col-span-2">
-                            <Label className="mb-1 block">Gallery Images (one URL per line)</Label>
-                            <Textarea rows={3} value={form.images.join("\n")} onChange={(e) => setForm((p) => ({ ...p, images: e.target.value.split("\n").filter(Boolean) }))} />
+                            <MediaInput label="Icon" value={form.icon} onChange={(v) => setForm((p) => ({ ...p, icon: v }))} accept="image/*,image/svg+xml" />
+                        </div>
+                        <div className="col-span-2">
+                            <MediaInput label="Hero Image" value={form.heroImage} onChange={(v) => setForm((p) => ({ ...p, heroImage: v }))} />
+                        </div>
+                        <div className="col-span-2">
+                            <GalleryInput
+                                images={form.images}
+                                onChange={(images) => setForm((p) => ({ ...p, images }))}
+                            />
                         </div>
                         <div className="col-span-2"><Label className="mb-1 block">Description</Label><Textarea rows={2} value={form.description} onChange={f("description")} /></div>
                         <div className="col-span-2"><Label className="mb-1 block">Problem</Label><Textarea rows={3} value={form.problem} onChange={f("problem")} /></div>

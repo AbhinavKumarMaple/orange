@@ -11,6 +11,7 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/u
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import type { InferSelectModel } from "drizzle-orm";
 import type { articles } from "@/db/schema";
+import MediaInput from "@/components/custom/MediaInput";
 
 type Article = InferSelectModel<typeof articles>;
 type ContentBlock = { heading: string; body: string };
@@ -108,7 +109,13 @@ export default function ArticlesClient({ initialData }: { initialData: Article[]
                         <div><Label className="mb-1 block">Category</Label><Input value={form.category} onChange={f("category")} /></div>
                         <div><Label className="mb-1 block">Date</Label><Input value={form.date} onChange={f("date")} placeholder="Jun 17, 2025" /></div>
                         <div><Label className="mb-1 block">Order</Label><Input type="number" value={form.order} onChange={(e) => setForm((p) => ({ ...p, order: Number(e.target.value) }))} /></div>
-                        <div className="col-span-2"><Label className="mb-1 block">Image URL</Label><Input value={form.image} onChange={f("image")} /></div>
+                        <div className="col-span-2">
+                            <MediaInput
+                                label="Image"
+                                value={form.image}
+                                onChange={(v) => setForm((p) => ({ ...p, image: v }))}
+                            />
+                        </div>
                         <div className="col-span-2"><Label className="mb-1 block">Excerpt</Label><Textarea rows={2} value={form.excerpt} onChange={f("excerpt")} /></div>
                     </div>
                     <div className="mt-4">
