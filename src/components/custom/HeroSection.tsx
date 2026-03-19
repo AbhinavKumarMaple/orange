@@ -44,10 +44,9 @@ export default function HeroSection() {
             {/* H1 — top=56, full width */}
             <div className="absolute overflow-hidden" style={{ top: 56, left: 0, right: 0 }}>
                 <motion.h1
-                    className="font-medium leading-none text-center"
+                    className="font-medium leading-none pl-4 lg:pl-0 lg:text-center text-[clamp(100px,14.5vw,15.5vw)] lg:text-[clamp(55px,14.5vw,15.5vw)]"
                     style={{
                         color: colors.light,
-                        fontSize: "clamp(55px, 14.5vw, 15.5vw)",
                         letterSpacing: "-0.05em",
                         lineHeight: "1.03",
                     }}
@@ -61,9 +60,9 @@ export default function HeroSection() {
 
             {/* Since 2019 */}
             <motion.p
-                className="absolute font-mono font-medium"
+                className="absolute font-mono font-medium top-[28%] md:top-[15%] lg:top-[35%]"
                 style={{
-                    top: "35%",
+                    // top: "35%",
                     left: "clamp(20px, 4vw, 57px)",
                     color: colors.light,
                     fontSize: "clamp(14px, 2vw, 20px)",
