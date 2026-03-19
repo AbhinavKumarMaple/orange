@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { motion, AnimatePresence } from "motion/react";
+import posthog from "posthog-js";
 import { colors } from "@/lib/colors";
 import { easings, durations } from "@/lib/motion";
 import Button from "./Button";
@@ -20,7 +21,7 @@ export default function FaqSection({ faqs }: Props) {
     const [open, setOpen] = useState<number | null>(null);
 
     return (
-        <section style={{ backgroundColor: colors.background }} className="px-5 sm:px-8 pt-16 pb-16">
+        <section data-section="FAQ" style={{ backgroundColor: colors.background }} className="px-5 sm:px-8 pt-16 pb-16">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-start">
                 {/* Left */}
                 <div>
@@ -52,7 +53,17 @@ export default function FaqSection({ faqs }: Props) {
                     {faqs.map((faq, i) => (
                         <div key={faq.id} className="bg-white border border-gray-100 overflow-hidden" style={{ borderRadius: 8 }}>
                             <button
-                                onClick={() => setOpen(open === i ? null : i)}
+                                onClick={() => {
+                                    const next = open === i ? null : i;
+                                    setOpen(next);
+                                    if (next !== null) {
+                                        posthog.capture("faq_opened", {
+                                            question: faq.question,
+                                            faq_index: i,
+                                            path: window.location.pathname,
+                                        });
+                                    }
+                                }}
                                 className="w-full flex items-center justify-between px-5 sm:px-6 py-5 text-left cursor-pointer"
                             >
                                 <span

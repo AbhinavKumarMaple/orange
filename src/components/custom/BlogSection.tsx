@@ -26,7 +26,7 @@ export default function BlogSection({ articles }: Props) {
             >
                 Free advice on branding, design, marketing, and business growth from our team of experts.
             </p>
-            <Button onClick={() => navigate("/blog")} variant="primary" style={{ fontSize: 14, padding: "10px 20px" }}>
+            <Button onClick={() => navigate("/blog")} variant="primary" data-track-click="blog_read_all" style={{ fontSize: 14, padding: "10px 20px" }}>
                 Read all articles
             </Button>
         </div>
@@ -39,6 +39,7 @@ export default function BlogSection({ articles }: Props) {
             bg={colors.background}
             headerRight={headerRight}
             headerMb="mb-12"
+            data-section="Blog"
         >
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 {articles.slice(0, 2).map((post) => (
@@ -47,6 +48,8 @@ export default function BlogSection({ articles }: Props) {
                         className="group block bg-white cursor-pointer p-4"
                         style={{ borderRadius: 8 }}
                         onClick={() => navigate(`/articles/${post.slug}`)}
+                        data-track-click={`blog_article_${post.slug}`}
+                        data-track-hover={`blog_article_${post.slug}`}
                     >
                         <div className="relative w-full overflow-hidden" style={{ aspectRatio: "16/10", borderRadius: 8 }}>
                             <Image

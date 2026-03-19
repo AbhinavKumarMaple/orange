@@ -15,6 +15,7 @@ export default function HeroSection() {
 
     return (
         <section
+            data-section="Hero"
             className="relative w-full overflow-hidden"
             style={{ backgroundColor: colors.blue, height: "100svh" }}
         >
@@ -107,6 +108,7 @@ export default function HeroSection() {
                     <Button
                         href="#"
                         variant="light"
+                        data-track-click="hero_start_project"
                         style={{ fontSize: 16, whiteSpace: "nowrap", paddingLeft: 24, paddingRight: 24, paddingTop: 10, paddingBottom: 10, alignSelf: "flex-start" }}
                     >
                         Start your project

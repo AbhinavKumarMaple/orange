@@ -19,6 +19,7 @@ export default function ServicesSection({ services }: Props) {
             description="Our Services"
             bg={dark}
             textColor={colors.light}
+            data-section="Services"
             headingStyle={{
                 fontSize: "clamp(52px, 8.85vw, 170px)",
                 lineHeight: "0.9",
@@ -33,6 +34,7 @@ export default function ServicesSection({ services }: Props) {
                         key={s.id}
                         className="flex flex-col sm:flex-row sm:items-center sm:justify-between py-6 sm:py-8 border-t gap-2 sm:gap-0"
                         style={{ borderColor: "rgba(240, 245, 249, 0.15)" }}
+                        data-track-hover={`service_${s.name.toLowerCase().replace(/\s+/g, "_")}`}
                     >
                         <div className="flex items-center gap-4 sm:gap-16">
                             <p

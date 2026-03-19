@@ -1,5 +1,6 @@
 "use client";
 
+import posthog from "posthog-js";
 import { colors } from "@/lib/colors";
 
 interface NavbarProps {
@@ -27,7 +28,15 @@ export default function Navbar({ onMenuToggle, isMenuOpen, variant = "light" }: 
 
             {/* Hamburger */}
             <button
-                onClick={onMenuToggle}
+                onClick={() => {
+                    onMenuToggle();
+                    posthog.capture('my_custom_event', { property: 'value' })
+
+                    posthog.capture("nav_menu_toggle", {
+                        action: isMenuOpen ? "close" : "open",
+                        path: window.location.pathname,
+                    });
+                }}
                 className="absolute flex flex-col justify-center gap-[8px] cursor-pointer"
                 style={{ top: 8, right: 48, width: 32, height: 32 }}
                 aria-label={isMenuOpen ? "Close menu" : "Open menu"}

@@ -22,6 +22,7 @@ function PricingCard({ plan, billing, featured = false }: { plan: Plan; billing:
         <div
             className={`relative bg-white flex flex-col gap-5 border border-gray-100 ${featured ? "p-8 pt-12 -mt-8 shadow-md" : "p-8"}`}
             style={{ borderRadius: 8 }}
+            data-track-hover={`pricing_card_${plan.name.toLowerCase().replace(/\s+/g, "_")}`}
         >
             {plan.isFeatured && (
                 <span
@@ -47,7 +48,7 @@ function PricingCard({ plan, billing, featured = false }: { plan: Plan; billing:
                     </li>
                 ))}
             </ul>
-            <Button variant="primary" className="mt-auto w-full" style={{ fontSize: 15, padding: "16px 24px" }}>
+            <Button variant="primary" className="mt-auto w-full" data-track-click={`pricing_choose_${plan.name.toLowerCase().replace(/\s+/g, "_")}`} style={{ fontSize: 15, padding: "16px 24px" }}>
                 Choose this plan
             </Button>
             <p className="text-center text-[13px] text-gray-400">Delivery time: {plan.delivery}</p>
@@ -70,6 +71,7 @@ export default function PricingSection({ plans }: Props) {
                 <button
                     onClick={() => setBilling("project")}
                     className="px-4 py-2 text-[14px] font-medium transition-colors cursor-pointer"
+                    data-track-click="pricing_toggle_project"
                     style={{ backgroundColor: billing === "project" ? colors.blue : "transparent", color: billing === "project" ? "#fff" : colors.blue }}
                 >
                     Per project
@@ -77,6 +79,7 @@ export default function PricingSection({ plans }: Props) {
                 <button
                     onClick={() => setBilling("monthly")}
                     className="px-4 py-2 text-[14px] font-medium transition-colors cursor-pointer"
+                    data-track-click="pricing_toggle_monthly"
                     style={{ backgroundColor: billing === "monthly" ? colors.blue : "transparent", color: billing === "monthly" ? "#fff" : colors.blue }}
                 >
                     Monthly

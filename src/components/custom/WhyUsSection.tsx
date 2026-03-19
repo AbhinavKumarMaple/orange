@@ -28,6 +28,7 @@ export default function WhyUsSection() {
             bg={dark}
             textColor={colors.light}
             headerMb="mb-16"
+            data-section="WhyUs"
         >
             {/* Stats */}
             <div className="mb-16">

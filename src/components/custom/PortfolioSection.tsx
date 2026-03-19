@@ -17,6 +17,7 @@ export default function PortfolioSection({ projects }: Props) {
             heading={<>Selected work<br />(2023-2025)</>}
             description="Our portfolio showcases crafted work that blends creativity and strategy to help brands grow with impact."
             bg={colors.background}
+            data-section="Portfolio"
         >
             <PortfolioGrid projects={projects} />
         </SectionLayout>

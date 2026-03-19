@@ -1,8 +1,11 @@
 import type { Metadata } from "next";
+import { Suspense } from "react";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import SmoothScroll from "@/components/custom/SmoothScroll";
 import PageTransitionProvider from "@/components/custom/PageTransition";
+import PostHogProvider from "@/components/custom/PostHogProvider";
+import AnalyticsTracker from "@/components/custom/AnalyticsTracker";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -27,9 +30,14 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${geistSans.variable} ${geistMono.variable}`} suppressHydrationWarning>
       <body className="antialiased">
-        <PageTransitionProvider>
-          <SmoothScroll>{children}</SmoothScroll>
-        </PageTransitionProvider>
+        <Suspense fallback={null}>
+          <PostHogProvider>
+            <AnalyticsTracker />
+            <PageTransitionProvider>
+              <SmoothScroll>{children}</SmoothScroll>
+            </PageTransitionProvider>
+          </PostHogProvider>
+        </Suspense>
       </body>
     </html>
   );

@@ -17,7 +17,7 @@ const socials = [
 
 export default function Footer() {
     return (
-        <footer style={{ backgroundColor: colors.blue }} className="px-5 sm:px-8 pt-16 sm:pt-20 pb-6">
+        <footer data-section="Footer" style={{ backgroundColor: colors.blue }} className="px-5 sm:px-8 pt-16 sm:pt-20 pb-6">
             <div className="w-full h-px mb-12 sm:mb-16" style={{ backgroundColor: "rgba(240,245,249,0.2)" }} />
 
             {/* Top row — stacks on mobile */}
@@ -50,6 +50,7 @@ export default function Footer() {
                             className="flex items-center justify-center rounded shrink-0 cursor-pointer"
                             style={{ backgroundColor: colors.light, width: 44, height: 44 }}
                             aria-label="Subscribe"
+                            data-track-click="footer_newsletter_subscribe"
                         >
                             <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <path d="M3 13L13 3M13 3H5M13 3V11" stroke={colors.blue} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />

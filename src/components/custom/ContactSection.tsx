@@ -3,6 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import { toast } from "sonner";
+import posthog from "posthog-js";
 import { colors } from "@/lib/colors";
 import Button from "./Button";
 
@@ -21,6 +22,14 @@ export default function ContactSection() {
         setForm((prev) => ({ ...prev, [e.target.name]: e.target.value }));
     }
 
+    function handleFieldFocus(field: string) {
+        posthog.capture("form_field_focus", {
+            field,
+            form: "contact",
+            path: window.location.pathname,
+        });
+    }
+
     async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
         e.preventDefault();
         if (!form.name || !form.email || !form.message) {
@@ -37,16 +46,23 @@ export default function ContactSection() {
             if (!res.ok) throw new Error("Failed");
             setSent(true);
             toast.success("Message sent!");
+            posthog.capture("contact_form_submitted", {
+                has_company: !!form.company,
+                path: window.location.pathname,
+            });
             setForm({ name: "", email: "", company: "", message: "" });
         } catch {
             toast.error("Something went wrong. Please try again.");
+            posthog.capture("contact_form_error", {
+                path: window.location.pathname,
+            });
         } finally {
             setLoading(false);
         }
     }
 
     return (
-        <section style={{ backgroundColor: colors.blue }} className="px-5 sm:px-8 pt-16 pb-16">
+        <section data-section="Contact" style={{ backgroundColor: colors.blue }} className="px-5 sm:px-8 pt-16 pb-16">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-start">
                 <div>
                     <p className="font-mono font-medium mb-3"
@@ -61,7 +77,7 @@ export default function ContactSection() {
                         style={{ color: colors.light, lineHeight: "1.4", letterSpacing: "-0.6px", opacity: 0.7, maxWidth: 280 }}>
                         Reach out today, we&apos;ll respond fast and keep things simple.
                     </p>
-                    <Button href="mailto:hello@orangestudios.com" variant="light" style={{ fontSize: 16, padding: "12px 24px" }}>
+                    <Button href="mailto:hello@orangestudios.com" variant="light" data-track-click="contact_email_direct" style={{ fontSize: 16, padding: "12px 24px" }}>
                         Email us directly
                     </Button>
                     <div className="flex flex-col gap-3 mt-10">
@@ -105,6 +121,7 @@ export default function ContactSection() {
                                     Name <span style={{ color: "red" }}>*</span>
                                 </label>
                                 <input type="text" name="name" value={form.name} onChange={handleChange}
+                                    onFocus={() => handleFieldFocus("name")}
                                     placeholder="Jane Smith"
                                     className="w-full border-b border-gray-200 pb-3 outline-none font-sans"
                                     style={{ fontSize: 16, color: "rgb(6,18,24)" }} />
@@ -114,6 +131,7 @@ export default function ContactSection() {
                                     Email <span style={{ color: "red" }}>*</span>
                                 </label>
                                 <input type="email" name="email" value={form.email} onChange={handleChange}
+                                    onFocus={() => handleFieldFocus("email")}
                                     placeholder="jane@framer.com"
                                     className="w-full border-b border-gray-200 pb-3 outline-none font-sans"
                                     style={{ fontSize: 16, color: "rgb(6,18,24)" }} />
@@ -123,6 +141,7 @@ export default function ContactSection() {
                                     Company
                                 </label>
                                 <input type="text" name="company" value={form.company} onChange={handleChange}
+                                    onFocus={() => handleFieldFocus("company")}
                                     placeholder="Your company"
                                     className="w-full border-b border-gray-200 pb-3 outline-none font-sans"
                                     style={{ fontSize: 16, color: "rgb(6,18,24)" }} />
@@ -132,11 +151,12 @@ export default function ContactSection() {
                                     Message <span style={{ color: "red" }}>*</span>
                                 </label>
                                 <textarea name="message" value={form.message} onChange={handleChange}
+                                    onFocus={() => handleFieldFocus("message")}
                                     placeholder="Your message" rows={4}
                                     className="w-full border-b border-gray-200 pb-3 outline-none font-sans resize-y"
                                     style={{ fontSize: 16, color: "rgb(6,18,24)" }} />
                             </div>
-                            <Button type="submit" variant="primary" className="w-full" style={{ fontSize: 16, padding: "14px 24px" }}>
+                            <Button type="submit" variant="primary" className="w-full" data-track-click="contact_form_submit" style={{ fontSize: 16, padding: "14px 24px" }}>
                                 {loading ? "Sending..." : "Send request"}
                             </Button>
                             <p className="text-center font-sans" style={{ fontSize: 14, color: "rgb(6,18,24)", opacity: 0.5 }}>

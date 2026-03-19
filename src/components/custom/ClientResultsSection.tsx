@@ -46,7 +46,7 @@ const companyIcons: Record<string, React.ReactNode> = {
 
 function TestimonialCard({ t }: { t: Testimonial }) {
     return (
-        <div className="bg-white rounded-2xl shadow-sm p-6 flex flex-col gap-4">
+        <div className="bg-white rounded-2xl shadow-sm p-6 flex flex-col gap-4" data-track-hover={`testimonial_${t.company.toLowerCase().replace(/\s+/g, "_")}`}>
             <div className="flex items-center gap-3">
                 <span className="text-gray-900">
                     {companyIcons[t.company] ?? <span className="w-6 h-6 bg-gray-900 rounded-sm block" />}
@@ -120,7 +120,7 @@ export default function ClientResultsSection({ testimonials }: ClientResultsSect
     return (
         <>
             {/* Mobile: simple stacked cards */}
-            <section className="block sm:hidden bg-[#F0F5F9] px-5 py-16">
+            <section className="block sm:hidden bg-[#F0F5F9] px-5 py-16" data-section="ClientResults">
                 <p className="font-bold uppercase text-[#C8D0D8] text-[clamp(36px,10vw,60px)] leading-none tracking-tight mb-8 select-none">
                     CLIENT<br />RESULTS
                 </p>
@@ -136,6 +136,7 @@ export default function ClientResultsSection({ testimonials }: ClientResultsSect
                 ref={sectionRef}
                 className="hidden sm:block relative bg-[#F0F5F9]"
                 style={{ height: "300vh" }}
+                data-section="ClientResults"
             >
                 <div className="sticky top-0 h-screen overflow-hidden flex items-center justify-center">
                     <span

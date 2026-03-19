@@ -7,6 +7,7 @@ Utility and data-fetching helpers.
 | `utils.ts` → `cn`      | Merges Tailwind classes via clsx                            |
 | `colors.ts` → `colors` | Brand color constants (blue, dark, light, background)       |
 | `motion.ts`            | Animation presets, easings, durations, `createTransition()` |
+| `posthog.ts`           | PostHog initialization and singleton export                 |
 | `queries.ts`           | Server-side DB query functions (see below)                  |
 
 ## queries.ts

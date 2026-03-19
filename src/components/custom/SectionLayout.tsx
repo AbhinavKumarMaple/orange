@@ -12,6 +12,7 @@ interface SectionLayoutProps {
     headerRight?: React.ReactNode;
     headingStyle?: React.CSSProperties;
     headerMb?: string;
+    "data-section"?: string;
 }
 
 export default function SectionLayout({
@@ -25,6 +26,7 @@ export default function SectionLayout({
     headerRight,
     headingStyle,
     headerMb = "mb-12",
+    "data-section": dataSection,
 }: SectionLayoutProps) {
     const defaultHeadingStyle: React.CSSProperties = {
         color: textColor,
@@ -34,7 +36,7 @@ export default function SectionLayout({
     };
 
     return (
-        <section style={{ backgroundColor: bg }} className={cn("px-5 sm:px-8 pt-16 pb-16", className)}>
+        <section style={{ backgroundColor: bg }} className={cn("px-5 sm:px-8 pt-16 pb-16", className)} data-section={dataSection}>
             {/* Header row — stacks on mobile */}
             <div className={cn("flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4", headerMb)}>
                 <div>

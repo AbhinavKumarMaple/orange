@@ -4,7 +4,7 @@ import ShowreelContent from "./ShowreelContent";
 
 export default function ShowreelSection() {
     return (
-        <section style={{ backgroundColor: colors.background }}>
+        <section data-section="Showreel" style={{ backgroundColor: colors.background }}>
             <LogoMarquee />
             <ShowreelContent />
         </section>

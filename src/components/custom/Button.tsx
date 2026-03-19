@@ -11,6 +11,7 @@ interface ButtonProps {
     className?: string;
     type?: "button" | "submit" | "reset";
     style?: React.CSSProperties;
+    "data-track-click"?: string;
 }
 
 export default function Button({
@@ -21,6 +22,7 @@ export default function Button({
     className = "",
     type = "button",
     style,
+    "data-track-click": trackClick,
 }: ButtonProps) {
     const base = "inline-flex items-center justify-center font-medium transition-colors cursor-pointer";
 
@@ -42,14 +44,14 @@ export default function Button({
 
     if (href) {
         return (
-            <Link href={href} className={`${base} ${className}`} style={merged}>
+            <Link href={href} className={`${base} ${className}`} style={merged} data-track-click={trackClick}>
                 {children}
             </Link>
         );
     }
 
     return (
-        <button type={type} onClick={onClick} className={`${base} ${className}`} style={merged}>
+        <button type={type} onClick={onClick} className={`${base} ${className}`} style={merged} data-track-click={trackClick}>
             {children}
         </button>
     );

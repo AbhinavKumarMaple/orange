@@ -28,6 +28,8 @@ export default function PortfolioGrid({ projects }: Props) {
                     transition={createTransition({ duration: "medium", ease: "snappy", delay: (i % 2) * 0.1 })}
                     className="cursor-pointer group"
                     onClick={() => navigate(`/projects/${project.slug}`)}
+                    data-track-click={`portfolio_${project.slug}`}
+                    data-track-hover={`portfolio_${project.slug}`}
                 >
                     <div style={{ borderRadius: 8, overflow: "hidden", aspectRatio: "909 / 838", position: "relative", width: "100%" }}>
                         <Image
