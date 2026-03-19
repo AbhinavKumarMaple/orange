@@ -4,6 +4,7 @@ import Image from "next/image";
 import { motion } from "motion/react";
 import { fadeUp, createTransition } from "@/lib/motion";
 import { usePageTransition } from "./PageTransition";
+import { mediaUrl } from "@/lib/utils";
 import type { projects } from "@/db/schema";
 import type { InferSelectModel } from "drizzle-orm";
 
@@ -30,7 +31,7 @@ export default function PortfolioGrid({ projects }: Props) {
                 >
                     <div style={{ borderRadius: 8, overflow: "hidden", aspectRatio: "909 / 838", position: "relative", width: "100%" }}>
                         <Image
-                            src={`${project.heroImage}?width=1818&height=1676`}
+                            src={mediaUrl(project.heroImage, "width=1818&height=1676")}
                             alt={project.name}
                             fill
                             className="object-cover transition-transform duration-500 group-hover:scale-105"

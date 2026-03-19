@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import { colors } from "@/lib/colors";
+import { mediaUrl } from "@/lib/utils";
 import SectionLayout from "./SectionLayout";
 import Button from "./Button";
 import { usePageTransition } from "./PageTransition";
@@ -49,7 +50,7 @@ export default function BlogSection({ articles }: Props) {
                     >
                         <div className="relative w-full overflow-hidden" style={{ height: 580, borderRadius: 8 }}>
                             <Image
-                                src={`${post.image}?scale-down-to=1024&width=1200&height=673`}
+                                src={mediaUrl(post.image, "scale-down-to=1024&width=1200&height=673")}
                                 alt={post.title}
                                 fill
                                 className="object-cover group-hover:scale-105 transition-transform duration-500"

@@ -5,6 +5,7 @@ import { motion } from "motion/react";
 import { usePageTransition } from "@/components/custom/PageTransition";
 import { colors } from "@/lib/colors";
 import { fadeUp, slideUp, createTransition } from "@/lib/motion";
+import { mediaUrl } from "@/lib/utils";
 import Navbar from "@/components/custom/Navbar";
 import NavOverlay from "@/components/custom/NavOverlay";
 import { useState } from "react";
@@ -105,7 +106,7 @@ export default function ProjectPageClient({ project }: Props) {
                 transition={{ duration: 0.7, ease: [0.76, 0, 0.24, 1], delay: 0.3 }}
             >
                 <Image
-                    src={`${project.heroImage}?width=2400`}
+                    src={mediaUrl(project.heroImage, "width=2400")}
                     alt={project.name}
                     fill
                     className="object-cover"
@@ -186,7 +187,7 @@ export default function ProjectPageClient({ project }: Props) {
                         style={{ borderRadius: 8, aspectRatio: i === 0 ? "16/9" : "4/3" }}
                     >
                         <Image
-                            src={`${img}?width=2400`}
+                            src={mediaUrl(img, "width=2400")}
                             alt={`${project.name} ${i + 1}`}
                             fill
                             className="object-cover"
@@ -203,7 +204,7 @@ export default function ProjectPageClient({ project }: Props) {
                             style={{ borderRadius: 8, aspectRatio: "4/3" }}
                         >
                             <Image
-                                src={`${img}?width=1200`}
+                                src={mediaUrl(img, "width=1200")}
                                 alt={`${project.name} detail ${i + 1}`}
                                 fill
                                 className="object-cover"
