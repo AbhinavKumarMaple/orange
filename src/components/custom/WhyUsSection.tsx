@@ -42,19 +42,19 @@ export default function WhyUsSection() {
                 </div>
             </div>
 
-            {/* Client logos */}
-            <div className="grid grid-cols-4 gap-6">
+            {/* Client logos — 2 cols on mobile, 4 on desktop */}
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 sm:gap-6">
                 {clientLogos.map((logo) => (
                     <div
                         key={logo.alt}
                         className="flex items-center justify-center"
-                        style={{ backgroundColor: dark, borderRadius: 8, height: 132, border: "1px solid rgba(240,245,249,0.1)" }}
+                        style={{ backgroundColor: dark, borderRadius: 8, height: 100, border: "1px solid rgba(240,245,249,0.1)" }}
                     >
                         <Image
                             src={`${logo.src}?width=320&height=104`}
                             alt={logo.alt}
-                            width={160}
-                            height={52}
+                            width={120}
+                            height={40}
                             className="object-contain"
                         />
                     </div>

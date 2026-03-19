@@ -59,10 +59,10 @@ export default function PricingSection({ plans }: Props) {
     const [billing, setBilling] = useState<BillingMode>("project");
 
     const toggle = (
-        <div className="flex flex-col items-end gap-4 self-end">
+        <div className="flex flex-col items-start sm:items-end gap-4 sm:self-end">
             <p
-                className="font-sans font-normal text-right"
-                style={{ color: "rgb(6,18,24)", fontSize: 20, lineHeight: "26px", letterSpacing: "-0.6px", maxWidth: 332, opacity: 0.5 }}
+                className="font-sans font-normal sm:text-right"
+                style={{ color: "rgb(6,18,24)", fontSize: "clamp(14px, 1.5vw, 20px)", lineHeight: "1.4", letterSpacing: "-0.6px", maxWidth: 332, opacity: 0.5 }}
             >
                 Pick a plan that fits your needs, with fair prices and no hidden surprises.
             </p>

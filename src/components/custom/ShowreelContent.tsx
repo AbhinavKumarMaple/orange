@@ -6,16 +6,15 @@ import { colors } from "@/lib/colors";
 
 export default function ShowreelContent() {
     return (
-        <div className="px-8 pt-16 pb-0">
-            {/* Label + heading row */}
-            <div className="flex items-start justify-between mb-8">
+        <div className="px-5 sm:px-8 pt-16 pb-0">
+            {/* Label + heading row — stacks on mobile */}
+            <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4 mb-8">
                 <div>
-                    {/* //02 Showreel */}
                     <motion.p
                         className="font-mono font-medium mb-3"
                         style={{
                             color: colors.blue,
-                            fontSize: 20,
+                            fontSize: "clamp(14px, 2vw, 20px)",
                             lineHeight: "26px",
                             letterSpacing: "-0.4px",
                         }}
@@ -24,18 +23,17 @@ export default function ShowreelContent() {
                         viewport={{ once: true }}
                         transition={createTransition({ duration: "medium", ease: "snappy" })}
                     >
-            //02 Showreel
+                        //02 Showreel
                     </motion.p>
 
-                    {/* SEE OUR WORK IN MOTION */}
                     <div className="overflow-hidden">
                         <motion.h2
                             className="font-sans font-medium uppercase"
                             style={{
                                 color: "rgb(6, 18, 24)",
-                                fontSize: 88,
-                                lineHeight: "96.8px",
-                                letterSpacing: "-3.52px",
+                                fontSize: "clamp(48px, 7vw, 88px)",
+                                lineHeight: "1.1",
+                                letterSpacing: "-0.04em",
                             }}
                             initial={{ y: "100%" }}
                             whileInView={{ y: 0 }}
@@ -49,13 +47,12 @@ export default function ShowreelContent() {
                     </div>
                 </div>
 
-                {/* Description — right aligned, max-width 380px */}
                 <motion.p
-                    className="font-sans font-normal self-end text-right"
+                    className="font-sans font-normal sm:self-end sm:text-right"
                     style={{
                         color: "rgb(6, 18, 24)",
-                        fontSize: 20,
-                        lineHeight: "26px",
+                        fontSize: "clamp(14px, 1.5vw, 20px)",
+                        lineHeight: "1.4",
                         letterSpacing: "-0.6px",
                         maxWidth: 380,
                         opacity: 0.6,
@@ -69,7 +66,6 @@ export default function ShowreelContent() {
                 </motion.p>
             </div>
 
-            {/* Video — left=32, right=47 from viewport, border-radius 12px */}
             <motion.div
                 className="overflow-hidden"
                 style={{ borderRadius: 8 }}

@@ -17,17 +17,16 @@ const socials = [
 
 export default function Footer() {
     return (
-        <footer style={{ backgroundColor: colors.blue }} className="px-8 pt-20 pb-6">
-            {/* Separator */}
-            <div className="w-full h-px mb-16" style={{ backgroundColor: "rgba(240,245,249,0.2)" }} />
+        <footer style={{ backgroundColor: colors.blue }} className="px-5 sm:px-8 pt-16 sm:pt-20 pb-6">
+            <div className="w-full h-px mb-12 sm:mb-16" style={{ backgroundColor: "rgba(240,245,249,0.2)" }} />
 
-            {/* Top row: newsletter + nav links */}
-            <div className="flex items-start justify-between mb-16">
-                {/* Left — newsletter */}
+            {/* Top row — stacks on mobile */}
+            <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-12 mb-12 sm:mb-16">
+                {/* Newsletter */}
                 <div className="max-w-md">
                     <h3
                         className="font-sans font-medium italic mb-4"
-                        style={{ color: colors.light, fontSize: 76, lineHeight: "68.4px", letterSpacing: "-3.04px" }}
+                        style={{ color: colors.light, fontSize: "clamp(48px, 7vw, 76px)", lineHeight: "1", letterSpacing: "-0.04em" }}
                     >
                         Stay in loop
                     </h3>
@@ -35,7 +34,7 @@ export default function Footer() {
                         className="font-sans mb-6"
                         style={{ color: colors.light, fontSize: 16, lineHeight: "20.8px", letterSpacing: "-0.48px", opacity: 0.7 }}
                     >
-                        Join our newsletter and stay updated on<br />the latest trends in digital design.
+                        Join our newsletter and stay updated on the latest trends in digital design.
                     </p>
                     <p className="font-sans font-medium mb-2" style={{ color: colors.light, fontSize: 16 }}>
                         Email
@@ -44,11 +43,11 @@ export default function Footer() {
                         <input
                             type="email"
                             placeholder="jane@framer.com"
-                            className="bg-white rounded px-4 py-3 font-sans outline-none"
-                            style={{ fontSize: 16, color: "rgb(6,18,24)", width: 240 }}
+                            className="bg-white rounded px-4 py-3 font-sans outline-none flex-1 min-w-0"
+                            style={{ fontSize: 16, color: "rgb(6,18,24)" }}
                         />
                         <button
-                            className="flex items-center justify-center rounded cursor-pointer"
+                            className="flex items-center justify-center rounded shrink-0 cursor-pointer"
                             style={{ backgroundColor: colors.light, width: 44, height: 44 }}
                             aria-label="Subscribe"
                         >
@@ -59,8 +58,8 @@ export default function Footer() {
                     </div>
                 </div>
 
-                {/* Right — nav links */}
-                <div className="flex gap-20">
+                {/* Nav links */}
+                <div className="flex gap-12 sm:gap-20">
                     <div>
                         <p className="font-sans mb-4" style={{ color: colors.light, fontSize: 16, opacity: 0.6 }}>Pages</p>
                         <div className="flex flex-col gap-2">
@@ -69,7 +68,7 @@ export default function Footer() {
                                     key={p.name}
                                     href={p.href}
                                     className="font-sans font-medium"
-                                    style={{ color: colors.light, fontSize: 24, lineHeight: "31.2px", letterSpacing: "-0.48px" }}
+                                    style={{ color: colors.light, fontSize: "clamp(18px, 2vw, 24px)", lineHeight: "1.3", letterSpacing: "-0.48px" }}
                                 >
                                     {p.name}
                                 </Link>
@@ -84,7 +83,7 @@ export default function Footer() {
                                     key={s.name}
                                     href={s.href}
                                     className="font-sans font-medium"
-                                    style={{ color: colors.light, fontSize: 24, lineHeight: "31.2px", letterSpacing: "-0.48px" }}
+                                    style={{ color: colors.light, fontSize: "clamp(18px, 2vw, 24px)", lineHeight: "1.3", letterSpacing: "-0.48px" }}
                                 >
                                     {s.name}
                                 </Link>
@@ -94,9 +93,9 @@ export default function Footer() {
                 </div>
             </div>
 
-            {/* Giant Orange Studios text */}
-            <div className="overflow-hidden mb-8 -mx-8">
-                <h1
+            {/* Giant brand text */}
+            <div className="overflow-hidden mb-8 -mx-5 sm:-mx-8">
+                <h2
                     className="font-sans font-medium whitespace-nowrap text-center"
                     style={{
                         color: colors.light,
@@ -106,25 +105,22 @@ export default function Footer() {
                     }}
                 >
                     Orange Studios
-                </h1>
+                </h2>
             </div>
 
-            {/* Bottom bar */}
-            <div className="flex items-center justify-between">
-                <p className="font-sans" style={{ color: colors.light, fontSize: 16, opacity: 0.7 }}>
+            {/* Bottom bar — stacks on mobile */}
+            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+                <p className="font-sans" style={{ color: colors.light, fontSize: 14, opacity: 0.7 }}>
                     © 2026 Orange Studios. All rights reserved.
                 </p>
-                <div className="flex items-center gap-12">
-                    <Link href="#" className="font-sans" style={{ color: colors.light, fontSize: 16, opacity: 0.7 }}>
+                <div className="flex items-center gap-6 sm:gap-12">
+                    <Link href="#" className="font-sans" style={{ color: colors.light, fontSize: 14, opacity: 0.7 }}>
                         Privacy policy
                     </Link>
-                    <Link href="#" className="font-sans" style={{ color: colors.light, fontSize: 16, opacity: 0.7 }}>
+                    <Link href="#" className="font-sans" style={{ color: colors.light, fontSize: 14, opacity: 0.7 }}>
                         Terms of Service
                     </Link>
                 </div>
-                <p className="font-sans" style={{ color: colors.light, fontSize: 16, opacity: 0.7 }}>
-                    © 2026 Orange Studios. All rights reserved.
-                </p>
             </div>
         </footer>
     );

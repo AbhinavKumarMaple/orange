@@ -18,7 +18,7 @@ export default function PortfolioGrid({ projects }: Props) {
     const { navigate } = usePageTransition();
 
     return (
-        <div className="grid grid-cols-2 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
             {projects.map((project, i) => (
                 <motion.div
                     key={project.slug}
@@ -39,14 +39,14 @@ export default function PortfolioGrid({ projects }: Props) {
                     </div>
                     <div className="flex items-center justify-between mt-4">
                         <div>
-                            <p className="font-sans font-medium" style={{ color: "rgb(6, 18, 24)", fontSize: 24, lineHeight: "31.2px", letterSpacing: "-0.48px" }}>
+                            <p className="font-sans font-medium" style={{ color: "rgb(6, 18, 24)", fontSize: "clamp(18px, 2vw, 24px)", lineHeight: "1.3", letterSpacing: "-0.48px" }}>
                                 {project.name}
                             </p>
-                            <p className="font-sans font-normal" style={{ color: "rgb(6, 18, 24)", fontSize: 20, lineHeight: "26px", letterSpacing: "-0.4px", opacity: 0.6 }}>
+                            <p className="font-sans font-normal" style={{ color: "rgb(6, 18, 24)", fontSize: "clamp(14px, 1.5vw, 20px)", lineHeight: "1.4", letterSpacing: "-0.4px", opacity: 0.6 }}>
                                 {project.category}
                             </p>
                         </div>
-                        <p className="font-mono font-medium" style={{ color: "rgb(6, 18, 24)", fontSize: 20, lineHeight: "26px", letterSpacing: "-0.4px" }}>
+                        <p className="font-mono font-medium" style={{ color: "rgb(6, 18, 24)", fontSize: "clamp(14px, 1.5vw, 20px)", lineHeight: "1.4", letterSpacing: "-0.4px" }}>
                             {project.year}
                         </p>
                     </div>

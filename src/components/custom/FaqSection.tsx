@@ -20,25 +20,25 @@ export default function FaqSection({ faqs }: Props) {
     const [open, setOpen] = useState<number | null>(null);
 
     return (
-        <section style={{ backgroundColor: colors.background }} className="px-8 pt-16 pb-16">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
+        <section style={{ backgroundColor: colors.background }} className="px-5 sm:px-8 pt-16 pb-16">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-start">
                 {/* Left */}
                 <div>
                     <p
                         className="font-mono font-medium mb-3"
-                        style={{ color: colors.blue, fontSize: 20, lineHeight: "26px", letterSpacing: "-0.4px" }}
+                        style={{ color: colors.blue, fontSize: "clamp(14px, 2vw, 20px)", lineHeight: "26px", letterSpacing: "-0.4px" }}
                     >
-            //010 FAQ
+                        //010 FAQ
                     </p>
                     <h2
                         className="font-sans font-medium uppercase mb-4"
-                        style={{ color: "rgb(6,18,24)", fontSize: 88, lineHeight: "96.8px", letterSpacing: "-3.52px" }}
+                        style={{ color: "rgb(6,18,24)", fontSize: "clamp(48px, 7vw, 88px)", lineHeight: "1.1", letterSpacing: "-0.04em" }}
                     >
                         Questions we<br />often get
                     </h2>
                     <p
                         className="font-sans font-normal mb-6"
-                        style={{ color: "rgb(6,18,24)", fontSize: 16, lineHeight: "24px", letterSpacing: "-0.32px", opacity: 0.6, maxWidth: 280 }}
+                        style={{ color: "rgb(6,18,24)", fontSize: "clamp(14px, 1.4vw, 16px)", lineHeight: "1.5", letterSpacing: "-0.32px", opacity: 0.6, maxWidth: 280 }}
                     >
                         Every project timeline is confirmed during onboarding, so you always know what to expect.
                     </p>
@@ -53,11 +53,11 @@ export default function FaqSection({ faqs }: Props) {
                         <div key={faq.id} className="bg-white border border-gray-100 overflow-hidden" style={{ borderRadius: 8 }}>
                             <button
                                 onClick={() => setOpen(open === i ? null : i)}
-                                className="w-full flex items-center justify-between px-6 py-5 text-left cursor-pointer"
+                                className="w-full flex items-center justify-between px-5 sm:px-6 py-5 text-left cursor-pointer"
                             >
                                 <span
-                                    className="font-sans pr-8"
-                                    style={{ color: "rgb(6,18,24)", fontSize: 20, fontWeight: 500, lineHeight: "26px", letterSpacing: "-0.6px" }}
+                                    className="font-sans pr-6"
+                                    style={{ color: "rgb(6,18,24)", fontSize: "clamp(15px, 1.5vw, 20px)", fontWeight: 500, lineHeight: "1.4", letterSpacing: "-0.6px" }}
                                 >
                                     {faq.question}
                                 </span>
@@ -80,7 +80,7 @@ export default function FaqSection({ faqs }: Props) {
                                         transition={transition}
                                         style={{ overflow: "hidden" }}
                                     >
-                                        <div className="px-6 pb-5">
+                                        <div className="px-5 sm:px-6 pb-5">
                                             <p
                                                 className="font-sans"
                                                 style={{ color: "rgb(6,18,24)", fontSize: 16, fontWeight: 400, lineHeight: "20.8px", letterSpacing: "-0.48px", opacity: 0.6 }}

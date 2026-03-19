@@ -47,10 +47,9 @@ export default function HeroSection() {
                     className="font-medium leading-none text-center"
                     style={{
                         color: colors.light,
-                        fontSize: "12.5vw",
+                        fontSize: "clamp(52px, 12.5vw, 12.5vw)",
                         letterSpacing: "-0.05em",
                         lineHeight: "1.03",
-                        // overflow: "visible"
                     }}
                     initial={slideUp.hidden}
                     animate={slideUp.visible}
@@ -60,14 +59,14 @@ export default function HeroSection() {
                 </motion.h1>
             </div>
 
-            {/* Since 2019 — ~43% down from top, left=57 */}
+            {/* Since 2019 */}
             <motion.p
                 className="absolute font-mono font-medium"
                 style={{
                     top: "43%",
-                    left: 57,
+                    left: "clamp(20px, 4vw, 57px)",
                     color: colors.light,
-                    fontSize: 20,
+                    fontSize: "clamp(14px, 2vw, 20px)",
                     lineHeight: "26px",
                     letterSpacing: "-0.4px",
                 }}
@@ -78,56 +77,60 @@ export default function HeroSection() {
                 Since 2019
             </motion.p>
 
-            {/* Description — bottom=48, left=57, width=448 */}
-            <motion.p
-                className="absolute font-medium"
+            {/* Mobile: bottom content stacked left-aligned */}
+            <motion.div
+                className="absolute flex flex-col"
                 style={{
-                    bottom: 48,
-                    left: 57,
-                    width: 448,
-                    color: colors.light,
-                    fontSize: 20,
-                    lineHeight: "26px",
-                    letterSpacing: "-0.6px",
+                    bottom: "clamp(16px, 4vh, 48px)",
+                    left: "clamp(20px, 4vw, 57px)",
+                    right: "clamp(20px, 4vw, 57px)",
                 }}
                 initial={fadeUp.hidden}
                 animate={fadeUp.visible}
                 transition={createTransition({ duration: "medium", ease: "gentle", delay: "xlong" })}
             >
-                We are a creative studio from Canada building brands and websites that stand out, scale with growth and deliver measurable results.
-            </motion.p>
-
-            {/* Bottom right — stars, ROI, CTA */}
-            <motion.div
-                className="absolute flex flex-col items-end"
-                style={{ bottom: 21, right: 36 }}
-                initial={fadeUp.hidden}
-                animate={fadeUp.visible}
-                transition={createTransition({ duration: "medium", ease: "gentle", delay: "xlong" })}
-            >
-                {/* Stars + 4.8/5 */}
-                <div className="flex items-center gap-2 mb-1">
-                    <StarRating />
-                    <span
-                        className="font-normal"
-                        style={{ color: colors.light, fontSize: 16, lineHeight: "20.8px", letterSpacing: "-0.48px" }}
-                    >
-                        4.8/5
-                    </span>
-                </div>
-
-                {/* 3.2x Average ROI */}
-                <span
-                    className="font-normal mb-3"
-                    style={{ color: colors.light, fontSize: 16, lineHeight: "20.8px", letterSpacing: "-0.48px" }}
+                {/* Description */}
+                <p
+                    className="font-medium mb-5"
+                    style={{
+                        color: colors.light,
+                        fontSize: "clamp(15px, 2vw, 20px)",
+                        lineHeight: "1.4",
+                        letterSpacing: "-0.6px",
+                        maxWidth: 448,
+                    }}
                 >
-                    3.2x Average ROI
-                </span>
+                    We are a creative studio from Canada building brands and websites that stand out, scale with growth and deliver measurable results.
+                </p>
 
-                {/* CTA — white bg, blue text, radius=2px */}
-                <Button href="#" variant="light" style={{ fontSize: 16, whiteSpace: "nowrap", paddingLeft: 24, paddingRight: 24, paddingTop: 10, paddingBottom: 10 }}>
-                    Start your project
-                </Button>
+                {/* CTA + stats row */}
+                <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4">
+                    <Button
+                        href="#"
+                        variant="light"
+                        style={{ fontSize: 16, whiteSpace: "nowrap", paddingLeft: 24, paddingRight: 24, paddingTop: 10, paddingBottom: 10, alignSelf: "flex-start" }}
+                    >
+                        Start your project
+                    </Button>
+
+                    <div className="flex flex-col gap-1">
+                        <div className="flex items-center gap-2">
+                            <StarRating />
+                            <span
+                                className="font-normal"
+                                style={{ color: colors.light, fontSize: 16, lineHeight: "20.8px", letterSpacing: "-0.48px" }}
+                            >
+                                4.8/5
+                            </span>
+                        </div>
+                        <span
+                            className="font-normal"
+                            style={{ color: colors.light, fontSize: 16, lineHeight: "20.8px", letterSpacing: "-0.48px" }}
+                        >
+                            3.2x Average ROI
+                        </span>
+                    </div>
+                </div>
             </motion.div>
         </section>
     );
