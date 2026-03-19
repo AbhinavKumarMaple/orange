@@ -47,7 +47,7 @@ export default function HeroSection() {
                     className="font-medium leading-none text-center"
                     style={{
                         color: colors.light,
-                        fontSize: "clamp(52px, 12.5vw, 12.5vw)",
+                        fontSize: "clamp(55px, 14.5vw, 15.5vw)",
                         letterSpacing: "-0.05em",
                         lineHeight: "1.03",
                     }}
@@ -63,7 +63,7 @@ export default function HeroSection() {
             <motion.p
                 className="absolute font-mono font-medium"
                 style={{
-                    top: "43%",
+                    top: "35%",
                     left: "clamp(20px, 4vw, 57px)",
                     color: colors.light,
                     fontSize: "clamp(14px, 2vw, 20px)",
