@@ -8,6 +8,7 @@ Utility and data-fetching helpers.
 | `colors.ts` → `colors` | Brand color constants (blue, dark, light, background)       |
 | `motion.ts`            | Animation presets, easings, durations, `createTransition()` |
 | `posthog.ts`           | PostHog initialization and singleton export                 |
+| `posthogServer.ts`     | Server-side PostHog HogQL query helper                      |
 | `queries.ts`           | Server-side DB query functions (see below)                  |
 
 ## queries.ts

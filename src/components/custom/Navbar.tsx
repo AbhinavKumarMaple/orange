@@ -30,8 +30,6 @@ export default function Navbar({ onMenuToggle, isMenuOpen, variant = "light" }: 
             <button
                 onClick={() => {
                     onMenuToggle();
-                    posthog.capture('my_custom_event', { property: 'value' })
-
                     posthog.capture("nav_menu_toggle", {
                         action: isMenuOpen ? "close" : "open",
                         path: window.location.pathname,

@@ -16,6 +16,11 @@ export function initPostHog() {
     autocapture: true,
     capture_heatmaps: true,
   });
+
+  // PostHog blocks localhost by default — opt in explicitly for dev
+  if (process.env.NODE_ENV === "development") {
+    posthog.opt_in_capturing();
+  }
 }
 
 export default posthog;
