@@ -87,23 +87,23 @@ function FloatingCard({
     return (
         <motion.div
             style={{ y, left: t.xPercent }}
-            className="absolute top-1/2 -translate-y-1/2 w-[280px] bg-white rounded-2xl shadow-sm p-6 flex flex-col gap-4"
+            className="absolute top-1/2 -translate-y-1/2 w-[360px] bg-white rounded-2xl shadow-sm p-8 flex flex-col gap-5"
         >
             <div className="flex items-center gap-3">
                 <span className="text-gray-900">
                     {companyIcons[t.company] ?? <span className="w-6 h-6 bg-gray-900 rounded-sm block" />}
                 </span>
-                <span className="font-medium text-gray-900 text-[15px]">{t.company}</span>
+                <span className="font-medium text-gray-900 text-[16px]">{t.company}</span>
             </div>
             <div className="border-t border-gray-100" />
-            <p className="text-gray-700 text-[14px] leading-relaxed">{t.quote}</p>
+            <p className="text-gray-700 text-[15px] leading-relaxed">{t.quote}</p>
             <div className="border-t border-gray-100 pt-4 flex items-center gap-3 mt-auto">
-                <div className="w-10 h-10 rounded-full bg-gray-200 overflow-hidden shrink-0 relative">
+                <div className="w-11 h-11 rounded-full bg-gray-200 overflow-hidden shrink-0 relative">
                     <Image src={t.avatar} alt={t.name} fill className="object-cover" />
                 </div>
                 <div>
-                    <p className="text-[14px] font-medium text-gray-900">{t.name}</p>
-                    <p className="text-[12px] text-gray-500">{t.role}</p>
+                    <p className="text-[15px] font-medium text-gray-900">{t.name}</p>
+                    <p className="text-[13px] text-gray-500">{t.role}</p>
                 </div>
             </div>
         </motion.div>
