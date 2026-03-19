@@ -7,9 +7,9 @@ import { colors } from "@/lib/colors";
 import Button from "./Button";
 
 const perks = [
-    { icon: "⏱", text: "Quick 24-hour response" },
+    { icon: "\u23F1", text: "Quick 24-hour response" },
     { icon: "$", text: "Transparent pricing" },
-    { icon: "📅", text: "Easy Scheduling" },
+    { icon: "\uD83D\uDCC5", text: "Easy Scheduling" },
 ];
 
 export default function ContactSection() {
@@ -21,7 +21,7 @@ export default function ContactSection() {
         setForm((prev) => ({ ...prev, [e.target.name]: e.target.value }));
     }
 
-    async function handleSubmit(e: React.FormEvent) {
+    async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
         e.preventDefault();
         if (!form.name || !form.email || !form.message) {
             toast.error("Please fill in name, email, and message.");
@@ -36,7 +36,7 @@ export default function ContactSection() {
             });
             if (!res.ok) throw new Error("Failed");
             setSent(true);
-            toast.success("Message sent! We'll get back to you within 24 hours.");
+            toast.success("Message sent!");
             setForm({ name: "", email: "", company: "", message: "" });
         } catch {
             toast.error("Something went wrong. Please try again.");
@@ -46,21 +46,19 @@ export default function ContactSection() {
     }
 
     return (
-        <section style={{ backgroundColor: colors.blue }} className="px-8 pt-16 pb-16">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
-
-                {/* Left */}
+        <section style={{ backgroundColor: colors.blue }} className="px-5 sm:px-8 pt-16 pb-16">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-start">
                 <div>
                     <p className="font-mono font-medium mb-3"
-                        style={{ color: colors.light, fontSize: 20, lineHeight: "26px", letterSpacing: "-0.4px" }}>
+                        style={{ color: colors.light, fontSize: 16, lineHeight: "26px", letterSpacing: "-0.4px" }}>
                         //Contact
                     </p>
-                    <h2 className="font-sans font-medium uppercase mb-4"
-                        style={{ color: colors.light, fontSize: 88, lineHeight: "96.8px", letterSpacing: "-3.52px" }}>
-                        READY TO<br />START?
+                    <h2 className="font-sans font-medium uppercase mb-4 text-[34px] sm:text-[52px] md:text-[68px] lg:text-[88px] leading-[1.1] tracking-tight"
+                        style={{ color: colors.light }}>
+                        READY TO START?
                     </h2>
-                    <p className="font-sans mb-6"
-                        style={{ color: colors.light, fontSize: 20, lineHeight: "26px", letterSpacing: "-0.6px", opacity: 0.7, maxWidth: 280 }}>
+                    <p className="font-sans mb-6 text-sm sm:text-base md:text-lg"
+                        style={{ color: colors.light, lineHeight: "1.4", letterSpacing: "-0.6px", opacity: 0.7, maxWidth: 280 }}>
                         Reach out today, we&apos;ll respond fast and keep things simple.
                     </p>
                     <Button href="mailto:hello@orangestudios.com" variant="light" style={{ fontSize: 16, padding: "12px 24px" }}>
@@ -79,17 +77,16 @@ export default function ContactSection() {
                     </div>
                 </div>
 
-                {/* Right — form card */}
-                <div className="bg-white p-8" style={{ borderRadius: 8, minHeight: 560 }}>
+                <div className="bg-white p-6 sm:p-8" style={{ borderRadius: 8 }}>
                     {sent ? (
-                        <div className="flex flex-col items-start justify-between h-full" style={{ minHeight: 496 }}>
+                        <div className="flex flex-col items-start gap-8" style={{ minHeight: 400 }}>
                             <div>
                                 <p className="font-mono font-medium mb-4"
                                     style={{ color: colors.blue, fontSize: 20, lineHeight: "26px", letterSpacing: "-0.4px" }}>
                                     //Sent
                                 </p>
-                                <h3 className="font-sans font-medium uppercase"
-                                    style={{ color: "rgb(6,18,24)", fontSize: 48, lineHeight: "52.8px", letterSpacing: "-1.92px" }}>
+                                <h3 className="font-sans font-medium uppercase text-[32px] sm:text-[40px] md:text-[48px] leading-[1.1] tracking-tight"
+                                    style={{ color: "rgb(6,18,24)" }}>
                                     MESSAGE<br />RECEIVED
                                 </h3>
                                 <p className="font-sans mt-4"
@@ -150,7 +147,6 @@ export default function ContactSection() {
                         </form>
                     )}
                 </div>
-
             </div>
         </section>
     );

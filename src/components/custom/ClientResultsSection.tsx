@@ -11,7 +11,6 @@ interface Testimonial {
     avatar: string;
     name: string;
     role: string;
-    /** Horizontal position as % of container width */
     xPercent: string;
     order: number;
 }
@@ -45,6 +44,30 @@ const companyIcons: Record<string, React.ReactNode> = {
     ),
 };
 
+function TestimonialCard({ t }: { t: Testimonial }) {
+    return (
+        <div className="bg-white rounded-2xl shadow-sm p-6 flex flex-col gap-4">
+            <div className="flex items-center gap-3">
+                <span className="text-gray-900">
+                    {companyIcons[t.company] ?? <span className="w-6 h-6 bg-gray-900 rounded-sm block" />}
+                </span>
+                <span className="font-medium text-gray-900 text-[15px]">{t.company}</span>
+            </div>
+            <div className="border-t border-gray-100" />
+            <p className="text-gray-700 text-[14px] leading-relaxed">{t.quote}</p>
+            <div className="border-t border-gray-100 pt-4 flex items-center gap-3 mt-auto">
+                <div className="w-10 h-10 rounded-full bg-gray-200 overflow-hidden shrink-0 relative">
+                    <Image src={t.avatar} alt={t.name} fill className="object-cover" />
+                </div>
+                <div>
+                    <p className="text-[14px] font-medium text-gray-900">{t.name}</p>
+                    <p className="text-[12px] text-gray-500">{t.role}</p>
+                </div>
+            </div>
+        </div>
+    );
+}
+
 function FloatingCard({
     t,
     scrollYProgress,
@@ -56,18 +79,10 @@ function FloatingCard({
     index: number;
     total: number;
 }) {
-    // Each card occupies a slice of the scroll range
-    // They enter from below viewport and exit above viewport
     const sliceSize = 1 / total;
-    const cardStart = index * sliceSize * 0.6; // stagger start
-    const cardEnd = cardStart + 0.6; // each card travels for 60% of total scroll
-
-    // y goes from 100vh (below screen) to -100vh (above screen)
-    const y = useTransform(
-        scrollYProgress,
-        [cardStart, cardEnd],
-        ["100vh", "-100vh"]
-    );
+    const cardStart = index * sliceSize * 0.6;
+    const cardEnd = cardStart + 0.6;
+    const y = useTransform(scrollYProgress, [cardStart, cardEnd], ["100vh", "-100vh"]);
 
     return (
         <motion.div
@@ -76,19 +91,12 @@ function FloatingCard({
         >
             <div className="flex items-center gap-3">
                 <span className="text-gray-900">
-                    {companyIcons[t.company] ?? (
-                        <span className="w-6 h-6 bg-gray-900 rounded-sm block" />
-                    )}
+                    {companyIcons[t.company] ?? <span className="w-6 h-6 bg-gray-900 rounded-sm block" />}
                 </span>
-                <span className="font-medium text-gray-900 text-[15px]">
-                    {t.company}
-                </span>
+                <span className="font-medium text-gray-900 text-[15px]">{t.company}</span>
             </div>
-
             <div className="border-t border-gray-100" />
-
             <p className="text-gray-700 text-[14px] leading-relaxed">{t.quote}</p>
-
             <div className="border-t border-gray-100 pt-4 flex items-center gap-3 mt-auto">
                 <div className="w-10 h-10 rounded-full bg-gray-200 overflow-hidden shrink-0 relative">
                     <Image src={t.avatar} alt={t.name} fill className="object-cover" />
@@ -104,44 +112,51 @@ function FloatingCard({
 
 export default function ClientResultsSection({ testimonials }: ClientResultsSectionProps) {
     const sectionRef = useRef<HTMLDivElement>(null);
-
     const { scrollYProgress } = useScroll({
         target: sectionRef,
         offset: ["start end", "end start"],
     });
 
     return (
-        <section
-            ref={sectionRef}
-            className="relative bg-[#F0F5F9]"
-            style={{ height: "300vh" }}
-        >
-            <div className="sticky top-0 h-screen overflow-hidden flex items-center justify-center">
-                {/* Background text */}
-                <span
-                    className="absolute select-none pointer-events-none font-bold uppercase text-[#C8D0D8] whitespace-nowrap"
-                    style={{
-                        fontSize: "clamp(80px, 16vw, 240px)",
-                        letterSpacing: "-0.03em",
-                        lineHeight: 1,
-                    }}
-                >
-                    CLIENT RESULTS
-                </span>
-
-                {/* Floating cards */}
-                <div className="absolute inset-0">
-                    {testimonials.map((t, i) => (
-                        <FloatingCard
-                            key={t.company}
-                            t={t}
-                            scrollYProgress={scrollYProgress}
-                            index={i}
-                            total={testimonials.length}
-                        />
+        <>
+            {/* Mobile: simple stacked cards */}
+            <section className="block sm:hidden bg-[#F0F5F9] px-5 py-16">
+                <p className="font-bold uppercase text-[#C8D0D8] text-[clamp(36px,10vw,60px)] leading-none tracking-tight mb-8 select-none">
+                    CLIENT<br />RESULTS
+                </p>
+                <div className="flex flex-col gap-4">
+                    {testimonials.map((t) => (
+                        <TestimonialCard key={t.company} t={t} />
                     ))}
                 </div>
-            </div>
-        </section>
+            </section>
+
+            {/* Desktop: scroll-animated floating cards */}
+            <section
+                ref={sectionRef}
+                className="hidden sm:block relative bg-[#F0F5F9]"
+                style={{ height: "300vh" }}
+            >
+                <div className="sticky top-0 h-screen overflow-hidden flex items-center justify-center">
+                    <span
+                        className="absolute select-none pointer-events-none font-bold uppercase text-[#C8D0D8] whitespace-nowrap"
+                        style={{ fontSize: "clamp(80px, 16vw, 240px)", letterSpacing: "-0.03em", lineHeight: 1 }}
+                    >
+                        CLIENT RESULTS
+                    </span>
+                    <div className="absolute inset-0">
+                        {testimonials.map((t, i) => (
+                            <FloatingCard
+                                key={t.company}
+                                t={t}
+                                scrollYProgress={scrollYProgress}
+                                index={i}
+                                total={testimonials.length}
+                            />
+                        ))}
+                    </div>
+                </div>
+            </section>
+        </>
     );
 }

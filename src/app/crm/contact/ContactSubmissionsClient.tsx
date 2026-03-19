@@ -71,13 +71,13 @@ export default function ContactSubmissionsClient({
                                     )}
                                 </div>
                                 <div className="flex gap-2 shrink-0">
-                                    <Button
+                                    {/* <Button
                                         variant="outline"
                                         size="sm"
                                         asChild
                                     >
                                         <a href={`mailto:${s.email}`}>Reply</a>
-                                    </Button>
+                                    </Button> */}
                                     <Button
                                         variant="destructive"
                                         size="sm"

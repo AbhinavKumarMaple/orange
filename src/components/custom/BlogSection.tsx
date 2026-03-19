@@ -48,7 +48,7 @@ export default function BlogSection({ articles }: Props) {
                         style={{ borderRadius: 8 }}
                         onClick={() => navigate(`/articles/${post.slug}`)}
                     >
-                        <div className="relative w-full overflow-hidden" style={{ height: 580, borderRadius: 8 }}>
+                        <div className="relative w-full overflow-hidden" style={{ aspectRatio: "16/10", borderRadius: 8 }}>
                             <Image
                                 src={mediaUrl(post.image, "scale-down-to=1024&width=1200&height=673")}
                                 alt={post.title}

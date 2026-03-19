@@ -31,13 +31,15 @@ export default function WhyUsSection() {
         >
             {/* Stats */}
             <div className="mb-16">
-                <div className="grid grid-cols-2">
+                <div className="grid grid-cols-1 sm:grid-cols-2">
                     <StatItem value={stats[0].value} label={stats[0].label} />
+                    <div className="w-full sm:hidden" style={{ height: 1, backgroundColor: "rgba(240, 245, 249, 0.12)" }} />
                     <StatItem value={stats[1].value} label={stats[1].label} />
                 </div>
                 <div className="w-full my-2" style={{ height: 1, backgroundColor: "rgba(240, 245, 249, 0.12)" }} />
-                <div className="grid grid-cols-2">
+                <div className="grid grid-cols-1 sm:grid-cols-2">
                     <StatItem value={stats[2].value} label={stats[2].label} />
+                    <div className="w-full sm:hidden" style={{ height: 1, backgroundColor: "rgba(240, 245, 249, 0.12)" }} />
                     <StatItem value={stats[3].value} label={stats[3].label} />
                 </div>
             </div>

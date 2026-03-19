@@ -16,18 +16,18 @@ export default function StatItem({ value, label }: StatItemProps) {
     const animated = useCountUp(value, inView);
 
     return (
-        <div ref={ref} className="flex items-end justify-between">
+        <div ref={ref} className="flex items-end justify-between py-4 pr-4">
             {/* Big number */}
             <p
                 className="font-sans font-normal"
-                style={{ color: colors.light, fontSize: 124, lineHeight: "1", letterSpacing: "-4.96px" }}
+                style={{ color: colors.light, fontSize: "clamp(72px, 8vw, 124px)", lineHeight: "1", letterSpacing: "-0.04em" }}
             >
                 {animated}
             </p>
-            {/* Label — right-aligned, sits at bottom of number */}
+            {/* Label */}
             <p
-                className="font-sans font-normal pb-3"
-                style={{ color: colors.light, fontSize: 20, lineHeight: "26px", letterSpacing: "-0.6px", opacity: 0.5 }}
+                className="font-sans font-normal pb-1 text-right"
+                style={{ color: colors.light, fontSize: "clamp(12px, 1.4vw, 20px)", lineHeight: "1.4", letterSpacing: "-0.6px", opacity: 0.5, maxWidth: 100 }}
             >
                 {label}
             </p>

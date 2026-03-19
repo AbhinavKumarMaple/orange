@@ -36,7 +36,7 @@ export default function ArticlePageClient({ article, related }: Props) {
             <Navbar isMenuOpen={menuOpen} onMenuToggle={() => setMenuOpen((p) => !p)} variant="dark" />
             <NavOverlay isOpen={menuOpen} />
 
-            <div style={{ maxWidth: 960, marginLeft: "auto", marginRight: "auto", paddingLeft: 32, paddingRight: 32 }}>
+            <div className="px-5 sm:px-8" style={{ maxWidth: 960, marginLeft: "auto", marginRight: "auto" }}>
                 {/* Meta + title */}
                 <div className="pt-24 pb-10">
                     <motion.div
@@ -47,11 +47,12 @@ export default function ArticlePageClient({ article, related }: Props) {
                         <span className="font-sans" style={{ color: colors.blue, fontSize: 16, letterSpacing: "-0.32px" }}>{article.category}</span>
                         <span className="font-sans" style={{ color: "rgb(6,18,24)", fontSize: 16, letterSpacing: "-0.32px", opacity: 0.5 }}>{article.date}</span>
                     </motion.div>
-                    <div className="flex items-start justify-between gap-12">
-                        <div className="overflow-hidden" style={{ maxWidth: 560 }}>
+                    {/* Title + excerpt — stacked on mobile, side-by-side on md+ */}
+                    <div className="flex flex-col md:flex-row md:items-start md:justify-between md:gap-12">
+                        <div className="overflow-hidden">
                             <motion.h1
                                 className="font-sans font-medium"
-                                style={{ color: "rgb(6,18,24)", fontSize: "clamp(32px, 3.5vw, 52px)", lineHeight: 1.1, letterSpacing: "-0.03em" }}
+                                style={{ color: "rgb(6,18,24)", fontSize: "clamp(28px, 3.5vw, 52px)", lineHeight: 1.1, letterSpacing: "-0.03em", maxWidth: 560 }}
                                 initial={slideUp.hidden} animate={slideUp.visible}
                                 transition={createTransition({ duration: "slow", ease: "snappy", delay: "short" })}
                             >
@@ -59,7 +60,7 @@ export default function ArticlePageClient({ article, related }: Props) {
                             </motion.h1>
                         </div>
                         <motion.p
-                            className="font-sans shrink-0"
+                            className="font-sans md:shrink-0 mt-4 md:mt-0"
                             style={{ maxWidth: 280, color: "rgb(6,18,24)", fontSize: 17, lineHeight: "26px", letterSpacing: "-0.34px", opacity: 0.6, marginTop: 6 }}
                             initial={fadeUp.hidden} animate={fadeUp.visible}
                             transition={createTransition({ duration: "medium", ease: "gentle", delay: "normal" })}
@@ -103,7 +104,7 @@ export default function ArticlePageClient({ article, related }: Props) {
                             Related articles
                         </h3>
                     </div>
-                    <div className="grid grid-cols-2 gap-6">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                         {related.map((a) => (
                             <div key={a.slug} className="cursor-pointer group" onClick={() => navigate(`/articles/${a.slug}`)}>
                                 <div style={{ borderRadius: 8, overflow: "hidden", aspectRatio: "16/10", position: "relative" }}>
