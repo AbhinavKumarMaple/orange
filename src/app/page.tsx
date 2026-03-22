@@ -19,6 +19,8 @@ import {
   getPricingPlans,
 } from "@/lib/queries";
 
+export const dynamic = "force-dynamic";
+
 export default async function Home() {
   const [projects, articles, testimonials, faqs, services, pricingPlans] =
     await Promise.all([

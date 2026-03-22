@@ -2,6 +2,8 @@ import { Metadata } from "next";
 import { getArticles } from "@/lib/queries";
 import BlogPageClient from "./BlogPageClient";
 
+export const dynamic = "force-dynamic";
+
 export const metadata: Metadata = {
     title: "Blog — Orange Studios",
     description: "Ideas that drive growth. Practical tips and fresh insights on branding, design, and marketing.",
