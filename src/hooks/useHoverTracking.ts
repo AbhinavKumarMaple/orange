@@ -14,18 +14,18 @@ export function useHoverTracking() {
 
   useEffect(() => {
     function onMouseEnter(e: Event) {
-      const el = (e.target as HTMLElement).closest(
-        "[data-track-hover]",
-      ) as HTMLElement | null;
+      const target = e.target;
+      if (!(target instanceof HTMLElement)) return;
+      const el = target.closest("[data-track-hover]") as HTMLElement | null;
       if (el && !hoverStart.current.has(el)) {
         hoverStart.current.set(el, Date.now());
       }
     }
 
     function onMouseLeave(e: Event) {
-      const el = (e.target as HTMLElement).closest(
-        "[data-track-hover]",
-      ) as HTMLElement | null;
+      const target = e.target;
+      if (!(target instanceof HTMLElement)) return;
+      const el = target.closest("[data-track-hover]") as HTMLElement | null;
       if (!el) return;
 
       const start = hoverStart.current.get(el);

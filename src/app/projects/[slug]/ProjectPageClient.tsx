@@ -180,38 +180,41 @@ export default function ProjectPageClient({ project }: Props) {
 
             {/* Gallery images */}
             <div className="px-14 pb-24 space-y-6">
-                {project.images.map((img, i) => (
+                {/* First 2 images — side by side */}
+                {project.images.length >= 2 && (
+                    <div className="grid grid-cols-2 gap-6">
+                        {project.images.slice(0, 2).map((img, i) => (
+                            <div
+                                key={i}
+                                className="w-full overflow-hidden relative"
+                                style={{ borderRadius: 8, aspectRatio: "4/3" }}
+                            >
+                                <Image
+                                    src={mediaUrl(img, "width=1200")}
+                                    alt={`${project.name} detail ${i + 1}`}
+                                    fill
+                                    className="object-cover"
+                                />
+                            </div>
+                        ))}
+                    </div>
+                )}
+
+                {/* Remaining images — full width stacked */}
+                {project.images.slice(2).map((img, i) => (
                     <div
-                        key={i}
+                        key={i + 2}
                         className="w-full overflow-hidden relative"
-                        style={{ borderRadius: 8, aspectRatio: i === 0 ? "16/9" : "4/3" }}
+                        style={{ borderRadius: 8, aspectRatio: "16/9" }}
                     >
                         <Image
                             src={mediaUrl(img, "width=2400")}
-                            alt={`${project.name} ${i + 1}`}
+                            alt={`${project.name} ${i + 3}`}
                             fill
                             className="object-cover"
                         />
                     </div>
                 ))}
-
-                {/* 2-col grid for last two */}
-                <div className="grid grid-cols-2 gap-6">
-                    {project.images.slice(0, 2).map((img, i) => (
-                        <div
-                            key={i}
-                            className="w-full overflow-hidden relative"
-                            style={{ borderRadius: 8, aspectRatio: "4/3" }}
-                        >
-                            <Image
-                                src={mediaUrl(img, "width=1200")}
-                                alt={`${project.name} detail ${i + 1}`}
-                                fill
-                                className="object-cover"
-                            />
-                        </div>
-                    ))}
-                </div>
             </div>
 
             {/* Back link */}

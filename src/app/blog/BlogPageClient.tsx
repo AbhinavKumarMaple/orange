@@ -9,6 +9,7 @@ import NavOverlay from "@/components/custom/NavOverlay";
 import Footer from "@/components/custom/Footer";
 import { colors } from "@/lib/colors";
 import { fadeUp, slideUp, createTransition } from "@/lib/motion";
+import { mediaUrl } from "@/lib/utils";
 import type { articles } from "@/db/schema";
 import type { InferSelectModel } from "drizzle-orm";
 
@@ -65,9 +66,9 @@ export default function BlogPageClient({ articles }: { articles: Article[] }) {
                 </div>
             </div>
 
-            {/* 2-col grid */}
-            <div className="px-14 pb-24 grid grid-cols-2 gap-6">
-                {articles.map((article, i) => (
+            {/* First 2 articles — large cards */}
+            <div className="px-14 pb-6 grid grid-cols-1 sm:grid-cols-2 gap-6">
+                {articles.slice(0, 2).map((article, i) => (
                     <motion.article
                         key={article.slug}
                         className="cursor-pointer group"
@@ -76,17 +77,14 @@ export default function BlogPageClient({ articles }: { articles: Article[] }) {
                         transition={createTransition({ duration: "medium", ease: "snappy", delay: i === 0 ? "short" : "normal" })}
                         onClick={() => navigate(`/articles/${article.slug}`)}
                     >
-                        {/* Image */}
                         <div style={{ borderRadius: 8, overflow: "hidden", aspectRatio: "16/10", position: "relative" }}>
                             <Image
-                                src={`${article.image}?scale-down-to=1024&width=1200&height=673`}
+                                src={mediaUrl(article.image, "scale-down-to=1024&width=1200&height=673")}
                                 alt={article.title}
                                 fill
                                 className="object-cover transition-transform duration-500 group-hover:scale-105"
                             />
                         </div>
-
-                        {/* Meta */}
                         <div className="mt-5">
                             <div className="flex items-center gap-4 mb-3">
                                 <span className="font-sans" style={{ color: colors.blue, fontSize: 16, letterSpacing: "-0.32px" }}>
@@ -106,6 +104,47 @@ export default function BlogPageClient({ articles }: { articles: Article[] }) {
                     </motion.article>
                 ))}
             </div>
+
+            {/* Remaining articles — 2-col grid */}
+            {articles.length > 2 && (
+                <div className="px-14 pb-24 grid grid-cols-1 sm:grid-cols-2 gap-6">
+                    {articles.slice(2).map((article, i) => (
+                        <motion.article
+                            key={article.slug}
+                            className="cursor-pointer group"
+                            initial={fadeUp.hidden}
+                            animate={fadeUp.visible}
+                            transition={createTransition({ duration: "medium", ease: "snappy", delay: "normal" })}
+                            onClick={() => navigate(`/articles/${article.slug}`)}
+                        >
+                            <div style={{ borderRadius: 8, overflow: "hidden", aspectRatio: "16/10", position: "relative" }}>
+                                <Image
+                                    src={mediaUrl(article.image, "scale-down-to=1024&width=1200&height=673")}
+                                    alt={article.title}
+                                    fill
+                                    className="object-cover transition-transform duration-500 group-hover:scale-105"
+                                />
+                            </div>
+                            <div className="mt-5">
+                                <div className="flex items-center gap-4 mb-3">
+                                    <span className="font-sans" style={{ color: colors.blue, fontSize: 16, letterSpacing: "-0.32px" }}>
+                                        {article.category}
+                                    </span>
+                                    <span className="font-sans" style={{ color: "rgb(6,18,24)", fontSize: 16, letterSpacing: "-0.32px", opacity: 0.5 }}>
+                                        {article.date}
+                                    </span>
+                                </div>
+                                <h2
+                                    className="font-sans font-medium"
+                                    style={{ color: "rgb(6,18,24)", fontSize: 24, lineHeight: "31.2px", letterSpacing: "-0.48px" }}
+                                >
+                                    {article.title}
+                                </h2>
+                            </div>
+                        </motion.article>
+                    ))}
+                </div>
+            )}
 
             <Footer />
         </motion.main>
