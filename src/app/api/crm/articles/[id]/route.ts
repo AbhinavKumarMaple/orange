@@ -15,7 +15,9 @@ export async function PUT(
     .set(body)
     .where(eq(articles.id, Number(id)))
     .returning();
-  revalidatePath("/", "layout");
+  revalidatePath("/");
+  revalidatePath("/blog");
+  revalidatePath(`/articles/${row.slug}`);
   return NextResponse.json(row);
 }
 
@@ -24,7 +26,11 @@ export async function DELETE(
   { params }: { params: Promise<{ id: string }> },
 ) {
   const { id } = await params;
+  // Fetch slug before deleting so we can revalidate the article page
+  const [existing] = await db.select({ slug: articles.slug }).from(articles).where(eq(articles.id, Number(id))).limit(1);
   await db.delete(articles).where(eq(articles.id, Number(id)));
-  revalidatePath("/", "layout");
+  revalidatePath("/");
+  revalidatePath("/blog");
+  if (existing?.slug) revalidatePath(`/articles/${existing.slug}`);
   return new NextResponse(null, { status: 204 });
 }

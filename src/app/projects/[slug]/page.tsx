@@ -9,8 +9,6 @@ export async function generateStaticParams() {
     return projects.map((p) => ({ slug: p.slug }));
 }
 
-export const revalidate = 0;
-
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
     const { slug } = await params;
     const project = await getProject(slug);

@@ -15,7 +15,7 @@ export async function PUT(
     .set(body)
     .where(eq(pricingPlans.id, Number(id)))
     .returning();
-  revalidatePath("/", "layout");
+  revalidatePath("/");
   return NextResponse.json(row);
 }
 
@@ -25,6 +25,6 @@ export async function DELETE(
 ) {
   const { id } = await params;
   await db.delete(pricingPlans).where(eq(pricingPlans.id, Number(id)));
-  revalidatePath("/", "layout");
+  revalidatePath("/");
   return new NextResponse(null, { status: 204 });
 }
