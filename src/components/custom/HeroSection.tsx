@@ -25,6 +25,7 @@ export default function HeroSection() {
                 alt=""
                 fill
                 className="object-cover object-center"
+                sizes="100vw"
                 priority
             />
             {/* Blue tint overlay image */}
