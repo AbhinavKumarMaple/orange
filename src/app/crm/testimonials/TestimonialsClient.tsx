@@ -10,6 +10,7 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/u
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import type { InferSelectModel } from "drizzle-orm";
 import type { testimonials } from "@/db/schema";
+import MediaInput from "@/components/custom/MediaInput";
 
 type Testimonial = InferSelectModel<typeof testimonials>;
 const empty = { company: "", quote: "", avatar: "", name: "", role: "", xPercent: "25%", order: 0 };
@@ -87,7 +88,9 @@ export default function TestimonialsClient({ initialData }: { initialData: Testi
                         <div><Label className="mb-1 block">Company</Label><Input value={form.company} onChange={f("company")} /></div>
                         <div><Label className="mb-1 block">Role</Label><Input value={form.role} onChange={f("role")} /></div>
                         <div><Label className="mb-1 block">X Position (e.g. 25%)</Label><Input value={form.xPercent} onChange={f("xPercent")} /></div>
-                        <div className="col-span-2"><Label className="mb-1 block">Avatar URL</Label><Input value={form.avatar} onChange={f("avatar")} /></div>
+                        <div className="col-span-2">
+                            <MediaInput label="Avatar" value={form.avatar} onChange={(v) => setForm((p) => ({ ...p, avatar: v }))} />
+                        </div>
                         <div className="col-span-2"><Label className="mb-1 block">Quote</Label><Textarea rows={3} value={form.quote} onChange={f("quote")} /></div>
                         <div><Label className="mb-1 block">Order</Label><Input type="number" value={form.order} onChange={(e) => setForm((p) => ({ ...p, order: Number(e.target.value) }))} /></div>
                     </div>

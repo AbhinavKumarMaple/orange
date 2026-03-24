@@ -5,12 +5,8 @@ import ProjectPageClient from "./ProjectPageClient";
 export const dynamicParams = true;
 
 export async function generateStaticParams() {
-    try {
-        const projects = await getProjects();
-        return projects.map((p) => ({ slug: p.slug }));
-    } catch {
-        return [];
-    }
+    const projects = await getProjects();
+    return projects.map((p) => ({ slug: p.slug }));
 }
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {

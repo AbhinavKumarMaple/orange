@@ -8,7 +8,7 @@ export async function DELETE(
 ) {
   try {
     const { id } = await params;
-    await deleteContactSubmission(Number(id));
+    await deleteContactSubmission(id);
     revalidatePath("/", "layout");
     return NextResponse.json({ success: true });
   } catch {

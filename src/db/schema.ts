@@ -1,6 +1,6 @@
 import {
   pgTable,
-  serial,
+  uuid,
   text,
   integer,
   boolean,
@@ -9,7 +9,7 @@ import {
 } from "drizzle-orm/pg-core";
 
 export const projects = pgTable("projects", {
-  id: serial("id").primaryKey(),
+  id: uuid("id").primaryKey().defaultRandom(),
   slug: text("slug").unique().notNull(),
   name: text("name").notNull(),
   category: text("category").notNull(),
@@ -27,7 +27,7 @@ export const projects = pgTable("projects", {
 });
 
 export const articles = pgTable("articles", {
-  id: serial("id").primaryKey(),
+  id: uuid("id").primaryKey().defaultRandom(),
   slug: text("slug").unique().notNull(),
   title: text("title").notNull(),
   category: text("category").notNull(),
@@ -43,7 +43,7 @@ export const articles = pgTable("articles", {
 });
 
 export const testimonials = pgTable("testimonials", {
-  id: serial("id").primaryKey(),
+  id: uuid("id").primaryKey().defaultRandom(),
   company: text("company").notNull(),
   quote: text("quote").notNull(),
   avatar: text("avatar").notNull(),
@@ -54,14 +54,14 @@ export const testimonials = pgTable("testimonials", {
 });
 
 export const faqs = pgTable("faqs", {
-  id: serial("id").primaryKey(),
+  id: uuid("id").primaryKey().defaultRandom(),
   question: text("question").notNull(),
   answer: text("answer").notNull(),
   order: integer("order").notNull().default(0),
 });
 
 export const services = pgTable("services", {
-  id: serial("id").primaryKey(),
+  id: uuid("id").primaryKey().defaultRandom(),
   number: text("number").notNull(),
   name: text("name").notNull(),
   description: text("description").notNull(),
@@ -69,7 +69,7 @@ export const services = pgTable("services", {
 });
 
 export const pricingPlans = pgTable("pricing_plans", {
-  id: serial("id").primaryKey(),
+  id: uuid("id").primaryKey().defaultRandom(),
   name: text("name").notNull(),
   subtitle: text("subtitle").notNull(),
   priceProject: integer("price_project").notNull(),
@@ -81,7 +81,7 @@ export const pricingPlans = pgTable("pricing_plans", {
 });
 
 export const contactSubmissions = pgTable("contact_submissions", {
-  id: serial("id").primaryKey(),
+  id: uuid("id").primaryKey().defaultRandom(),
   name: text("name").notNull(),
   email: text("email").notNull(),
   company: text("company"),

@@ -78,6 +78,6 @@ export async function createContactSubmission(data: {
   return rows[0];
 }
 
-export async function deleteContactSubmission(id: number) {
+export async function deleteContactSubmission(id: string) {
   await db.delete(contactSubmissions).where(eq(contactSubmissions.id, id));
 }

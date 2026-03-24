@@ -5,12 +5,8 @@ import ArticlePageClient from "./ArticlePageClient";
 export const dynamicParams = true;
 
 export async function generateStaticParams() {
-    try {
-        const articles = await getArticles();
-        return articles.map((a) => ({ slug: a.slug }));
-    } catch {
-        return [];
-    }
+    const articles = await getArticles();
+    return articles.map((a) => ({ slug: a.slug }));
 }
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {

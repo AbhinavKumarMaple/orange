@@ -13,7 +13,7 @@ export async function PUT(
   const [row] = await db
     .update(projects)
     .set(body)
-    .where(eq(projects.id, Number(id)))
+    .where(eq(projects.id, id))
     .returning();
   revalidatePath("/");
   revalidatePath(`/projects/${row.slug}`);
@@ -25,8 +25,8 @@ export async function DELETE(
   { params }: { params: Promise<{ id: string }> },
 ) {
   const { id } = await params;
-  const [existing] = await db.select({ slug: projects.slug }).from(projects).where(eq(projects.id, Number(id))).limit(1);
-  await db.delete(projects).where(eq(projects.id, Number(id)));
+  const [existing] = await db.select({ slug: projects.slug }).from(projects).where(eq(projects.id, id)).limit(1);
+  await db.delete(projects).where(eq(projects.id, id));
   revalidatePath("/");
   if (existing?.slug) revalidatePath(`/projects/${existing.slug}`);
   return new NextResponse(null, { status: 204 });

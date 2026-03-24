@@ -13,7 +13,7 @@ export async function PUT(
   const [row] = await db
     .update(pricingPlans)
     .set(body)
-    .where(eq(pricingPlans.id, Number(id)))
+    .where(eq(pricingPlans.id, id))
     .returning();
   revalidatePath("/");
   return NextResponse.json(row);
@@ -24,7 +24,7 @@ export async function DELETE(
   { params }: { params: Promise<{ id: string }> },
 ) {
   const { id } = await params;
-  await db.delete(pricingPlans).where(eq(pricingPlans.id, Number(id)));
+  await db.delete(pricingPlans).where(eq(pricingPlans.id, id));
   revalidatePath("/");
   return new NextResponse(null, { status: 204 });
 }

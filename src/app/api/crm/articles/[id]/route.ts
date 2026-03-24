@@ -13,7 +13,7 @@ export async function PUT(
   const [row] = await db
     .update(articles)
     .set(body)
-    .where(eq(articles.id, Number(id)))
+    .where(eq(articles.id, id))
     .returning();
   revalidatePath("/");
   revalidatePath("/blog");
@@ -27,8 +27,8 @@ export async function DELETE(
 ) {
   const { id } = await params;
   // Fetch slug before deleting so we can revalidate the article page
-  const [existing] = await db.select({ slug: articles.slug }).from(articles).where(eq(articles.id, Number(id))).limit(1);
-  await db.delete(articles).where(eq(articles.id, Number(id)));
+  const [existing] = await db.select({ slug: articles.slug }).from(articles).where(eq(articles.id, id)).limit(1);
+  await db.delete(articles).where(eq(articles.id, id));
   revalidatePath("/");
   revalidatePath("/blog");
   if (existing?.slug) revalidatePath(`/articles/${existing.slug}`);
