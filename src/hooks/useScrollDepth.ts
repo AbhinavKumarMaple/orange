@@ -2,6 +2,7 @@
 
 import { useEffect, useRef } from "react";
 import posthog from "posthog-js";
+import { isAnalyticsEnabled } from "@/lib/posthog";
 
 const MILESTONES = [25, 50, 75, 100];
 
@@ -13,6 +14,7 @@ export function useScrollDepth() {
   const reached = useRef(new Set<number>());
 
   useEffect(() => {
+    if (!isAnalyticsEnabled) return;
     reached.current.clear();
 
     function onScroll() {

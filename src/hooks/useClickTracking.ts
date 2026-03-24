@@ -2,6 +2,7 @@
 
 import { useEffect } from "react";
 import posthog from "posthog-js";
+import { isAnalyticsEnabled } from "@/lib/posthog";
 
 /**
  * Tracks clicks on elements with `data-track-click="label"`.
@@ -9,6 +10,7 @@ import posthog from "posthog-js";
  */
 export function useClickTracking() {
   useEffect(() => {
+    if (!isAnalyticsEnabled) return;
     function onClick(e: MouseEvent) {
       const el = (e.target as HTMLElement).closest(
         "[data-track-click]",

@@ -2,7 +2,7 @@
 
 import { useEffect } from "react";
 import { usePathname, useSearchParams } from "next/navigation";
-import posthog, { initPostHog } from "@/lib/posthog";
+import posthog, { initPostHog, isAnalyticsEnabled } from "@/lib/posthog";
 
 export default function PostHogProvider({ children }: { children: React.ReactNode }) {
     const pathname = usePathname();
@@ -15,7 +15,7 @@ export default function PostHogProvider({ children }: { children: React.ReactNod
 
     // Track page views on route change
     useEffect(() => {
-        if (!posthog.__loaded) return;
+        if (!isAnalyticsEnabled || !posthog.__loaded) return;
 
         const url = searchParams.toString()
             ? `${pathname}?${searchParams.toString()}`

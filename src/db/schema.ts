@@ -37,6 +37,9 @@ export const articles = pgTable("articles", {
   content: jsonb("content").notNull().default([]),
   order: integer("order").notNull().default(0),
   createdAt: timestamp("created_at").defaultNow(),
+  icon: text("icon").notNull().default(""),
+  images: text("images").array().notNull().default([""]),
+  isFeatured: boolean("is_featured").notNull().default(false),
 });
 
 export const testimonials = pgTable("testimonials", {

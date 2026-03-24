@@ -2,6 +2,7 @@
 
 import { useEffect, useRef } from "react";
 import posthog from "posthog-js";
+import { isAnalyticsEnabled } from "@/lib/posthog";
 
 /**
  * Tracks how long each section is visible in the viewport using IntersectionObserver.
@@ -12,6 +13,7 @@ export function useSectionVisibility() {
   const reported = useRef<Map<string, number>>(new Map());
 
   useEffect(() => {
+    if (!isAnalyticsEnabled) return;
     const observer = new IntersectionObserver(
       (entries) => {
         for (const entry of entries) {

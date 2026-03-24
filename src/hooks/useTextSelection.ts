@@ -2,6 +2,7 @@
 
 import { useEffect, useRef } from "react";
 import posthog from "posthog-js";
+import { isAnalyticsEnabled } from "@/lib/posthog";
 
 /**
  * Tracks when users select/copy text on the page.
@@ -11,6 +12,7 @@ export function useTextSelection() {
   const debounce = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   useEffect(() => {
+    if (!isAnalyticsEnabled) return;
     function onSelectionChange() {
       if (debounce.current) clearTimeout(debounce.current);
 

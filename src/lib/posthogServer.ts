@@ -9,6 +9,9 @@ const POSTHOG_HOST =
 const POSTHOG_PROJECT_KEY = process.env.NEXT_PUBLIC_POSTHOG_KEY!;
 const POSTHOG_API_KEY = process.env.POSTHOG_PERSONAL_API_KEY;
 
+const isAnalyticsEnabled =
+  process.env.NEXT_PUBLIC_ANALYTICS_ENABLED !== "false";
+
 interface HogQLResult {
   columns: string[];
   results: unknown[][];
@@ -20,6 +23,10 @@ interface HogQLResult {
  * Falls back to project API key if personal key is not set.
  */
 export async function queryPostHog(query: string): Promise<HogQLResult> {
+  if (!isAnalyticsEnabled) {
+    return { columns: [], results: [], types: [] };
+  }
+
   const apiKey = POSTHOG_API_KEY || POSTHOG_PROJECT_KEY;
   const isPersonalKey = !!POSTHOG_API_KEY;
 

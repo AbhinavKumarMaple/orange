@@ -15,9 +15,13 @@ export function usePageTransition() {
     return useContext(TransitionContext);
 }
 
-// Minimum ms to hold the overlay after the new page is ready (prevents flash)
-const MIN_HOLD = 300;
-
+/**
+ * Page transition flow:
+ * 1. User clicks a link → router.push fires immediately to start loading
+ * 2. Overlay slides in to cover the old page while Next.js fetches the new route
+ * 3. Once the new pathname renders AND the overlay has fully covered the screen,
+ *    the overlay slides out to reveal the new page
+ */
 export default function PageTransitionProvider({ children }: { children: ReactNode }) {
     const router = useRouter();
     const pathname = usePathname();
@@ -26,55 +30,69 @@ export default function PageTransitionProvider({ children }: { children: ReactNo
     const [phase, setPhase] = useState<"in" | "hold" | "out">("in");
     const [isExiting, setIsExiting] = useState(false);
 
-    // Track whether each condition is met before sliding out
-    const overlayFull = useRef(false);   // overlay has fully covered the screen
-    const pageReady = useRef(false);     // new pathname has rendered
-    const pendingHref = useRef<string | null>(null);
+    const overlayFull = useRef(false);
+    const pageReady = useRef(false);
+    const targetHref = useRef<string | null>(null);
     const holdTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+    const prevPathname = useRef(pathname);
+
+    // Minimum ms to hold the overlay once both conditions are met (prevents flash)
+    const MIN_HOLD = 150;
 
     const startSlideOut = useCallback(() => {
         if (overlayFull.current && pageReady.current) {
             if (holdTimer.current) clearTimeout(holdTimer.current);
-            holdTimer.current = setTimeout(() => setPhase("out"), MIN_HOLD);
+            holdTimer.current = setTimeout(() => {
+                setIsExiting(false);
+                setPhase("out");
+            }, MIN_HOLD);
         }
     }, []);
 
     const navigate = useCallback((href: string) => {
+        // Don't transition to the same page
+        if (href === pathname) return;
+
         if (holdTimer.current) clearTimeout(holdTimer.current);
-        pendingHref.current = href;
         overlayFull.current = false;
         pageReady.current = false;
+        targetHref.current = href;
+
+        // 1. Start loading the new page immediately
+        router.push(href);
+
+        // 2. Show the overlay animation while it loads
         setIsExiting(true);
         setPhase("in");
         setVisible(true);
-    }, []);
+    }, [router, pathname]);
 
     // Overlay animation complete handler
     const handleAnimationComplete = useCallback(() => {
         if (phase === "in") {
-            // Overlay is now fully covering the screen — fire navigation
-            if (pendingHref.current) {
-                router.push(pendingHref.current);
-                pendingHref.current = null;
-            }
-            setIsExiting(false);
             setPhase("hold");
             overlayFull.current = true;
             startSlideOut();
         } else if (phase === "out") {
+            // 3. Overlay has fully exited — clean up
             setVisible(false);
             overlayFull.current = false;
             pageReady.current = false;
+            targetHref.current = null;
         }
-    }, [phase, router, startSlideOut]);
+    }, [phase, startSlideOut]);
 
-    // Pathname changed = new page has rendered, safe to slide out
+    // Pathname changed → new page has rendered
     useEffect(() => {
-        if (!visible) return;
+        // Only react when pathname actually changes and we're in a transition
+        if (pathname === prevPathname.current) return;
+        prevPathname.current = pathname;
+
+        if (!visible || !targetHref.current) return;
+
         pageReady.current = true;
         startSlideOut();
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [pathname]);
+    }, [pathname, visible, startSlideOut]);
 
     useEffect(() => {
         return () => {
@@ -84,7 +102,6 @@ export default function PageTransitionProvider({ children }: { children: ReactNo
 
     return (
         <TransitionContext.Provider value={{ navigate, isExiting }}>
-            {/* Page content wrapper — slides up on exit */}
             <motion.div
                 animate={isExiting ? { y: -60 } : { y: 0 }}
                 transition={{ duration: 0.45, ease: [0.76, 0, 0.24, 1] }}
@@ -92,7 +109,6 @@ export default function PageTransitionProvider({ children }: { children: ReactNo
                 {children}
             </motion.div>
 
-            {/* Overlay — rises from below, holds until new page is ready, then exits upward */}
             <AnimatePresence>
                 {visible && (
                     <motion.div

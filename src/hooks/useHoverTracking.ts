@@ -2,6 +2,7 @@
 
 import { useEffect, useRef } from "react";
 import posthog from "posthog-js";
+import { isAnalyticsEnabled } from "@/lib/posthog";
 
 const MIN_HOVER_MS = 500; // only track hovers longer than 500ms
 
@@ -13,6 +14,7 @@ export function useHoverTracking() {
   const hoverStart = useRef<Map<HTMLElement, number>>(new Map());
 
   useEffect(() => {
+    if (!isAnalyticsEnabled) return;
     function onMouseEnter(e: Event) {
       const target = e.target;
       if (!(target instanceof HTMLElement)) return;
