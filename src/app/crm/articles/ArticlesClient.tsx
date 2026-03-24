@@ -53,7 +53,7 @@ export default function ArticlesClient({ initialData }: { initialData: Article[]
         finally { setSaving(false); }
     }
 
-    async function del(id: number) {
+    async function del(id: string) {
         if (!confirm("Delete this article?")) return;
         await fetch(`/api/crm/articles/${id}`, { method: "DELETE" });
         setData(data.filter((a) => a.id !== id));

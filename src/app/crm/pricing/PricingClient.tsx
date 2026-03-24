@@ -43,7 +43,7 @@ export default function PricingClient({ initialData }: { initialData: Plan[] }) 
         finally { setSaving(false); }
     }
 
-    async function del(id: number) {
+    async function del(id: string) {
         if (!confirm("Delete this plan?")) return;
         await fetch(`/api/crm/pricing/${id}`, { method: "DELETE" });
         setData(data.filter((x) => x.id !== id));

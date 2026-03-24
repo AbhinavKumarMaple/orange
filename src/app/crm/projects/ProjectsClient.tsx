@@ -57,7 +57,7 @@ export default function ProjectsClient({ initialData }: { initialData: Project[]
         finally { setSaving(false); }
     }
 
-    async function del(id: number) {
+    async function del(id: string) {
         if (!confirm("Delete this project?")) return;
         await fetch(`/api/crm/projects/${id}`, { method: "DELETE" });
         setData(data.filter((p) => p.id !== id));

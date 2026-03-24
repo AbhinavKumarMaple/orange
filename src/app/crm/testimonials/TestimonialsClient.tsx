@@ -43,7 +43,7 @@ export default function TestimonialsClient({ initialData }: { initialData: Testi
         finally { setSaving(false); }
     }
 
-    async function del(id: number) {
+    async function del(id: string) {
         if (!confirm("Delete?")) return;
         await fetch(`/api/crm/testimonials/${id}`, { method: "DELETE" });
         setData(data.filter((x) => x.id !== id));

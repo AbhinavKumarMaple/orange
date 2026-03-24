@@ -45,7 +45,7 @@ export default function ServicesClient({ initialData }: { initialData: Service[]
         finally { setSaving(false); }
     }
 
-    async function del(id: number) {
+    async function del(id: string) {
         if (!confirm("Delete?")) return;
         await fetch(`/api/crm/services/${id}`, { method: "DELETE" });
         setData(data.filter((s) => s.id !== id));

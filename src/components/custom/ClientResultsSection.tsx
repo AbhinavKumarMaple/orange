@@ -5,7 +5,7 @@ import { motion, useScroll, useTransform } from "motion/react";
 import Image from "next/image";
 
 interface Testimonial {
-    id: number;
+    id: string;
     company: string;
     quote: string;
     avatar: string;

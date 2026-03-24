@@ -41,7 +41,7 @@ export default function FaqsClient({ initialData }: { initialData: Faq[] }) {
         finally { setSaving(false); }
     }
 
-    async function del(id: number) {
+    async function del(id: string) {
         if (!confirm("Delete?")) return;
         await fetch(`/api/crm/faqs/${id}`, { method: "DELETE" });
         setData(data.filter((x) => x.id !== id));

@@ -6,7 +6,7 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 
 type Submission = {
-    id: number;
+    id: string;
     name: string;
     email: string;
     company: string | null;
@@ -20,9 +20,9 @@ export default function ContactSubmissionsClient({
     initialSubmissions: Submission[];
 }) {
     const [submissions, setSubmissions] = useState(initialSubmissions);
-    const [expanded, setExpanded] = useState<number | null>(null);
+    const [expanded, setExpanded] = useState<string | null>(null);
 
-    async function handleDelete(id: number) {
+    async function handleDelete(id: string) {
         if (!confirm("Delete this submission?")) return;
         const res = await fetch(`/api/crm/contact/${id}`, { method: "DELETE" });
         if (res.ok) {
