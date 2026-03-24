@@ -101,7 +101,7 @@ export default function ArticlesClient({ initialData }: { initialData: Article[]
                 </Table>
             </div>
             <Dialog open={open} onOpenChange={setOpen}>
-                <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
+                <DialogContent className="max-w-2xl">
                     <DialogHeader><DialogTitle>{editing ? "Edit Article" : "New Article"}</DialogTitle></DialogHeader>
                     <div className="grid grid-cols-2 gap-4 mt-2">
                         <div className="col-span-2"><Label className="mb-1 block">Title</Label><Input value={form.title} onChange={f("title")} /></div>

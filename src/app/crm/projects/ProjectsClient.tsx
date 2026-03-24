@@ -99,7 +99,7 @@ export default function ProjectsClient({ initialData }: { initialData: Project[]
                 </Table>
             </div>
             <Dialog open={open} onOpenChange={setOpen}>
-                <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
+                <DialogContent className="max-w-2xl">
                     <DialogHeader><DialogTitle>{editing ? "Edit Project" : "New Project"}</DialogTitle></DialogHeader>
                     <div className="grid grid-cols-2 gap-4 mt-2">
                         {(["name", "slug", "category", "year", "industry", "timeline"] as const).map((k) => (

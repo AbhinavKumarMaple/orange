@@ -79,7 +79,7 @@ export default function PricingClient({ initialData }: { initialData: Plan[] }) 
                 </Table>
             </div>
             <Dialog open={open} onOpenChange={setOpen}>
-                <DialogContent className="max-w-lg max-h-[90vh] overflow-y-auto">
+                <DialogContent className="max-w-lg">
                     <DialogHeader><DialogTitle>{editing ? "Edit Plan" : "New Plan"}</DialogTitle></DialogHeader>
                     <div className="flex flex-col gap-4 mt-2">
                         <div><Label className="mb-1 block">Name</Label><Input value={form.name} onChange={(e) => setForm((p) => ({ ...p, name: e.target.value }))} /></div>

@@ -104,7 +104,7 @@ export default function MediaPickerDialog({
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="max-w-3xl max-h-[85vh] flex flex-col">
+      <DialogContent className="max-w-3xl">
         <DialogHeader>
           <DialogTitle>Media Library</DialogTitle>
         </DialogHeader>
