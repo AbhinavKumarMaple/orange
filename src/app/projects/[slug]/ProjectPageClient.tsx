@@ -98,21 +98,23 @@ export default function ProjectPageClient({ project }: Props) {
             </div>
 
             {/* Hero image — full width */}
-            <motion.div
-                className="w-full overflow-hidden"
-                style={{ borderRadius: 8, aspectRatio: "16/9", position: "relative", marginBottom: 0 }}
-                initial={{ opacity: 0, y: 30 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.7, ease: [0.76, 0, 0.24, 1], delay: 0.3 }}
-            >
-                <Image
-                    src={mediaUrl(project.heroImage, "width=2400")}
-                    alt={project.name}
-                    fill
-                    className="object-cover"
-                    priority
-                />
-            </motion.div>
+            <div className="px-14">
+                <motion.div
+                    className="w-full overflow-hidden"
+                    style={{ borderRadius: 8, aspectRatio: "16/9", position: "relative" }}
+                    initial={{ opacity: 0, y: 30 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.7, ease: [0.76, 0, 0.24, 1], delay: 0.3 }}
+                >
+                    <Image
+                        src={mediaUrl(project.heroImage, "width=2400")}
+                        alt={project.name}
+                        fill
+                        className="object-cover"
+                        priority
+                    />
+                </motion.div>
+            </div>
 
             {/* Meta table */}
             <div className="px-14 py-16 border-b border-black/10">
