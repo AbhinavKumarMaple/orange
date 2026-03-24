@@ -21,6 +21,7 @@
 | PortfolioSection     | —                                                                               | Section 3: "Selected Work" heading + 2-col project grid                    |
 | PortfolioGrid        | —                                                                               | 2×2 grid of portfolio cards with image, name, category, year               |
 | ServicesSection      | —                                                                               | Section 4: dark bg, giant heading + numbered service rows                  |
+| ServiceRows          | services                                                                        | Client-side service rows with floating hover image that follows cursor     |
 | WhyUsSection         | —                                                                               | Section 5: stats grid (150+, 3.2x, 97%, 24hr) + client logo cards          |
 | ClientResultsSection | —                                                                               | Section 6: scroll-driven sticky section with floating testimonial cards    |
 | PricingSection       | —                                                                               | Section 7: pricing toggle (project/monthly) with 3 plan cards              |

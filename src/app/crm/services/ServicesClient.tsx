@@ -8,11 +8,13 @@ import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
+import MediaInput from "@/components/custom/MediaInput";
+import Image from "next/image";
 import type { InferSelectModel } from "drizzle-orm";
 import type { services } from "@/db/schema";
 
 type Service = InferSelectModel<typeof services>;
-const empty = { number: "", name: "", description: "", order: 0 };
+const empty = { number: "", name: "", description: "", image: "", order: 0 };
 
 export default function ServicesClient({ initialData }: { initialData: Service[] }) {
     const [data, setData] = useState(initialData);
@@ -24,7 +26,7 @@ export default function ServicesClient({ initialData }: { initialData: Service[]
     function openNew() { setEditing(null); setForm(empty); setOpen(true); }
     function openEdit(s: Service) {
         setEditing(s);
-        setForm({ number: s.number, name: s.name, description: s.description, order: s.order });
+        setForm({ number: s.number, name: s.name, description: s.description, image: s.image, order: s.order });
         setOpen(true);
     }
 
@@ -64,10 +66,19 @@ export default function ServicesClient({ initialData }: { initialData: Service[]
             </div>
             <div className="bg-white rounded-lg border border-gray-200 overflow-hidden">
                 <Table>
-                    <TableHeader><TableRow><TableHead>Number</TableHead><TableHead>Name</TableHead><TableHead>Description</TableHead><TableHead>Order</TableHead><TableHead className="w-24" /></TableRow></TableHeader>
+                    <TableHeader><TableRow><TableHead className="w-16">Image</TableHead><TableHead>Number</TableHead><TableHead>Name</TableHead><TableHead>Description</TableHead><TableHead>Order</TableHead><TableHead className="w-24" /></TableRow></TableHeader>
                     <TableBody>
                         {data.map((s) => (
                             <TableRow key={s.id}>
+                                <TableCell>
+                                    {s.image ? (
+                                        <div className="relative w-10 h-10 rounded overflow-hidden border border-gray-200">
+                                            <Image src={s.image} alt={s.name} fill className="object-cover" sizes="40px" />
+                                        </div>
+                                    ) : (
+                                        <div className="w-10 h-10 rounded bg-gray-100 border border-gray-200" />
+                                    )}
+                                </TableCell>
                                 <TableCell className="font-mono text-sm">{s.number}</TableCell>
                                 <TableCell className="font-medium">{s.name}</TableCell>
                                 <TableCell className="text-gray-500 max-w-xs truncate">{s.description}</TableCell>
@@ -90,6 +101,7 @@ export default function ServicesClient({ initialData }: { initialData: Service[]
                             <div><Label className="mb-1 block">Name</Label><Input value={form.name} onChange={f("name")} /></div>
                         </div>
                         <div><Label className="mb-1 block">Description</Label><Textarea rows={3} value={form.description} onChange={f("description")} /></div>
+                        <MediaInput label="Hover Image" value={form.image} onChange={(url) => setForm((p) => ({ ...p, image: url }))} />
                         <div><Label className="mb-1 block">Order</Label><Input type="number" value={form.order} onChange={(e) => setForm((p) => ({ ...p, order: Number(e.target.value) }))} /></div>
                     </div>
                     <div className="flex justify-end gap-2 mt-4">

@@ -65,6 +65,7 @@ export const services = pgTable("services", {
   number: text("number").notNull(),
   name: text("name").notNull(),
   description: text("description").notNull(),
+  image: text("image").notNull().default(""),
   order: integer("order").notNull().default(0),
 });
 
