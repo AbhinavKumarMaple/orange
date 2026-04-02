@@ -44,11 +44,12 @@ export default function HeroSection() {
             <NavOverlay isOpen={menuOpen} onClose={() => setMenuOpen(false)} />
 
             {/* H1 + Since 2019 — stacked naturally */}
-            <div className="absolute overflow-hidden" style={{ top: 56, left: 0, right: 0 }}>
+            <div className="absolute" style={{ top: 56, left: 0, right: 0 }}>
+                <div className="overflow-hidden">
                 <motion.h1
-                    className="font-medium leading-none pl-4 lg:pl-0 lg:text-center"
+                    className="font-medium leading-none pl-4 lg:pl-0 lg:text-center sm:whitespace-nowrap"
                     style={{
-                        fontSize: "clamp(68px, 22vw, 280px)",
+                        fontSize: "clamp(48px, 14.5vw, 280px)",
                         color: colors.light,
                         letterSpacing: "-0.05em",
                         lineHeight: "1.03",
@@ -59,6 +60,7 @@ export default function HeroSection() {
                 >
                     Orange Studios
                 </motion.h1>
+                </div>
                 {/* Mobile only — flows below title */}
                 <motion.p
                     className="font-mono font-medium pl-4 mt-2 lg:hidden"
