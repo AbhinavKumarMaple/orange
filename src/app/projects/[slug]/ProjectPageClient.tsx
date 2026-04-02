@@ -31,10 +31,10 @@ export default function ProjectPageClient({ project }: Props) {
         >
             {/* Navbar */}
             <Navbar isMenuOpen={menuOpen} onMenuToggle={() => setMenuOpen((p) => !p)} variant="dark" />
-            <NavOverlay isOpen={menuOpen} />
+            <NavOverlay isOpen={menuOpen} onClose={() => setMenuOpen(false)} />
 
             {/* Hero text */}
-            <div className="px-14 pt-24 pb-12">
+            <div className="px-5 sm:px-14 pt-24 pb-12">
                 {/* Company label */}
                 <motion.div
                     className="flex items-center gap-3 mb-6"
@@ -58,7 +58,7 @@ export default function ProjectPageClient({ project }: Props) {
                 </motion.div>
 
                 {/* Big title + description row */}
-                <div className="flex items-start justify-between">
+                <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4">
                     <div className="overflow-hidden">
                         <motion.h1
                             className="font-sans font-medium uppercase"
@@ -79,7 +79,7 @@ export default function ProjectPageClient({ project }: Props) {
                     </div>
 
                     <motion.p
-                        className="font-sans max-w-sm text-right"
+                        className="font-sans max-w-sm sm:text-right"
                         style={{
                             color: "rgb(6,18,24)",
                             fontSize: 18,
@@ -98,7 +98,7 @@ export default function ProjectPageClient({ project }: Props) {
             </div>
 
             {/* Hero image — full width */}
-            <div className="px-14">
+            <div className="px-5 sm:px-14">
                 <motion.div
                     className="w-full overflow-hidden"
                     style={{ borderRadius: 8, aspectRatio: "16/9", position: "relative" }}
@@ -117,7 +117,7 @@ export default function ProjectPageClient({ project }: Props) {
             </div>
 
             {/* Meta table */}
-            <div className="px-14 py-16 border-b border-black/10">
+            <div className="px-5 sm:px-14 py-16 border-b border-black/10">
                 {[
                     { label: "Year", value: project.year },
                     { label: "Industry", value: project.industry },
@@ -144,9 +144,9 @@ export default function ProjectPageClient({ project }: Props) {
             </div>
 
             {/* Problem / Solution */}
-            <div className="px-14 py-24 space-y-24">
-                <div className="flex gap-16">
-                    <div className="w-1/3 shrink-0">
+            <div className="px-5 sm:px-14 py-24 space-y-24">
+                <div className="flex flex-col sm:flex-row gap-4 sm:gap-16">
+                    <div className="sm:w-1/3 shrink-0">
                         <span
                             className="font-mono font-medium"
                             style={{ color: colors.blue, fontSize: 20, lineHeight: "26px", letterSpacing: "-0.4px" }}
@@ -162,8 +162,8 @@ export default function ProjectPageClient({ project }: Props) {
                     </p>
                 </div>
 
-                <div className="flex gap-16">
-                    <div className="w-1/3 shrink-0">
+                <div className="flex flex-col sm:flex-row gap-4 sm:gap-16">
+                    <div className="sm:w-1/3 shrink-0">
                         <span
                             className="font-mono font-medium"
                             style={{ color: colors.blue, fontSize: 20, lineHeight: "26px", letterSpacing: "-0.4px" }}
@@ -181,10 +181,10 @@ export default function ProjectPageClient({ project }: Props) {
             </div>
 
             {/* Gallery images */}
-            <div className="px-14 pb-24 space-y-6">
+            <div className="px-5 sm:px-14 pb-24 space-y-6">
                 {/* First 2 images — side by side */}
                 {project.images.length >= 2 && (
-                    <div className="grid grid-cols-2 gap-6">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                         {project.images.slice(0, 2).map((img, i) => (
                             <div
                                 key={i}
@@ -220,7 +220,7 @@ export default function ProjectPageClient({ project }: Props) {
             </div>
 
             {/* Back link */}
-            <div className="px-14 pb-24">
+            <div className="px-5 sm:px-14 pb-24">
                 <button
                     onClick={() => navigate("/")}
                     className="font-mono font-medium cursor-pointer"

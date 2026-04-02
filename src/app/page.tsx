@@ -1,11 +1,12 @@
 import IntroOverlay from "@/components/custom/IntroOverlay";
 import HeroSection from "@/components/custom/HeroSection";
+import HashScroller from "@/components/custom/HashScroller";
 import ShowreelSection from "@/components/custom/ShowreelSection";
 import PortfolioSection from "@/components/custom/PortfolioSection";
 import ServicesSection from "@/components/custom/ServicesSection";
 import WhyUsSection from "@/components/custom/WhyUsSection";
 import ClientResultsSection from "@/components/custom/ClientResultsSection";
-import PricingSection from "@/components/custom/PricingSection";
+// import PricingSection from "@/components/custom/PricingSection";
 import BlogSection from "@/components/custom/BlogSection";
 import FaqSection from "@/components/custom/FaqSection";
 import ContactSection from "@/components/custom/ContactSection";
@@ -16,22 +17,21 @@ import {
   getTestimonials,
   getFaqs,
   getServices,
-  getPricingPlans,
 } from "@/lib/queries";
 
 export default async function Home() {
-  const [projects, articles, testimonials, faqs, services, pricingPlans] =
+  const [projects, articles, testimonials, faqs, services] =
     await Promise.all([
       getProjects(),
       getArticles(),
       getTestimonials(),
       getFaqs(),
       getServices(),
-      getPricingPlans(),
     ]);
 
   return (
     <>
+      <HashScroller />
       <IntroOverlay />
       <HeroSection />
       <ShowreelSection />
@@ -39,7 +39,7 @@ export default async function Home() {
       <ServicesSection services={services} />
       <WhyUsSection />
       <ClientResultsSection testimonials={testimonials} />
-      <PricingSection plans={pricingPlans} />
+      {/* <PricingSection plans={pricingPlans} /> */}
       <BlogSection articles={articles} />
       <FaqSection faqs={faqs} />
       <ContactSection />

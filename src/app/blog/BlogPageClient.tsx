@@ -27,10 +27,10 @@ export default function BlogPageClient({ articles }: { articles: Article[] }) {
             style={{ backgroundColor: "#F0F5F9", minHeight: "100vh" }}
         >
             <Navbar isMenuOpen={menuOpen} onMenuToggle={() => setMenuOpen((p) => !p)} variant="dark" />
-            <NavOverlay isOpen={menuOpen} />
+            <NavOverlay isOpen={menuOpen} onClose={() => setMenuOpen(false)} />
 
             {/* Header */}
-            <div className="px-14 pt-24 pb-16">
+            <div className="px-5 sm:px-14 pt-24 pb-16">
                 <motion.span
                     className="font-mono font-medium block mb-4"
                     style={{ color: colors.blue, fontSize: 20, lineHeight: "26px", letterSpacing: "-0.4px" }}
@@ -41,7 +41,7 @@ export default function BlogPageClient({ articles }: { articles: Article[] }) {
                     //Blog
                 </motion.span>
 
-                <div className="flex items-start justify-between">
+                <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4">
                     <div className="overflow-hidden">
                         <motion.h1
                             className="font-sans font-medium uppercase"
@@ -55,7 +55,7 @@ export default function BlogPageClient({ articles }: { articles: Article[] }) {
                     </div>
 
                     <motion.p
-                        className="font-sans max-w-xs text-right"
+                        className="font-sans max-w-xs sm:text-right"
                         style={{ color: "rgb(6,18,24)", fontSize: 18, lineHeight: "27px", letterSpacing: "-0.36px", opacity: 0.6, marginTop: 8 }}
                         initial={fadeUp.hidden}
                         animate={fadeUp.visible}
@@ -67,7 +67,7 @@ export default function BlogPageClient({ articles }: { articles: Article[] }) {
             </div>
 
             {/* First 2 articles — large cards */}
-            <div className="px-14 pb-6 grid grid-cols-1 sm:grid-cols-2 gap-6">
+            <div className="px-5 sm:px-14 pb-6 grid grid-cols-1 sm:grid-cols-2 gap-6">
                 {articles.slice(0, 2).map((article, i) => (
                     <motion.article
                         key={article.slug}
@@ -107,7 +107,7 @@ export default function BlogPageClient({ articles }: { articles: Article[] }) {
 
             {/* Remaining articles — 2-col grid */}
             {articles.length > 2 && (
-                <div className="px-14 pb-24 grid grid-cols-1 sm:grid-cols-2 gap-6">
+                <div className="px-5 sm:px-14 pb-24 grid grid-cols-1 sm:grid-cols-2 gap-6">
                     {articles.slice(2).map((article, i) => (
                         <motion.article
                             key={article.slug}

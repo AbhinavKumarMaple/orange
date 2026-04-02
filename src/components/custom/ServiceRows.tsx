@@ -143,7 +143,7 @@ export default function ServiceRows({ services }: Props) {
             </p>
           </div>
           <p
-            className="font-sans font-normal sm:text-right pl-10 sm:pl-0"
+            className="font-sans font-normal sm:text-right pl-[44px] sm:pl-0"
             style={{
               color: colors.light,
               fontSize: "clamp(13px, 1.4vw, 20px)",

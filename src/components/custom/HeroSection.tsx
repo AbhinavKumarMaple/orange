@@ -41,13 +41,14 @@ export default function HeroSection() {
                 isMenuOpen={menuOpen}
                 onMenuToggle={() => setMenuOpen((prev) => !prev)}
             />
-            <NavOverlay isOpen={menuOpen} />
+            <NavOverlay isOpen={menuOpen} onClose={() => setMenuOpen(false)} />
 
-            {/* H1 — top=56, full width */}
+            {/* H1 + Since 2019 — stacked naturally */}
             <div className="absolute overflow-hidden" style={{ top: 56, left: 0, right: 0 }}>
                 <motion.h1
-                    className="font-medium leading-none pl-4 lg:pl-0 lg:text-center text-[clamp(100px,14.5vw,15.5vw)] lg:text-[clamp(55px,14.5vw,15.5vw)]"
+                    className="font-medium leading-none pl-4 lg:pl-0 lg:text-center"
                     style={{
+                        fontSize: "clamp(68px, 22vw, 280px)",
                         color: colors.light,
                         letterSpacing: "-0.05em",
                         lineHeight: "1.03",
@@ -58,13 +59,23 @@ export default function HeroSection() {
                 >
                     Orange Studios
                 </motion.h1>
+                {/* Mobile only — flows below title */}
+                <motion.p
+                    className="font-mono font-medium pl-4 mt-2 lg:hidden"
+                    style={{ color: colors.light, fontSize: "clamp(14px, 2vw, 20px)", letterSpacing: "-0.4px" }}
+                    initial={fadeUp.hidden}
+                    animate={fadeUp.visible}
+                    transition={createTransition({ duration: "medium", ease: "gentle", delay: "xlong" })}
+                >
+                    Since 2019
+                </motion.p>
             </div>
 
-            {/* Since 2019 */}
+            {/* Desktop only — absolute left, vertically centered */}
             <motion.p
-                className="absolute font-mono font-medium top-[28%] md:top-[15%] lg:top-[35%]"
+                className="absolute font-mono font-medium hidden lg:block"
                 style={{
-                    // top: "35%",
+                    top: "35%",
                     left: "clamp(20px, 4vw, 57px)",
                     color: colors.light,
                     fontSize: "clamp(14px, 2vw, 20px)",

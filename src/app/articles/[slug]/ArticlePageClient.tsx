@@ -34,7 +34,7 @@ export default function ArticlePageClient({ article, related }: Props) {
             style={{ backgroundColor: "#F0F5F9", minHeight: "100vh" }}
         >
             <Navbar isMenuOpen={menuOpen} onMenuToggle={() => setMenuOpen((p) => !p)} variant="dark" />
-            <NavOverlay isOpen={menuOpen} />
+            <NavOverlay isOpen={menuOpen} onClose={() => setMenuOpen(false)} />
 
             <div className="px-5 sm:px-8" style={{ maxWidth: 960, marginLeft: "auto", marginRight: "auto" }}>
                 {/* Meta + title */}
