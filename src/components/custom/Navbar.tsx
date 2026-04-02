@@ -19,10 +19,10 @@ export default function Navbar({ onMenuToggle, isMenuOpen, variant = "light" }: 
             {/* Logo */}
             <div style={{ position: "absolute", top: 14, left: 33 }}>
                 <span
-                    className="font-sans font-medium text-sm"
+                    className="font-sans font-medium text-xl"
                     style={{ color: fg, letterSpacing: "-0.02em" }}
                 >
-                    Orange<sup className="text-[8px]">®</sup>
+                    Orange<sup className="text-[11px]">®</sup>
                 </span>
             </div>
 
