@@ -290,13 +290,13 @@ async function seed() {
         "Strategic UX/UI design that turns confused visitors into converting loyal customers.",
       order: 3,
     },
-    {
-      number: "004",
-      name: "Digital marketing",
-      description:
-        "Data-driven campaigns that grow your audience and turn clicks into measurable revenue.",
-      order: 4,
-    },
+    // {
+    //   number: "004",
+    //   name: "Digital marketing",
+    //   description:
+    //     "Data-driven campaigns that grow your audience and turn clicks into measurable revenue.",
+    //   order: 4,
+    // },
   ]);
 
   // Pricing

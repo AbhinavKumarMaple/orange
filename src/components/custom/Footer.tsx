@@ -3,7 +3,6 @@ import { colors } from "@/lib/colors";
 
 const pages = [
     { name: "Home", href: "#" },
-    { name: "About us", href: "#" },
     { name: "Work", href: "#" },
     { name: "Blog", href: "#" },
 ];
