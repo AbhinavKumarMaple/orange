@@ -19,7 +19,7 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: "Orange Studios",
-  description: "Creative design studio from Canada",
+  description: "Creative design studio",
 };
 
 export default function RootLayout({

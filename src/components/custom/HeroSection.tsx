@@ -114,7 +114,7 @@ export default function HeroSection() {
                         maxWidth: 448,
                     }}
                 >
-                    We are a creative studio from Canada building brands and websites that stand out, scale with growth and deliver measurable results.
+                    We are a creative studio building brands and websites that stand out, scale with growth and deliver measurable results.
                 </p>
 
                 {/* CTA + stats row */}

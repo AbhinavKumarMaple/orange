@@ -68,7 +68,7 @@ export default function IntroOverlay() {
                                 delay: introTiming.subtitleOffset,
                             })}
                         >
-                            Creative design studio from Canada
+                            Creative design studio
                         </motion.p>
                     </div>
                 </motion.div>
