@@ -1,8 +1,8 @@
 "use client";
 
 import { useEffect, useRef } from "react";
-import posthog from "posthog-js";
 import { isAnalyticsEnabled } from "@/lib/posthog";
+import { useAnalytics } from "@/hooks/useAnalytics";
 
 /**
  * Tracks how long each section is visible in the viewport using IntersectionObserver.
@@ -11,6 +11,7 @@ import { isAnalyticsEnabled } from "@/lib/posthog";
 export function useSectionVisibility() {
   const timers = useRef<Map<string, number>>(new Map());
   const reported = useRef<Map<string, number>>(new Map());
+  const { capture } = useAnalytics();
 
   useEffect(() => {
     if (!isAnalyticsEnabled) return;
@@ -23,9 +24,8 @@ export function useSectionVisibility() {
           if (entry.isIntersecting) {
             timers.current.set(section, Date.now());
 
-            // Fire section_enter once
             if (!reported.current.has(section)) {
-              posthog.capture("section_visible", {
+              capture("section_visible", {
                 section,
                 path: window.location.pathname,
               });
@@ -38,7 +38,7 @@ export function useSectionVisibility() {
               if (duration >= 1) {
                 const total = (reported.current.get(section) || 0) + duration;
                 reported.current.set(section, total);
-                posthog.capture("section_time", {
+                capture("section_time", {
                   section,
                   duration_seconds: duration,
                   total_seconds: total,
@@ -58,11 +58,10 @@ export function useSectionVisibility() {
 
     return () => {
       observer.disconnect();
-      // Flush any remaining timers
       for (const [section, start] of timers.current.entries()) {
         const duration = Math.round((Date.now() - start) / 1000);
         if (duration >= 1) {
-          posthog.capture("section_time", {
+          capture("section_time", {
             section,
             duration_seconds: duration,
             total_seconds: (reported.current.get(section) || 0) + duration,
@@ -73,5 +72,5 @@ export function useSectionVisibility() {
       timers.current.clear();
       reported.current.clear();
     };
-  }, []);
+  }, [capture]);
 }

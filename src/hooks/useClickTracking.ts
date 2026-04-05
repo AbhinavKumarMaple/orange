@@ -1,16 +1,19 @@
 "use client";
 
 import { useEffect } from "react";
-import posthog from "posthog-js";
 import { isAnalyticsEnabled } from "@/lib/posthog";
+import { useAnalytics } from "@/hooks/useAnalytics";
 
 /**
  * Tracks clicks on elements with `data-track-click="label"`.
  * Captures the label, section context, and element text.
  */
 export function useClickTracking() {
+  const { capture } = useAnalytics();
+
   useEffect(() => {
     if (!isAnalyticsEnabled) return;
+
     function onClick(e: MouseEvent) {
       const el = (e.target as HTMLElement).closest(
         "[data-track-click]",
@@ -22,7 +25,7 @@ export function useClickTracking() {
         .closest("[data-section]")
         ?.getAttribute("data-section");
 
-      posthog.capture("cta_click", {
+      capture("cta_click", {
         label,
         section: section || undefined,
         element_text: el.textContent?.trim().slice(0, 100) || undefined,
@@ -32,5 +35,5 @@ export function useClickTracking() {
 
     document.addEventListener("click", onClick, true);
     return () => document.removeEventListener("click", onClick, true);
-  }, []);
+  }, [capture]);
 }

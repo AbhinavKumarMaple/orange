@@ -2,26 +2,28 @@
 
 import { useEffect } from "react";
 import { usePathname, useSearchParams } from "next/navigation";
-import posthog, { initPostHog, isAnalyticsEnabled } from "@/lib/posthog";
+import { initPostHog, isAnalyticsEnabled } from "@/lib/posthog";
+import { useAnalytics } from "@/hooks/useAnalytics";
 
 export default function PostHogProvider({ children }: { children: React.ReactNode }) {
     const pathname = usePathname();
     const searchParams = useSearchParams();
+    const { capture } = useAnalytics();
 
-    // Initialize PostHog once
+    // Initialize PostHog once (main thread still needed for session/identity)
     useEffect(() => {
         initPostHog();
     }, []);
 
-    // Track page views on route change
+    // Track page views on route change — via worker
     useEffect(() => {
-        if (!isAnalyticsEnabled || !posthog.__loaded) return;
+        if (!isAnalyticsEnabled) return;
 
         const url = searchParams.toString()
             ? `${pathname}?${searchParams.toString()}`
             : pathname;
 
-        posthog.capture("$pageview", {
+        capture("$pageview", {
             $current_url: window.location.origin + url,
             path: pathname,
             referrer: document.referrer || undefined,
@@ -29,7 +31,7 @@ export default function PostHogProvider({ children }: { children: React.ReactNod
             utm_medium: searchParams.get("utm_medium") || undefined,
             utm_campaign: searchParams.get("utm_campaign") || undefined,
         });
-    }, [pathname, searchParams]);
+    }, [pathname, searchParams, capture]);
 
     return <>{children}</>;
 }

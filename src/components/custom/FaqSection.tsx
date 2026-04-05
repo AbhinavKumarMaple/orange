@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { motion, AnimatePresence } from "motion/react";
-import posthog from "posthog-js";
+import { useAnalytics } from "@/hooks/useAnalytics";
 import { colors } from "@/lib/colors";
 import { easings, durations } from "@/lib/motion";
 import Button from "./Button";
@@ -19,6 +19,7 @@ const transition = { duration: durations.fast, ease: easings.snappy };
 
 export default function FaqSection({ faqs }: Props) {
     const [open, setOpen] = useState<number | null>(null);
+    const { capture } = useAnalytics();
 
     return (
         <section data-section="FAQ" style={{ backgroundColor: colors.background }} className="px-5 sm:px-8 pt-16 pb-16">
@@ -57,7 +58,7 @@ export default function FaqSection({ faqs }: Props) {
                                     const next = open === i ? null : i;
                                     setOpen(next);
                                     if (next !== null) {
-                                        posthog.capture("faq_opened", {
+                                        capture("faq_opened", {
                                             question: faq.question,
                                             faq_index: i,
                                             path: window.location.pathname,

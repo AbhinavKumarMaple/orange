@@ -16,10 +16,11 @@ export function initPostHog() {
   posthog.init(POSTHOG_KEY, {
     api_host: POSTHOG_HOST,
     person_profiles: "identified_only",
-    capture_pageview: false, // we handle this manually for SPA navigation
+    capture_pageview: false,   // handled manually for SPA navigation
     capture_pageleave: true,
     autocapture: true,
     capture_heatmaps: true,
+    disable_beacon: false,     // explicitly use sendBeacon — lowest network priority, survives unload
   });
 }
 

@@ -1,8 +1,8 @@
 "use client";
 
 import { useEffect, useRef } from "react";
-import posthog from "posthog-js";
 import { isAnalyticsEnabled } from "@/lib/posthog";
+import { useAnalytics } from "@/hooks/useAnalytics";
 
 const MILESTONES = [25, 50, 75, 100];
 
@@ -12,6 +12,7 @@ const MILESTONES = [25, 50, 75, 100];
  */
 export function useScrollDepth() {
   const reached = useRef(new Set<number>());
+  const { capture } = useAnalytics();
 
   useEffect(() => {
     if (!isAnalyticsEnabled) return;
@@ -28,7 +29,7 @@ export function useScrollDepth() {
       for (const m of MILESTONES) {
         if (pct >= m && !reached.current.has(m)) {
           reached.current.add(m);
-          posthog.capture("scroll_depth", {
+          capture("scroll_depth", {
             depth_percent: m,
             path: window.location.pathname,
           });
@@ -38,5 +39,5 @@ export function useScrollDepth() {
 
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
-  }, []);
+  }, [capture]);
 }

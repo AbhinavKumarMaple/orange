@@ -1,10 +1,10 @@
 "use client";
 
 import { useEffect, useRef } from "react";
-import posthog from "posthog-js";
 import { isAnalyticsEnabled } from "@/lib/posthog";
+import { useAnalytics } from "@/hooks/useAnalytics";
 
-const MIN_HOVER_MS = 500; // only track hovers longer than 500ms
+const MIN_HOVER_MS = 500;
 
 /**
  * Tracks hover duration on elements with `data-track-hover="label"`.
@@ -12,9 +12,11 @@ const MIN_HOVER_MS = 500; // only track hovers longer than 500ms
  */
 export function useHoverTracking() {
   const hoverStart = useRef<Map<HTMLElement, number>>(new Map());
+  const { capture } = useAnalytics();
 
   useEffect(() => {
     if (!isAnalyticsEnabled) return;
+
     function onMouseEnter(e: Event) {
       const target = e.target;
       if (!(target instanceof HTMLElement)) return;
@@ -36,7 +38,7 @@ export function useHoverTracking() {
 
       const duration = Date.now() - start;
       if (duration >= MIN_HOVER_MS) {
-        posthog.capture("element_hover", {
+        capture("element_hover", {
           label: el.dataset.trackHover,
           duration_ms: duration,
           section:
@@ -55,5 +57,5 @@ export function useHoverTracking() {
       document.removeEventListener("mouseleave", onMouseLeave, true);
       hoverStart.current.clear();
     };
-  }, []);
+  }, [capture]);
 }
