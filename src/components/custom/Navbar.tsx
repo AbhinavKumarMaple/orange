@@ -1,6 +1,6 @@
 "use client";
 
-import { useAnalytics } from "@/hooks/useAnalytics";
+import { captureEvent } from "@/lib/posthog";
 import { colors } from "@/lib/colors";
 
 interface NavbarProps {
@@ -13,7 +13,6 @@ interface NavbarProps {
 
 export default function Navbar({ onMenuToggle, isMenuOpen, variant = "light" }: NavbarProps) {
     const fg = variant === "dark" ? "rgb(6,18,24)" : colors.light;
-    const { capture } = useAnalytics();
 
     return (
         <nav className="absolute top-0 left-0 right-0 z-40 flex items-center justify-between">
@@ -31,7 +30,7 @@ export default function Navbar({ onMenuToggle, isMenuOpen, variant = "light" }: 
             <button
                 onClick={() => {
                     onMenuToggle();
-                    capture("nav_menu_toggle", {
+                    captureEvent("nav_menu_toggle", {
                         action: isMenuOpen ? "close" : "open",
                         path: window.location.pathname,
                     });

@@ -1,8 +1,7 @@
 "use client";
 
 import { useEffect, useRef } from "react";
-import { isAnalyticsEnabled } from "@/lib/posthog";
-import { useAnalytics } from "@/hooks/useAnalytics";
+import { captureEvent, isAnalyticsEnabled } from "@/lib/posthog";
 
 /**
  * Tracks when users select/copy text on the page.
@@ -10,7 +9,6 @@ import { useAnalytics } from "@/hooks/useAnalytics";
  */
 export function useTextSelection() {
   const debounce = useRef<ReturnType<typeof setTimeout> | null>(null);
-  const { capture } = useAnalytics();
 
   useEffect(() => {
     if (!isAnalyticsEnabled) return;
@@ -30,7 +28,7 @@ export function useTextSelection() {
           ?.closest("[data-section]")
           ?.getAttribute("data-section");
 
-        capture("text_selected", {
+        captureEvent("text_selected", {
           text: text.slice(0, 200),
           text_length: text.length,
           section: section || undefined,
@@ -45,5 +43,5 @@ export function useTextSelection() {
       document.removeEventListener("selectionchange", onSelectionChange);
       if (debounce.current) clearTimeout(debounce.current);
     };
-  }, [capture]);
+  }, []);
 }

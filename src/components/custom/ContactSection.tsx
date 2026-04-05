@@ -3,7 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import { toast } from "sonner";
-import { useAnalytics } from "@/hooks/useAnalytics";
+import { captureEvent } from "@/lib/posthog";
 import { colors } from "@/lib/colors";
 import Button from "./Button";
 
@@ -17,14 +17,13 @@ export default function ContactSection() {
     const [form, setForm] = useState({ name: "", email: "", company: "", message: "" });
     const [loading, setLoading] = useState(false);
     const [sent, setSent] = useState(false);
-    const { capture } = useAnalytics();
 
     function handleChange(e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) {
         setForm((prev) => ({ ...prev, [e.target.name]: e.target.value }));
     }
 
     function handleFieldFocus(field: string) {
-        capture("form_field_focus", {
+        captureEvent("form_field_focus", {
             field,
             form: "contact",
             path: window.location.pathname,
@@ -47,14 +46,14 @@ export default function ContactSection() {
             if (!res.ok) throw new Error("Failed");
             setSent(true);
             toast.success("Message sent!");
-            capture("contact_form_submitted", {
+            captureEvent("contact_form_submitted", {
                 has_company: !!form.company,
                 path: window.location.pathname,
             });
             setForm({ name: "", email: "", company: "", message: "" });
         } catch {
             toast.error("Something went wrong. Please try again.");
-            capture("contact_form_error", {
+            captureEvent("contact_form_error", {
                 path: window.location.pathname,
             });
         } finally {

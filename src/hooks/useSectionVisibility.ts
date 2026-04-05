@@ -1,8 +1,7 @@
 "use client";
 
 import { useEffect, useRef } from "react";
-import { isAnalyticsEnabled } from "@/lib/posthog";
-import { useAnalytics } from "@/hooks/useAnalytics";
+import { captureEvent, isAnalyticsEnabled } from "@/lib/posthog";
 
 /**
  * Tracks how long each section is visible in the viewport using IntersectionObserver.
@@ -11,7 +10,6 @@ import { useAnalytics } from "@/hooks/useAnalytics";
 export function useSectionVisibility() {
   const timers = useRef<Map<string, number>>(new Map());
   const reported = useRef<Map<string, number>>(new Map());
-  const { capture } = useAnalytics();
 
   useEffect(() => {
     if (!isAnalyticsEnabled) return;
@@ -25,7 +23,7 @@ export function useSectionVisibility() {
             timers.current.set(section, Date.now());
 
             if (!reported.current.has(section)) {
-              capture("section_visible", {
+              captureEvent("section_visible", {
                 section,
                 path: window.location.pathname,
               });
@@ -38,7 +36,7 @@ export function useSectionVisibility() {
               if (duration >= 1) {
                 const total = (reported.current.get(section) || 0) + duration;
                 reported.current.set(section, total);
-                capture("section_time", {
+                captureEvent("section_time", {
                   section,
                   duration_seconds: duration,
                   total_seconds: total,
@@ -61,7 +59,7 @@ export function useSectionVisibility() {
       for (const [section, start] of timers.current.entries()) {
         const duration = Math.round((Date.now() - start) / 1000);
         if (duration >= 1) {
-          capture("section_time", {
+          captureEvent("section_time", {
             section,
             duration_seconds: duration,
             total_seconds: (reported.current.get(section) || 0) + duration,
@@ -72,5 +70,5 @@ export function useSectionVisibility() {
       timers.current.clear();
       reported.current.clear();
     };
-  }, [capture]);
+  }, []);
 }

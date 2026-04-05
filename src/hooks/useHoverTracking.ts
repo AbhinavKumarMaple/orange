@@ -1,8 +1,7 @@
 "use client";
 
 import { useEffect, useRef } from "react";
-import { isAnalyticsEnabled } from "@/lib/posthog";
-import { useAnalytics } from "@/hooks/useAnalytics";
+import { captureEvent, isAnalyticsEnabled } from "@/lib/posthog";
 
 const MIN_HOVER_MS = 500;
 
@@ -12,7 +11,6 @@ const MIN_HOVER_MS = 500;
  */
 export function useHoverTracking() {
   const hoverStart = useRef<Map<HTMLElement, number>>(new Map());
-  const { capture } = useAnalytics();
 
   useEffect(() => {
     if (!isAnalyticsEnabled) return;
@@ -38,7 +36,7 @@ export function useHoverTracking() {
 
       const duration = Date.now() - start;
       if (duration >= MIN_HOVER_MS) {
-        capture("element_hover", {
+        captureEvent("element_hover", {
           label: el.dataset.trackHover,
           duration_ms: duration,
           section:
@@ -57,5 +55,5 @@ export function useHoverTracking() {
       document.removeEventListener("mouseleave", onMouseLeave, true);
       hoverStart.current.clear();
     };
-  }, [capture]);
+  }, []);
 }

@@ -20,8 +20,16 @@ export function initPostHog() {
     capture_pageleave: true,
     autocapture: true,
     capture_heatmaps: true,
-    disable_beacon: false,     // explicitly use sendBeacon — lowest network priority, survives unload
   });
+}
+
+/**
+ * Capture an event via sendBeacon — lowest network priority, non-blocking,
+ * survives page unload. Use this instead of posthog.capture() directly.
+ */
+export function captureEvent(event: string, properties?: Record<string, unknown>) {
+  if (!isAnalyticsEnabled) return;
+  posthog.capture(event, properties, { transport: "sendBeacon" });
 }
 
 export default posthog;
