@@ -89,3 +89,10 @@ export const contactSubmissions = pgTable("contact_submissions", {
   message: text("message").notNull(),
   createdAt: timestamp("created_at").defaultNow(),
 });
+
+export const socialLinks = pgTable("social_links", {
+  id: uuid("id").primaryKey().defaultRandom(),
+  platform: text("platform").notNull(),
+  url: text("url").notNull(),
+  order: integer("order").notNull().default(0),
+});

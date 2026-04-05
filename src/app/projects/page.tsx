@@ -1,5 +1,5 @@
 import { Metadata } from "next";
-import { getProjects } from "@/lib/queries";
+import { getProjects, getSocialLinks } from "@/lib/queries";
 import ProjectsPageClient from "./ProjectsPageClient";
 
 export const metadata: Metadata = {
@@ -8,6 +8,6 @@ export const metadata: Metadata = {
 };
 
 export default async function ProjectsPage() {
-    const projects = await getProjects();
-    return <ProjectsPageClient projects={projects} />;
+    const [projects, socialLinks] = await Promise.all([getProjects(), getSocialLinks()]);
+    return <ProjectsPageClient projects={projects} socialLinks={socialLinks} />;
 }

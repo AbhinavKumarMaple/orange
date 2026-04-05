@@ -8,6 +8,13 @@
       "when": 1774358198469,
       "tag": "0000_bright_mercury",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1775382630209,
+      "tag": "0001_square_siren",
+      "breakpoints": true
     }
   ]
 }

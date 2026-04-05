@@ -17,16 +17,18 @@ import {
   getTestimonials,
   getFaqs,
   getServices,
+  getSocialLinks,
 } from "@/lib/queries";
 
 export default async function Home() {
-  const [projects, articles, testimonials, faqs, services] =
+  const [projects, articles, testimonials, faqs, services, socialLinks] =
     await Promise.all([
       getProjects(),
       getArticles(),
       getTestimonials(),
       getFaqs(),
       getServices(),
+      getSocialLinks(),
     ]);
 
   return (
@@ -43,7 +45,7 @@ export default async function Home() {
       <BlogSection articles={articles} />
       <FaqSection faqs={faqs} />
       <ContactSection />
-      <Footer />
+      <Footer socialLinks={socialLinks} />
     </>
   );
 }

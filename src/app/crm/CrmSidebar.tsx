@@ -15,6 +15,7 @@ const nav = [
     { label: "Testimonials", href: "/crm/testimonials" },
     { label: "FAQs", href: "/crm/faqs" },
     { label: "Contact Requests", href: "/crm/contact" },
+    { label: "Social Links", href: "/crm/social-links" },
 ];
 
 export default function CrmSidebar() {

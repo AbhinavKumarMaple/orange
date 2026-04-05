@@ -7,6 +7,7 @@ import {
   services,
   pricingPlans,
   contactSubmissions,
+  socialLinks,
 } from "@/db/schema";
 import { eq, asc, ne, desc } from "drizzle-orm";
 
@@ -80,4 +81,8 @@ export async function createContactSubmission(data: {
 
 export async function deleteContactSubmission(id: string) {
   await db.delete(contactSubmissions).where(eq(contactSubmissions.id, id));
+}
+
+export async function getSocialLinks() {
+  return db.select().from(socialLinks).orderBy(asc(socialLinks.order));
 }

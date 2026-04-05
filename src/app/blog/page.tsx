@@ -1,5 +1,5 @@
 import { Metadata } from "next";
-import { getArticles } from "@/lib/queries";
+import { getArticles, getSocialLinks } from "@/lib/queries";
 import BlogPageClient from "./BlogPageClient";
 
 export const metadata: Metadata = {
@@ -8,6 +8,6 @@ export const metadata: Metadata = {
 };
 
 export default async function BlogPage() {
-    const articles = await getArticles();
-    return <BlogPageClient articles={articles} />;
+    const [articles, socialLinks] = await Promise.all([getArticles(), getSocialLinks()]);
+    return <BlogPageClient articles={articles} socialLinks={socialLinks} />;
 }

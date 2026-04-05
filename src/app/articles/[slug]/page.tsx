@@ -1,5 +1,5 @@
 import { notFound } from "next/navigation";
-import { getArticle, getArticles, getRelatedArticles } from "@/lib/queries";
+import { getArticle, getArticles, getRelatedArticles, getSocialLinks } from "@/lib/queries";
 import ArticlePageClient from "./ArticlePageClient";
 
 export const dynamicParams = true;
@@ -18,10 +18,11 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
 
 export default async function ArticlePage({ params }: { params: Promise<{ slug: string }> }) {
     const { slug } = await params;
-    const [article, related] = await Promise.all([
+    const [article, related, socialLinks] = await Promise.all([
         getArticle(slug),
         getRelatedArticles(slug),
+        getSocialLinks(),
     ]);
     if (!article) notFound();
-    return <ArticlePageClient article={article} related={related} />;
+    return <ArticlePageClient article={article} related={related} socialLinks={socialLinks} />;
 }

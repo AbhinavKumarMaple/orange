@@ -15,13 +15,15 @@ import type { InferSelectModel } from "drizzle-orm";
 
 type Article = InferSelectModel<typeof articles>;
 type ContentBlock = { heading: string; body: string };
+type SocialLink = { id: string; platform: string; url: string; order: number };
 
 interface Props {
     article: Article;
     related: Article[];
+    socialLinks?: SocialLink[];
 }
 
-export default function ArticlePageClient({ article, related }: Props) {
+export default function ArticlePageClient({ article, related, socialLinks = [] }: Props) {
     const [menuOpen, setMenuOpen] = useState(false);
     const { navigate } = usePageTransition();
     const content = (article.content as ContentBlock[]) ?? [];
@@ -125,7 +127,7 @@ export default function ArticlePageClient({ article, related }: Props) {
                 </div>
             </div>
 
-            <Footer />
+            <Footer socialLinks={socialLinks} />
         </motion.main>
     );
 }

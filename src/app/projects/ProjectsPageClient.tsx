@@ -14,8 +14,9 @@ import type { projects } from "@/db/schema";
 import type { InferSelectModel } from "drizzle-orm";
 
 type Project = InferSelectModel<typeof projects>;
+type SocialLink = { id: string; platform: string; url: string; order: number };
 
-export default function ProjectsPageClient({ projects }: { projects: Project[] }) {
+export default function ProjectsPageClient({ projects, socialLinks = [] }: { projects: Project[]; socialLinks?: SocialLink[] }) {
     const [menuOpen, setMenuOpen] = useState(false);
     const { navigate } = usePageTransition();
 
@@ -102,7 +103,7 @@ export default function ProjectsPageClient({ projects }: { projects: Project[] }
                 ))}
             </div>
 
-            <Footer />
+            <Footer socialLinks={socialLinks} />
         </motion.main>
     );
 }

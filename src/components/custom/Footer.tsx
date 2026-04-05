@@ -10,14 +10,18 @@ const pages = [
     { name: "Blog", href: "/blog" },
 ];
 
-const socials = [
-    { name: "Instagram", href: "#" },
-    { name: "Facebook", href: "#" },
-    { name: "Tiktok", href: "#" },
-    { name: "Twitter", href: "#" },
-];
+interface SocialLink {
+    id: string;
+    platform: string;
+    url: string;
+    order: number;
+}
 
-export default function Footer() {
+interface FooterProps {
+    socialLinks?: SocialLink[];
+}
+
+export default function Footer({ socialLinks = [] }: FooterProps) {
     const router = useRouter();
 
     function handlePageClick(page: (typeof pages)[number]) {
@@ -37,7 +41,6 @@ export default function Footer() {
         <footer data-section="Footer" style={{ backgroundColor: colors.blue }} className="px-5 sm:px-8 pt-16 sm:pt-20 pb-6">
             <div className="w-full h-px mb-12 sm:mb-16" style={{ backgroundColor: "rgba(240,245,249,0.2)" }} />
 
-            {/* Top row — stacks on mobile */}
             <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-12 mb-12 sm:mb-16">
                 {/* Newsletter */}
                 <div className="max-w-md">
@@ -93,21 +96,25 @@ export default function Footer() {
                             ))}
                         </div>
                     </div>
-                    <div>
-                        <p className="font-sans mb-4" style={{ color: colors.light, fontSize: 16, opacity: 0.6 }}>Follow us</p>
-                        <div className="flex flex-col gap-2">
-                            {socials.map((s) => (
-                                <Link
-                                    key={s.name}
-                                    href={s.href}
-                                    className="font-sans font-medium"
-                                    style={{ color: colors.light, fontSize: "clamp(18px, 2vw, 24px)", lineHeight: "1.3", letterSpacing: "-0.48px" }}
-                                >
-                                    {s.name}
-                                </Link>
-                            ))}
+                    {socialLinks.length > 0 && (
+                        <div>
+                            <p className="font-sans mb-4" style={{ color: colors.light, fontSize: 16, opacity: 0.6 }}>Follow us</p>
+                            <div className="flex flex-col gap-2">
+                                {socialLinks.map((s) => (
+                                    <Link
+                                        key={s.id}
+                                        href={s.url}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        className="font-sans font-medium"
+                                        style={{ color: colors.light, fontSize: "clamp(18px, 2vw, 24px)", lineHeight: "1.3", letterSpacing: "-0.48px" }}
+                                    >
+                                        {s.platform}
+                                    </Link>
+                                ))}
+                            </div>
                         </div>
-                    </div>
+                    )}
                 </div>
             </div>
 
@@ -115,18 +122,13 @@ export default function Footer() {
             <div className="overflow-hidden mb-8 -mx-5 sm:-mx-8">
                 <h2
                     className="font-sans font-medium whitespace-nowrap text-center"
-                    style={{
-                        color: colors.light,
-                        fontSize: "14vw",
-                        lineHeight: 1.02,
-                        letterSpacing: "-0.05em",
-                    }}
+                    style={{ color: colors.light, fontSize: "14vw", lineHeight: 1.02, letterSpacing: "-0.05em" }}
                 >
                     Orange Studios
                 </h2>
             </div>
 
-            {/* Bottom bar — stacks on mobile */}
+            {/* Bottom bar */}
             <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
                 <p className="font-sans" style={{ color: colors.light, fontSize: 14, opacity: 0.7 }}>
                     © 2026 Orange Studios. All rights reserved.

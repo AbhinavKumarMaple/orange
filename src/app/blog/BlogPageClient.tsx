@@ -14,8 +14,9 @@ import type { articles } from "@/db/schema";
 import type { InferSelectModel } from "drizzle-orm";
 
 type Article = InferSelectModel<typeof articles>;
+type SocialLink = { id: string; platform: string; url: string; order: number };
 
-export default function BlogPageClient({ articles }: { articles: Article[] }) {
+export default function BlogPageClient({ articles, socialLinks = [] }: { articles: Article[]; socialLinks?: SocialLink[] }) {
     const [menuOpen, setMenuOpen] = useState(false);
     const { navigate } = usePageTransition();
 
@@ -146,7 +147,7 @@ export default function BlogPageClient({ articles }: { articles: Article[] }) {
                 </div>
             )}
 
-            <Footer />
+            <Footer socialLinks={socialLinks} />
         </motion.main>
     );
 }
