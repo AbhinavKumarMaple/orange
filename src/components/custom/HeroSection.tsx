@@ -21,7 +21,7 @@ export default function HeroSection() {
         >
             {/* Full-bleed background image */}
             <Image
-                src="/hero.webp"
+                src="https://tfo7hwi103lzosbj.public.blob.vercel-storage.com/hero.webp"
                 alt=""
                 fill
                 className="object-cover object-center"
