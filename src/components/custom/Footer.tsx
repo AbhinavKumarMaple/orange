@@ -64,7 +64,7 @@ export default function Footer({ socialLinks = [] }: FooterProps) {
                             type="email"
                             placeholder="jane@framer.com"
                             className="bg-white rounded px-4 py-3 font-sans outline-none flex-1 min-w-0"
-                            style={{ fontSize: 16, color: "rgb(6,18,24)" }}
+                            style={{ fontSize: 16, color: colors.dark }}
                         />
                         <button
                             className="flex items-center justify-center rounded shrink-0 cursor-pointer"

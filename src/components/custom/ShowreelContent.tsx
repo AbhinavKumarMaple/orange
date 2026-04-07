@@ -30,7 +30,7 @@ export default function ShowreelContent() {
                         <motion.h2
                             className="font-sans font-medium uppercase"
                             style={{
-                                color: "rgb(6, 18, 24)",
+                                color: colors.dark,
                                 fontSize: "clamp(48px, 7vw, 88px)",
                                 lineHeight: "1.1",
                                 letterSpacing: "-0.04em",
@@ -50,7 +50,7 @@ export default function ShowreelContent() {
                 <motion.p
                     className="font-sans font-normal sm:self-end sm:text-right"
                     style={{
-                        color: "rgb(6, 18, 24)",
+                        color: colors.dark,
                         fontSize: "clamp(14px, 1.5vw, 20px)",
                         lineHeight: "1.4",
                         letterSpacing: "-0.6px",

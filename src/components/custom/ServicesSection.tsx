@@ -10,7 +10,7 @@ interface Props {
     services: Service[];
 }
 
-const dark = "rgb(6, 18, 24)";
+const dark = colors.dark;
 
 export default function ServicesSection({ services }: Props) {
     return (

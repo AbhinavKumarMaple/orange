@@ -25,7 +25,7 @@ export default function ProjectsPageClient({ projects, socialLinks = [] }: { pro
             initial={{ y: 40, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             transition={{ duration: 0.6, ease: [0.76, 0, 0.24, 1], delay: 0.1 }}
-            style={{ backgroundColor: "#F0F5F9", minHeight: "100vh" }}
+            style={{ backgroundColor: colors.background, minHeight: "100vh" }}
         >
             <Navbar isMenuOpen={menuOpen} onMenuToggle={() => setMenuOpen((p) => !p)} variant="dark" />
             <NavOverlay isOpen={menuOpen} onClose={() => setMenuOpen(false)} />
@@ -46,7 +46,7 @@ export default function ProjectsPageClient({ projects, socialLinks = [] }: { pro
                     <div className="overflow-hidden">
                         <motion.h1
                             className="font-sans font-medium uppercase"
-                            style={{ color: "rgb(6,18,24)", fontSize: "clamp(48px, 7vw, 100px)", lineHeight: 0.9, letterSpacing: "-0.04em" }}
+                            style={{ color: colors.dark, fontSize: "clamp(48px, 7vw, 100px)", lineHeight: 0.9, letterSpacing: "-0.04em" }}
                             initial={slideUp.hidden}
                             animate={slideUp.visible}
                             transition={createTransition({ duration: "slow", ease: "snappy", delay: "short" })}
@@ -57,7 +57,7 @@ export default function ProjectsPageClient({ projects, socialLinks = [] }: { pro
 
                     <motion.p
                         className="font-sans max-w-xs sm:text-right"
-                        style={{ color: "rgb(6,18,24)", fontSize: 18, lineHeight: "27px", letterSpacing: "-0.36px", opacity: 0.6, marginTop: 8 }}
+                        style={{ color: colors.dark, fontSize: 18, lineHeight: "27px", letterSpacing: "-0.36px", opacity: 0.6, marginTop: 8 }}
                         initial={fadeUp.hidden}
                         animate={fadeUp.visible}
                         transition={createTransition({ duration: "medium", ease: "gentle", delay: "normal" })}
@@ -88,14 +88,14 @@ export default function ProjectsPageClient({ projects, socialLinks = [] }: { pro
                         </div>
                         <div className="flex items-center justify-between mt-4">
                             <div>
-                                <p className="font-sans font-medium" style={{ color: "rgb(6,18,24)", fontSize: "clamp(18px, 2vw, 24px)", lineHeight: "1.3", letterSpacing: "-0.48px" }}>
+                                <p className="font-sans font-medium" style={{ color: colors.dark, fontSize: "clamp(18px, 2vw, 24px)", lineHeight: "1.3", letterSpacing: "-0.48px" }}>
                                     {project.name}
                                 </p>
-                                <p className="font-sans font-normal" style={{ color: "rgb(6,18,24)", fontSize: "clamp(14px, 1.5vw, 20px)", lineHeight: "1.4", letterSpacing: "-0.4px", opacity: 0.6 }}>
+                                <p className="font-sans font-normal" style={{ color: colors.dark, fontSize: "clamp(14px, 1.5vw, 20px)", lineHeight: "1.4", letterSpacing: "-0.4px", opacity: 0.6 }}>
                                     {project.category}
                                 </p>
                             </div>
-                            <p className="font-mono font-medium" style={{ color: "rgb(6,18,24)", fontSize: "clamp(14px, 1.5vw, 20px)", lineHeight: "1.4", letterSpacing: "-0.4px" }}>
+                            <p className="font-mono font-medium" style={{ color: colors.dark, fontSize: "clamp(14px, 1.5vw, 20px)", lineHeight: "1.4", letterSpacing: "-0.4px" }}>
                                 {project.year}
                             </p>
                         </div>
@@ -107,3 +107,4 @@ export default function ProjectsPageClient({ projects, socialLinks = [] }: { pro
         </motion.main>
     );
 }
+

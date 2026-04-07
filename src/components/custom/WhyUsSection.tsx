@@ -17,7 +17,7 @@ const clientLogos = [
     { src: "https://framerusercontent.com/images/NwlOGrknUmkPlpa4MVL7oF0w48Q.svg", alt: "Northcap Supply" },
 ];
 
-const dark = "rgb(6, 18, 24)";
+const dark = colors.dark;
 
 export default function WhyUsSection() {
     return (

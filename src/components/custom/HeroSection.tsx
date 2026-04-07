@@ -21,20 +21,12 @@ export default function HeroSection() {
         >
             {/* Full-bleed background image */}
             <Image
-                src="https://framerusercontent.com/images/PvGkgeiMfJS3ppQqn74U9dVhHg.png"
+                src="/Hero.webp"
                 alt=""
                 fill
                 className="object-cover object-center"
                 sizes="100vw"
                 priority
-            />
-            {/* Blue tint overlay image */}
-            <Image
-                src="https://framerusercontent.com/images/m4n0B2QJMVZOeIGk5AiOqozWVg.png"
-                alt=""
-                fill
-                className="object-cover object-center"
-                sizes="100vw"
             />
 
             <Navbar

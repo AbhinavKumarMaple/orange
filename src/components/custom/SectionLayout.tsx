@@ -20,7 +20,7 @@ export default function SectionLayout({
     heading,
     description,
     bg = colors.background,
-    textColor = "rgb(6, 18, 24)",
+    textColor = colors.dark,
     children,
     className,
     headerRight,

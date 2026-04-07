@@ -33,13 +33,13 @@ export default function FaqSection({ faqs }: Props) {
                     </p>
                     <h2
                         className="font-sans font-medium uppercase mb-4"
-                        style={{ color: "rgb(6,18,24)", fontSize: "clamp(48px, 7vw, 88px)", lineHeight: "1.1", letterSpacing: "-0.04em" }}
+                        style={{ color: colors.dark, fontSize: "clamp(48px, 7vw, 88px)", lineHeight: "1.1", letterSpacing: "-0.04em" }}
                     >
                         Questions we<br />often get
                     </h2>
                     <p
                         className="font-sans font-normal mb-6"
-                        style={{ color: "rgb(6,18,24)", fontSize: "clamp(14px, 1.4vw, 16px)", lineHeight: "1.5", letterSpacing: "-0.32px", opacity: 0.6, maxWidth: 280 }}
+                        style={{ color: colors.dark, fontSize: "clamp(14px, 1.4vw, 16px)", lineHeight: "1.5", letterSpacing: "-0.32px", opacity: 0.6, maxWidth: 280 }}
                     >
                         Every project timeline is confirmed during onboarding, so you always know what to expect.
                     </p>
@@ -68,7 +68,7 @@ export default function FaqSection({ faqs }: Props) {
                             >
                                 <span
                                     className="font-sans pr-6"
-                                    style={{ color: "rgb(6,18,24)", fontSize: "clamp(15px, 1.5vw, 20px)", fontWeight: 500, lineHeight: "1.4", letterSpacing: "-0.6px" }}
+                                    style={{ color: colors.dark, fontSize: "clamp(15px, 1.5vw, 20px)", fontWeight: 500, lineHeight: "1.4", letterSpacing: "-0.6px" }}
                                 >
                                     {faq.question}
                                 </span>
@@ -94,7 +94,7 @@ export default function FaqSection({ faqs }: Props) {
                                         <div className="px-5 sm:px-6 pb-5">
                                             <p
                                                 className="font-sans"
-                                                style={{ color: "rgb(6,18,24)", fontSize: 16, fontWeight: 400, lineHeight: "20.8px", letterSpacing: "-0.48px", opacity: 0.6 }}
+                                                style={{ color: colors.dark, fontSize: 16, fontWeight: 400, lineHeight: "20.8px", letterSpacing: "-0.48px", opacity: 0.6 }}
                                             >
                                                 {faq.answer}
                                             </p>

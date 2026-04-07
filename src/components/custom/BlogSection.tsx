@@ -22,7 +22,7 @@ export default function BlogSection({ articles }: Props) {
         <div className="flex flex-col items-start gap-4 sm:self-end">
             <p
                 className="font-sans font-normal"
-                style={{ color: "rgb(6,18,24)", fontSize: "clamp(14px, 1.5vw, 20px)", lineHeight: "1.4", letterSpacing: "-0.6px", maxWidth: 332, opacity: 0.5 }}
+                style={{ color: colors.dark, fontSize: "clamp(14px, 1.5vw, 20px)", lineHeight: "1.4", letterSpacing: "-0.6px", maxWidth: 332, opacity: 0.5 }}
             >
                 Free advice on branding, design, marketing, and business growth from our team of experts.
             </p>
@@ -62,7 +62,7 @@ export default function BlogSection({ articles }: Props) {
                         <div className="pt-4 pb-2">
                             <h3
                                 className="font-sans font-medium mb-2"
-                                style={{ color: "rgb(6,18,24)", fontSize: 22, lineHeight: "28px", letterSpacing: "-0.44px", maxWidth: 320 }}
+                                style={{ color: colors.dark, fontSize: 22, lineHeight: "28px", letterSpacing: "-0.44px", maxWidth: 320 }}
                             >
                                 {post.title}
                             </h3>

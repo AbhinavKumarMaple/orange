@@ -25,7 +25,7 @@ export default function BlogPageClient({ articles, socialLinks = [] }: { article
             initial={{ y: 40, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             transition={{ duration: 0.6, ease: [0.76, 0, 0.24, 1], delay: 0.1 }}
-            style={{ backgroundColor: "#F0F5F9", minHeight: "100vh" }}
+            style={{ backgroundColor: colors.background, minHeight: "100vh" }}
         >
             <Navbar isMenuOpen={menuOpen} onMenuToggle={() => setMenuOpen((p) => !p)} variant="dark" />
             <NavOverlay isOpen={menuOpen} onClose={() => setMenuOpen(false)} />
@@ -46,7 +46,7 @@ export default function BlogPageClient({ articles, socialLinks = [] }: { article
                     <div className="overflow-hidden">
                         <motion.h1
                             className="font-sans font-medium uppercase"
-                            style={{ color: "rgb(6,18,24)", fontSize: "clamp(48px, 7vw, 100px)", lineHeight: 0.9, letterSpacing: "-0.04em" }}
+                            style={{ color: colors.dark, fontSize: "clamp(48px, 7vw, 100px)", lineHeight: 0.9, letterSpacing: "-0.04em" }}
                             initial={slideUp.hidden}
                             animate={slideUp.visible}
                             transition={createTransition({ duration: "slow", ease: "snappy", delay: "short" })}
@@ -57,7 +57,7 @@ export default function BlogPageClient({ articles, socialLinks = [] }: { article
 
                     <motion.p
                         className="font-sans max-w-xs sm:text-right"
-                        style={{ color: "rgb(6,18,24)", fontSize: 18, lineHeight: "27px", letterSpacing: "-0.36px", opacity: 0.6, marginTop: 8 }}
+                        style={{ color: colors.dark, fontSize: 18, lineHeight: "27px", letterSpacing: "-0.36px", opacity: 0.6, marginTop: 8 }}
                         initial={fadeUp.hidden}
                         animate={fadeUp.visible}
                         transition={createTransition({ duration: "medium", ease: "gentle", delay: "normal" })}
@@ -91,13 +91,13 @@ export default function BlogPageClient({ articles, socialLinks = [] }: { article
                                 <span className="font-sans" style={{ color: colors.blue, fontSize: 16, letterSpacing: "-0.32px" }}>
                                     {article.category}
                                 </span>
-                                <span className="font-sans" style={{ color: "rgb(6,18,24)", fontSize: 16, letterSpacing: "-0.32px", opacity: 0.5 }}>
+                                <span className="font-sans" style={{ color: colors.dark, fontSize: 16, letterSpacing: "-0.32px", opacity: 0.5 }}>
                                     {article.date}
                                 </span>
                             </div>
                             <h2
                                 className="font-sans font-medium"
-                                style={{ color: "rgb(6,18,24)", fontSize: 24, lineHeight: "31.2px", letterSpacing: "-0.48px" }}
+                                style={{ color: colors.dark, fontSize: 24, lineHeight: "31.2px", letterSpacing: "-0.48px" }}
                             >
                                 {article.title}
                             </h2>
@@ -131,13 +131,13 @@ export default function BlogPageClient({ articles, socialLinks = [] }: { article
                                     <span className="font-sans" style={{ color: colors.blue, fontSize: 16, letterSpacing: "-0.32px" }}>
                                         {article.category}
                                     </span>
-                                    <span className="font-sans" style={{ color: "rgb(6,18,24)", fontSize: 16, letterSpacing: "-0.32px", opacity: 0.5 }}>
+                                    <span className="font-sans" style={{ color: colors.dark, fontSize: 16, letterSpacing: "-0.32px", opacity: 0.5 }}>
                                         {article.date}
                                     </span>
                                 </div>
                                 <h2
                                     className="font-sans font-medium"
-                                    style={{ color: "rgb(6,18,24)", fontSize: 24, lineHeight: "31.2px", letterSpacing: "-0.48px" }}
+                                    style={{ color: colors.dark, fontSize: 24, lineHeight: "31.2px", letterSpacing: "-0.48px" }}
                                 >
                                     {article.title}
                                 </h2>
@@ -151,3 +151,4 @@ export default function BlogPageClient({ articles, socialLinks = [] }: { article
         </motion.main>
     );
 }
+

@@ -102,11 +102,11 @@ export default function ContactSection() {
                                     //Sent
                                 </p>
                                 <h3 className="font-sans font-medium uppercase text-[32px] sm:text-[40px] md:text-[48px] leading-[1.1] tracking-tight"
-                                    style={{ color: "rgb(6,18,24)" }}>
+                                    style={{ color: colors.dark }}>
                                     MESSAGE<br />RECEIVED
                                 </h3>
                                 <p className="font-sans mt-4"
-                                    style={{ color: "rgb(6,18,24)", opacity: 0.5, fontSize: 16, lineHeight: "20.8px", letterSpacing: "-0.48px", maxWidth: 300 }}>
+                                    style={{ color: colors.dark, opacity: 0.5, fontSize: 16, lineHeight: "20.8px", letterSpacing: "-0.48px", maxWidth: 300 }}>
                                     Thanks for reaching out. We&apos;ll get back to you within 24 hours.
                                 </p>
                             </div>
@@ -117,49 +117,49 @@ export default function ContactSection() {
                     ) : (
                         <form className="flex flex-col gap-6" onSubmit={handleSubmit}>
                             <div>
-                                <label className="block font-sans mb-2" style={{ fontSize: 16, fontWeight: 500, color: "rgb(6,18,24)" }}>
+                                <label className="block font-sans mb-2" style={{ fontSize: 16, fontWeight: 500, color: colors.dark }}>
                                     Name <span style={{ color: "red" }}>*</span>
                                 </label>
                                 <input type="text" name="name" value={form.name} onChange={handleChange}
                                     onFocus={() => handleFieldFocus("name")}
                                     placeholder="Jane Smith"
                                     className="w-full border-b border-gray-200 pb-3 outline-none font-sans"
-                                    style={{ fontSize: 16, color: "rgb(6,18,24)" }} />
+                                    style={{ fontSize: 16, color: colors.dark }} />
                             </div>
                             <div>
-                                <label className="block font-sans mb-2" style={{ fontSize: 16, fontWeight: 500, color: "rgb(6,18,24)" }}>
+                                <label className="block font-sans mb-2" style={{ fontSize: 16, fontWeight: 500, color: colors.dark }}>
                                     Email <span style={{ color: "red" }}>*</span>
                                 </label>
                                 <input type="email" name="email" value={form.email} onChange={handleChange}
                                     onFocus={() => handleFieldFocus("email")}
                                     placeholder="jane@framer.com"
                                     className="w-full border-b border-gray-200 pb-3 outline-none font-sans"
-                                    style={{ fontSize: 16, color: "rgb(6,18,24)" }} />
+                                    style={{ fontSize: 16, color: colors.dark }} />
                             </div>
                             <div>
-                                <label className="block font-sans mb-2" style={{ fontSize: 16, fontWeight: 500, color: "rgb(6,18,24)" }}>
+                                <label className="block font-sans mb-2" style={{ fontSize: 16, fontWeight: 500, color: colors.dark }}>
                                     Company
                                 </label>
                                 <input type="text" name="company" value={form.company} onChange={handleChange}
                                     onFocus={() => handleFieldFocus("company")}
                                     placeholder="Your company"
                                     className="w-full border-b border-gray-200 pb-3 outline-none font-sans"
-                                    style={{ fontSize: 16, color: "rgb(6,18,24)" }} />
+                                    style={{ fontSize: 16, color: colors.dark }} />
                             </div>
                             <div>
-                                <label className="block font-sans mb-2" style={{ fontSize: 16, fontWeight: 500, color: "rgb(6,18,24)" }}>
+                                <label className="block font-sans mb-2" style={{ fontSize: 16, fontWeight: 500, color: colors.dark }}>
                                     Message <span style={{ color: "red" }}>*</span>
                                 </label>
                                 <textarea name="message" value={form.message} onChange={handleChange}
                                     onFocus={() => handleFieldFocus("message")}
                                     placeholder="Your message" rows={4}
                                     className="w-full border-b border-gray-200 pb-3 outline-none font-sans resize-y"
-                                    style={{ fontSize: 16, color: "rgb(6,18,24)" }} />
+                                    style={{ fontSize: 16, color: colors.dark }} />
                             </div>
                             <Button type="submit" variant="primary" className="w-full" data-track-click="contact_form_submit" style={{ fontSize: 16, padding: "14px 24px" }}>
                                 {loading ? "Sending..." : "Send request"}
                             </Button>
-                            <p className="text-center font-sans" style={{ fontSize: 14, color: "rgb(6,18,24)", opacity: 0.5 }}>
+                            <p className="text-center font-sans" style={{ fontSize: 14, color: colors.dark, opacity: 0.5 }}>
                                 By submitting, you agree to our{" "}
                                 <Link href="#" className="underline">Terms</Link> and{" "}
                                 <Link href="#" className="underline">Privacy Policy</Link>.

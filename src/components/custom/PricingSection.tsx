@@ -43,7 +43,7 @@ function PricingCard({ plan, billing, featured = false }: { plan: Plan; billing:
             <ul className="flex flex-col gap-3">
                 {plan.features.map((f) => (
                     <li key={f} className="flex items-start gap-2.5 text-[15px] text-gray-700">
-                        <span className="w-[7px] h-[7px] rounded-full bg-[#1F75B2] mt-[6px] shrink-0" />
+                        <span className="w-[7px] h-[7px] rounded-full bg-brand-accent mt-[6px] shrink-0" />
                         {f}
                     </li>
                 ))}
@@ -63,7 +63,7 @@ export default function PricingSection({ plans }: Props) {
         <div className="flex flex-col items-start sm:items-end gap-4 sm:self-end">
             <p
                 className="font-sans font-normal sm:text-right"
-                style={{ color: "rgb(6,18,24)", fontSize: "clamp(14px, 1.5vw, 20px)", lineHeight: "1.4", letterSpacing: "-0.6px", maxWidth: 332, opacity: 0.5 }}
+                style={{ color: colors.dark, fontSize: "clamp(14px, 1.5vw, 20px)", lineHeight: "1.4", letterSpacing: "-0.6px", maxWidth: 332, opacity: 0.5 }}
             >
                 Pick a plan that fits your needs, with fair prices and no hidden surprises.
             </p>

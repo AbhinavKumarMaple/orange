@@ -27,7 +27,7 @@ export default function ProjectPageClient({ project }: Props) {
             initial={{ y: 40, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             transition={{ duration: 0.6, ease: [0.76, 0, 0.24, 1], delay: 0.1 }}
-            style={{ backgroundColor: "#F0F5F9", minHeight: "100vh" }}
+            style={{ backgroundColor: "var(--brand-linen)", minHeight: "100vh" }}
         >
             {/* Navbar */}
             <Navbar isMenuOpen={menuOpen} onMenuToggle={() => setMenuOpen((p) => !p)} variant="dark" />
@@ -51,7 +51,7 @@ export default function ProjectPageClient({ project }: Props) {
                     />
                     <span
                         className="font-sans font-medium"
-                        style={{ color: "rgb(6,18,24)", fontSize: 18, letterSpacing: "-0.36px" }}
+                        style={{ color: "var(--brand-dark)", fontSize: 18, letterSpacing: "-0.36px" }}
                     >
                         {project.name}
                     </span>
@@ -63,7 +63,7 @@ export default function ProjectPageClient({ project }: Props) {
                         <motion.h1
                             className="font-sans font-medium uppercase"
                             style={{
-                                color: "rgb(6,18,24)",
+                                color: "var(--brand-dark)",
                                 fontSize: "clamp(56px, 8vw, 120px)",
                                 lineHeight: 0.9,
                                 letterSpacing: "-0.04em",
@@ -81,7 +81,7 @@ export default function ProjectPageClient({ project }: Props) {
                     <motion.p
                         className="font-sans max-w-sm sm:text-right"
                         style={{
-                            color: "rgb(6,18,24)",
+                            color: "var(--brand-dark)",
                             fontSize: 18,
                             lineHeight: "27px",
                             letterSpacing: "-0.36px",
@@ -129,13 +129,13 @@ export default function ProjectPageClient({ project }: Props) {
                     >
                         <span
                             className="font-sans"
-                            style={{ color: "rgb(6,18,24)", fontSize: 18, letterSpacing: "-0.36px", opacity: 0.5 }}
+                            style={{ color: "var(--brand-dark)", fontSize: 18, letterSpacing: "-0.36px", opacity: 0.5 }}
                         >
                             {row.label}
                         </span>
                         <span
                             className="font-sans font-medium"
-                            style={{ color: "rgb(6,18,24)", fontSize: 18, letterSpacing: "-0.36px" }}
+                            style={{ color: "var(--brand-dark)", fontSize: 18, letterSpacing: "-0.36px" }}
                         >
                             {row.value}
                         </span>
@@ -156,7 +156,7 @@ export default function ProjectPageClient({ project }: Props) {
                     </div>
                     <p
                         className="font-sans"
-                        style={{ color: "rgb(6,18,24)", fontSize: 20, lineHeight: "30px", letterSpacing: "-0.4px" }}
+                        style={{ color: "var(--brand-dark)", fontSize: 20, lineHeight: "30px", letterSpacing: "-0.4px" }}
                     >
                         {project.problem}
                     </p>
@@ -173,7 +173,7 @@ export default function ProjectPageClient({ project }: Props) {
                     </div>
                     <p
                         className="font-sans"
-                        style={{ color: "rgb(6,18,24)", fontSize: 20, lineHeight: "30px", letterSpacing: "-0.4px" }}
+                        style={{ color: "var(--brand-dark)", fontSize: 20, lineHeight: "30px", letterSpacing: "-0.4px" }}
                     >
                         {project.solution}
                     </p>
