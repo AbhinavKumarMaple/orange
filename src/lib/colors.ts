@@ -3,33 +3,37 @@
  *
  * CSS custom properties are defined in globals.css (:root).
  * Tailwind utilities are generated from those vars:
- *   bg-brand-accent  text-brand-accent
- *   bg-brand-linen   text-brand-linen
- *   bg-brand-cotton  text-brand-cotton
- *   bg-brand-dark    text-brand-dark
+ *   bg-brand-accent   text-brand-accent
+ *   bg-brand-surface  text-brand-surface
+ *   bg-brand-muted    text-brand-muted
+ *   bg-brand-dark     text-brand-dark
+ *   bg-brand-footer   text-brand-footer
  *
  * Use Tailwind classes in components wherever possible.
  * Only use these JS values when an inline `style` prop is unavoidable
  * (e.g. framer-motion style objects, dynamic canvas, etc.)
  */
 export const colors = {
-  /** Electric Tangerine — primary accent, hero/contact/footer bg */
+  /** Viper Red — primary accent */
   accent: "var(--brand-accent)",
-  /** Sustainable Linen — page background, light text on dark */
-  linen: "var(--brand-linen)",
-  /** Recycled Cotton — secondary/card background */
-  cotton: "var(--brand-cotton)",
-  /** Black Hole — dark section backgrounds, body text */
+  /** Off-white — light text on dark backgrounds, surface color */
+  surface: "var(--brand-surface)",
+  /** Muted grey — secondary text */
+  muted: "var(--brand-muted)",
+  /** Near-black — dark section backgrounds, body text */
   dark: "var(--brand-dark)",
+  /** Footer background */
+  footer: "var(--brand-footer)",
+  /** Contact section background */
+  contact: "var(--brand-contact)",
 
-  // Legacy aliases so existing inline style props keep working
-  // without a big-bang refactor. Migrate to Tailwind classes over time.
+  // Legacy aliases — keep existing inline style props working
   /** @deprecated use colors.accent */
   blue: "var(--brand-accent)",
-  /** @deprecated use colors.linen */
-  light: "var(--brand-linen)",
-  /** @deprecated use colors.linen */
-  background: "var(--brand-linen)",
+  /** @deprecated use colors.surface */
+  light: "var(--brand-surface)",
+  /** @deprecated use colors.surface */
+  background: "var(--brand-surface)",
   /** @deprecated use colors.accent */
   ctaText: "var(--brand-accent)",
 } as const;

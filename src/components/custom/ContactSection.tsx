@@ -62,30 +62,30 @@ export default function ContactSection() {
     }
 
     return (
-        <section data-section="Contact" style={{ backgroundColor: colors.blue }} className="px-5 sm:px-8 pt-16 pb-16">
+        <section data-section="Contact" style={{ backgroundColor: colors.contact }} className="px-5 sm:px-8 pt-16 pb-16">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-start">
                 <div>
                     <p className="font-mono font-medium mb-3"
-                        style={{ color: colors.light, fontSize: 16, lineHeight: "26px", letterSpacing: "-0.4px" }}>
+                        style={{ color: colors.accent, fontSize: 16, lineHeight: "26px", letterSpacing: "-0.4px" }}>
                         //Contact
                     </p>
                     <h2 className="font-sans font-medium uppercase mb-4 text-[34px] sm:text-[52px] md:text-[68px] lg:text-[88px] leading-[1.1] tracking-tight"
-                        style={{ color: colors.light }}>
+                        style={{ color: colors.dark }}>
                         READY TO START?
                     </h2>
                     <p className="font-sans mb-6 text-sm sm:text-base md:text-lg"
-                        style={{ color: colors.light, lineHeight: "1.4", letterSpacing: "-0.6px", opacity: 0.7, maxWidth: 280 }}>
+                        style={{ color: colors.dark, lineHeight: "1.4", letterSpacing: "-0.6px", opacity: 0.6, maxWidth: 280 }}>
                         Reach out today, we&apos;ll respond fast and keep things simple.
                     </p>
-                    <Button href="mailto:hello@orangestudios.com" variant="light" data-track-click="contact_email_direct" style={{ fontSize: 16, padding: "12px 24px" }}>
+                    <Button href="mailto:hello@orangestudios.com" variant="primary" data-track-click="contact_email_direct" style={{ fontSize: 16, padding: "12px 24px" }}>
                         Email us directly
                     </Button>
                     <div className="flex flex-col gap-3 mt-10">
                         {perks.map((p) => (
                             <div key={p.text} className="flex items-center gap-3">
-                                <span style={{ color: colors.light, fontSize: 16 }}>{p.icon}</span>
+                                <span style={{ color: colors.accent, fontSize: 16 }}>{p.icon}</span>
                                 <span className="font-sans"
-                                    style={{ color: colors.light, fontSize: 16, fontWeight: 400, lineHeight: "20.8px", letterSpacing: "-0.48px" }}>
+                                    style={{ color: colors.dark, fontSize: 16, fontWeight: 400, lineHeight: "20.8px", letterSpacing: "-0.48px" }}>
                                     {p.text}
                                 </span>
                             </div>

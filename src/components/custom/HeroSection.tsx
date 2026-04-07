@@ -17,11 +17,11 @@ export default function HeroSection() {
         <section
             data-section="Hero"
             className="relative w-full overflow-hidden"
-            style={{ backgroundColor: colors.blue, height: "100svh" }}
+            style={{ height: "100svh" }}
         >
             {/* Full-bleed background image */}
             <Image
-                src="/Hero.webp"
+                src="/hero.webp"
                 alt=""
                 fill
                 className="object-cover object-center"
