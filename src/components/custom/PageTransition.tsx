@@ -113,8 +113,8 @@ export default function PageTransitionProvider({ children }: { children: ReactNo
                 {visible && (
                     <motion.div
                         key="page-overlay"
-                        className="fixed inset-0 z-[9999] pointer-events-none"
-                        style={{ backgroundColor: colors.background }}
+                        // className="fixed inset-0 z-[9999] pointer-events-none"
+                        className="fixed inset-0 z-[9999] pointer-events-none bg-background"
                         initial={{ y: "100%" }}
                         animate={{ y: phase === "out" ? "-100%" : "0%" }}
                         transition={{ duration: 0.5, ease: [0.76, 0, 0.24, 1] }}
