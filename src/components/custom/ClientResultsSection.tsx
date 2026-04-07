@@ -46,22 +46,22 @@ const companyIcons: Record<string, React.ReactNode> = {
 
 function TestimonialCard({ t }: { t: Testimonial }) {
     return (
-        <div className="bg-white rounded-2xl shadow-sm p-6 flex flex-col gap-4" data-track-hover={`testimonial_${t.company.toLowerCase().replace(/\s+/g, "_")}`}>
+        <div className="bg-brand-linen rounded-2xl shadow-sm p-6 flex flex-col gap-4" data-track-hover={`testimonial_${t.company.toLowerCase().replace(/\s+/g, "_")}`}>
             <div className="flex items-center gap-3">
-                <span className="text-gray-900">
-                    {companyIcons[t.company] ?? <span className="w-6 h-6 bg-gray-900 rounded-sm block" />}
+                <span className="text-brand-dark">
+                    {companyIcons[t.company] ?? <span className="w-6 h-6 bg-brand-dark rounded-sm block" />}
                 </span>
-                <span className="font-medium text-gray-900 text-[15px]">{t.company}</span>
+                <span className="font-medium text-brand-dark text-[15px]">{t.company}</span>
             </div>
-            <div className="border-t border-gray-100" />
-            <p className="text-gray-700 text-[14px] leading-relaxed">{t.quote}</p>
-            <div className="border-t border-gray-100 pt-4 flex items-center gap-3 mt-auto">
-                <div className="w-10 h-10 rounded-full bg-gray-200 overflow-hidden shrink-0 relative">
+            <div className="border-t border-brand-dark/10" />
+            <p className="text-brand-dark/70 text-[14px] leading-relaxed">{t.quote}</p>
+            <div className="border-t border-brand-dark/10 pt-4 flex items-center gap-3 mt-auto">
+                <div className="w-10 h-10 rounded-full bg-brand-dark/20 overflow-hidden shrink-0 relative">
                     <Image src={t.avatar} alt={t.name} fill className="object-cover" />
                 </div>
                 <div>
-                    <p className="text-[14px] font-medium text-gray-900">{t.name}</p>
-                    <p className="text-[12px] text-gray-500">{t.role}</p>
+                    <p className="text-[14px] font-medium text-brand-dark">{t.name}</p>
+                    <p className="text-[12px] text-brand-dark/50">{t.role}</p>
                 </div>
             </div>
         </div>
@@ -87,23 +87,23 @@ function FloatingCard({
     return (
         <motion.div
             style={{ y, left: t.xPercent }}
-            className="absolute top-1/2 -translate-y-1/2 w-[360px] bg-white rounded-2xl shadow-sm p-8 flex flex-col gap-5"
+            className="absolute top-1/2 -translate-y-1/2 w-[360px] bg-brand-linen rounded-2xl shadow-sm p-8 flex flex-col gap-5"
         >
             <div className="flex items-center gap-3">
-                <span className="text-gray-900">
-                    {companyIcons[t.company] ?? <span className="w-6 h-6 bg-gray-900 rounded-sm block" />}
+                <span className="text-brand-dark">
+                    {companyIcons[t.company] ?? <span className="w-6 h-6 bg-brand-dark rounded-sm block" />}
                 </span>
-                <span className="font-medium text-gray-900 text-[16px]">{t.company}</span>
+                <span className="font-medium text-brand-dark text-[16px]">{t.company}</span>
             </div>
-            <div className="border-t border-gray-100" />
-            <p className="text-gray-700 text-[15px] leading-relaxed">{t.quote}</p>
-            <div className="border-t border-gray-100 pt-4 flex items-center gap-3 mt-auto">
-                <div className="w-11 h-11 rounded-full bg-gray-200 overflow-hidden shrink-0 relative">
+            <div className="border-t border-brand-dark/10" />
+            <p className="text-brand-dark/70 text-[15px] leading-relaxed">{t.quote}</p>
+            <div className="border-t border-brand-dark/10 pt-4 flex items-center gap-3 mt-auto">
+                <div className="w-11 h-11 rounded-full bg-brand-dark/20 overflow-hidden shrink-0 relative">
                     <Image src={t.avatar} alt={t.name} fill className="object-cover" />
                 </div>
                 <div>
-                    <p className="text-[15px] font-medium text-gray-900">{t.name}</p>
-                    <p className="text-[13px] text-gray-500">{t.role}</p>
+                    <p className="text-[15px] font-medium text-brand-dark">{t.name}</p>
+                    <p className="text-[13px] text-brand-dark/50">{t.role}</p>
                 </div>
             </div>
         </motion.div>
@@ -120,8 +120,8 @@ export default function ClientResultsSection({ testimonials }: ClientResultsSect
     return (
         <>
             {/* Mobile: simple stacked cards */}
-            <section className="block sm:hidden bg-[#F0F5F9] px-5 py-16" data-section="ClientResults">
-                <p className="font-bold uppercase text-[#C8D0D8] text-[clamp(36px,10vw,60px)] leading-none tracking-tight mb-8 select-none">
+            <section className="block sm:hidden bg-brand-linen px-5 py-16" data-section="ClientResults">
+                <p className="font-bold uppercase text-brand-cotton text-[clamp(36px,10vw,60px)] leading-none tracking-tight mb-8 select-none">
                     CLIENT<br />RESULTS
                 </p>
                 <div className="flex flex-col gap-4">
@@ -134,13 +134,13 @@ export default function ClientResultsSection({ testimonials }: ClientResultsSect
             {/* Desktop: scroll-animated floating cards */}
             <section
                 ref={sectionRef}
-                className="hidden sm:block relative bg-[#F0F5F9]"
+                className="hidden sm:block relative bg-brand-linen"
                 style={{ height: "300vh" }}
                 data-section="ClientResults"
             >
                 <div className="sticky top-0 h-screen overflow-hidden flex items-center justify-center">
                     <span
-                        className="absolute select-none pointer-events-none font-bold uppercase text-[#C8D0D8] whitespace-nowrap"
+                        className="absolute select-none pointer-events-none font-bold uppercase text-brand-cotton whitespace-nowrap"
                         style={{ fontSize: "clamp(80px, 16vw, 240px)", letterSpacing: "-0.03em", lineHeight: 1 }}
                     >
                         CLIENT RESULTS

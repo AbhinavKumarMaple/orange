@@ -112,8 +112,7 @@ export default function ServiceRows({ services }: Props) {
       {services.map((s) => (
         <div
           key={s.id}
-          className="flex flex-col sm:flex-row sm:items-center sm:justify-between py-6 sm:py-8 border-t"
-          style={{ borderColor: "rgba(240, 245, 249, 0.15)" }}
+          className="flex flex-col sm:flex-row sm:items-center sm:justify-between py-6 sm:py-8 border-t border-brand-linen/20"
           data-track-hover={`service_${s.name.toLowerCase().replace(/\s+/g, "_")}`}
           onMouseEnter={(e) => handleRowEnter(s.image, e)}
         >
@@ -157,10 +156,7 @@ export default function ServiceRows({ services }: Props) {
           </p>
         </div>
       ))}
-      <div
-        className="border-t"
-        style={{ borderColor: "rgba(240, 245, 249, 0.15)" }}
-      />
+      <div className="border-t border-brand-linen/20" />
     </div>
   );
 }

@@ -17,7 +17,7 @@ const clientLogos = [
     { src: "https://framerusercontent.com/images/NwlOGrknUmkPlpa4MVL7oF0w48Q.svg", alt: "Northcap Supply" },
 ];
 
-const dark = "rgb(6, 18, 24)";
+const dark = colors.dark;
 
 export default function WhyUsSection() {
     return (
@@ -34,13 +34,13 @@ export default function WhyUsSection() {
             <div className="mb-16">
                 <div className="grid grid-cols-1 sm:grid-cols-2">
                     <StatItem value={stats[0].value} label={stats[0].label} />
-                    <div className="w-full sm:hidden" style={{ height: 1, backgroundColor: "rgba(240, 245, 249, 0.12)" }} />
+                    <div className="w-full sm:hidden h-px opacity-20 bg-brand-linen" />
                     <StatItem value={stats[1].value} label={stats[1].label} />
                 </div>
-                <div className="w-full my-2" style={{ height: 1, backgroundColor: "rgba(240, 245, 249, 0.12)" }} />
+                <div className="w-full my-2 h-px opacity-20 bg-brand-linen" />
                 <div className="grid grid-cols-1 sm:grid-cols-2">
                     <StatItem value={stats[2].value} label={stats[2].label} />
-                    <div className="w-full sm:hidden" style={{ height: 1, backgroundColor: "rgba(240, 245, 249, 0.12)" }} />
+                    <div className="w-full sm:hidden h-px opacity-20 bg-brand-linen" />
                     <StatItem value={stats[3].value} label={stats[3].label} />
                 </div>
             </div>
@@ -50,8 +50,8 @@ export default function WhyUsSection() {
                 {clientLogos.map((logo) => (
                     <div
                         key={logo.alt}
-                        className="flex items-center justify-center"
-                        style={{ backgroundColor: dark, borderRadius: 8, height: 100, border: "1px solid rgba(240,245,249,0.1)" }}
+                        style={{ backgroundColor: colors.dark, borderRadius: 8, height: 100, border: "1px solid" }}
+                        className="flex items-center justify-center border-brand-linen/20"
                     >
                         <Image
                             src={`${logo.src}?width=320&height=104`}
