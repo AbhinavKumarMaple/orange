@@ -18,10 +18,11 @@ import {
   getFaqs,
   getServices,
   getSocialLinks,
+  getHeroContent,
 } from "@/lib/queries";
 
 export default async function Home() {
-  const [projects, articles, testimonials, faqs, services, socialLinks] =
+  const [projects, articles, testimonials, faqs, services, socialLinks, hero] =
     await Promise.all([
       getProjects(),
       getArticles(),
@@ -29,13 +30,23 @@ export default async function Home() {
       getFaqs(),
       getServices(),
       getSocialLinks(),
+      getHeroContent(),
     ]);
 
   return (
     <>
       <HashScroller />
       <IntroOverlay />
-      <HeroSection />
+      <HeroSection
+        image={hero?.image}
+        heading={hero?.heading}
+        subtext={hero?.subtext}
+        description={hero?.description}
+        ctaLabel={hero?.ctaLabel}
+        ctaHref={hero?.ctaHref}
+        rating={hero?.rating}
+        roi={hero?.roi}
+      />
       <ShowreelSection />
       <PortfolioSection projects={projects} />
       <ServicesSection services={services} />

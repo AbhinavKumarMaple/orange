@@ -8,6 +8,7 @@ import {
   pricingPlans,
   contactSubmissions,
   socialLinks,
+  heroContent,
 } from "@/db/schema";
 import { eq, asc, ne, desc } from "drizzle-orm";
 
@@ -85,4 +86,9 @@ export async function deleteContactSubmission(id: string) {
 
 export async function getSocialLinks() {
   return db.select().from(socialLinks).orderBy(asc(socialLinks.order));
+}
+
+export async function getHeroContent() {
+  const rows = await db.select().from(heroContent).limit(1);
+  return rows[0] ?? null;
 }

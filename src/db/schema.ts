@@ -96,3 +96,16 @@ export const socialLinks = pgTable("social_links", {
   url: text("url").notNull(),
   order: integer("order").notNull().default(0),
 });
+
+export const heroContent = pgTable("hero_content", {
+  id: uuid("id").primaryKey().defaultRandom(),
+  image: text("image").notNull().default(""),
+  heading: text("heading").notNull().default("Orange Studios"),
+  subtext: text("subtext").notNull().default("Since 2019"),
+  description: text("description").notNull().default("We are a creative studio building brands and websites that stand out, scale with growth and deliver measurable results."),
+  ctaLabel: text("cta_label").notNull().default("Start your project"),
+  ctaHref: text("cta_href").notNull().default("#"),
+  rating: text("rating").notNull().default("4.8/5"),
+  roi: text("roi").notNull().default("3.2x Average ROI"),
+  updatedAt: timestamp("updated_at").defaultNow(),
+});

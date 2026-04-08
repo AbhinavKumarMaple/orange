@@ -7,7 +7,7 @@ import { cn } from "@/lib/utils";
 const nav = [
     { label: "Dashboard", href: "/crm" },
     { label: "Analytics", href: "/crm/analytics" },
-    { label: "Media", href: "/crm/media" },
+    { label: "Hero", href: "/crm/hero" },
     { label: "Projects", href: "/crm/projects" },
     { label: "Articles", href: "/crm/articles" },
     { label: "Services", href: "/crm/services" },
@@ -15,6 +15,7 @@ const nav = [
     { label: "Testimonials", href: "/crm/testimonials" },
     { label: "FAQs", href: "/crm/faqs" },
     { label: "Contact Requests", href: "/crm/contact" },
+    { label: "Media", href: "/crm/media" },
     { label: "Social Links", href: "/crm/social-links" },
 ];
 
