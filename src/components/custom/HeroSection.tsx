@@ -26,7 +26,7 @@ const FALLBACK_IMAGE = "https://tfo7hwi103lzosbj.public.blob.vercel-storage.com/
 export default function HeroSection({
   image = FALLBACK_IMAGE,
   heading = "Orange Studios",
-  subtext = "Since 2019",
+  subtext = "Since 2023",
   description = "We are a creative studio building brands and websites that stand out, scale with growth and deliver measurable results.",
   ctaLabel = "Start your project",
   ctaHref = "#",

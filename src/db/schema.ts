@@ -101,7 +101,7 @@ export const heroContent = pgTable("hero_content", {
   id: uuid("id").primaryKey().defaultRandom(),
   image: text("image").notNull().default(""),
   heading: text("heading").notNull().default("Orange Studios"),
-  subtext: text("subtext").notNull().default("Since 2019"),
+  subtext: text("subtext").notNull().default("Since 2023"),
   description: text("description").notNull().default("We are a creative studio building brands and websites that stand out, scale with growth and deliver measurable results."),
   ctaLabel: text("cta_label").notNull().default("Start your project"),
   ctaHref: text("cta_href").notNull().default("#"),

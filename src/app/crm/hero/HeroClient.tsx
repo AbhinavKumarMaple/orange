@@ -18,7 +18,7 @@ type FormData = Omit<HeroContent, "id" | "updatedAt">;
 const defaults: FormData = {
   image: "",
   heading: "Orange Studios",
-  subtext: "Since 2019",
+  subtext: "Since 2023",
   description:
     "We are a creative studio building brands and websites that stand out, scale with growth and deliver measurable results.",
   ctaLabel: "Start your project",

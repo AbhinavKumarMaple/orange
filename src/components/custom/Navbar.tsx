@@ -2,6 +2,7 @@
 
 import { captureEvent } from "@/lib/posthog";
 import { colors } from "@/lib/colors";
+import Link from "next/link";
 
 interface NavbarProps {
     onMenuToggle: () => void;
@@ -18,12 +19,13 @@ export default function Navbar({ onMenuToggle, isMenuOpen, variant = "light" }: 
         <nav className="absolute top-0 left-0 right-0 z-40 flex items-center justify-between">
             {/* Logo */}
             <div style={{ position: "absolute", top: 14, left: 33 }}>
-                <span
-                    className="font-sans font-medium text-xl"
+                <Link
+                    href="/"
+                    className="font-sans font-medium text-xl no-underline"
                     style={{ color: fg, letterSpacing: "-0.02em" }}
                 >
                     Orange<sup className="text-[11px]">®</sup>
-                </span>
+                </Link>
             </div>
 
             {/* Hamburger */}

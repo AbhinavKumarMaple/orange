@@ -43,7 +43,7 @@ export default function FaqSection({ faqs }: Props) {
                     >
                         Every project timeline is confirmed during onboarding, so you always know what to expect.
                     </p>
-                    <Button href="#" variant="primary" style={{ fontSize: 14 }}>
+                    <Button href="/contact" variant="primary" style={{ fontSize: 14 }}>
                         Start your project
                     </Button>
                 </div>

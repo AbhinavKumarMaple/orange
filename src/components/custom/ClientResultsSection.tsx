@@ -120,8 +120,8 @@ export default function ClientResultsSection({ testimonials }: ClientResultsSect
     return (
         <>
             {/* Mobile: simple stacked cards */}
-            <section className="block sm:hidden bg-brand-linen px-5 py-16" data-section="ClientResults">
-                <p className="font-bold uppercase text-[var(--brand-cotton)] text-[clamp(36px,10vw,60px)] leading-none tracking-tight mb-8 select-none">
+            <section className="block sm:hidden bg-white px-5 py-16" data-section="ClientResults">
+                <p className="font-bold uppercase text-gray-200 text-[clamp(36px,10vw,60px)] leading-none tracking-tight mb-8 select-none">
                     CLIENT<br />RESULTS
                 </p>
                 <div className="flex flex-col gap-4">
@@ -134,13 +134,13 @@ export default function ClientResultsSection({ testimonials }: ClientResultsSect
             {/* Desktop: scroll-animated floating cards */}
             <section
                 ref={sectionRef}
-                className="hidden sm:block relative bg-brand-linen"
+                className="hidden sm:block relative bg-white"
                 style={{ height: "300vh" }}
                 data-section="ClientResults"
             >
                 <div className="sticky top-0 h-screen overflow-hidden flex items-center justify-center">
                     <span
-                        className="absolute select-none pointer-events-none font-bold uppercase text-[var(--brand-cotton)] whitespace-nowrap"
+                        className="absolute select-none pointer-events-none font-bold uppercase text-gray-200 whitespace-nowrap"
                         style={{ fontSize: "clamp(80px, 16vw, 240px)", letterSpacing: "-0.03em", lineHeight: 1 }}
                     >
                         CLIENT RESULTS
