@@ -7,11 +7,13 @@ import { captureEvent } from "@/lib/posthog";
 import { colors } from "@/lib/colors";
 import Button from "./Button";
 
+import { Clock, DollarSign, CalendarDays, Phone } from "lucide-react";
+
 const perks = [
-    { icon: "⏱", text: "Quick 24-hour response" },
-    { icon: "$", text: "Transparent pricing" },
-    { icon: "📅", text: "Easy Scheduling" },
-    { icon: "📞", text: "+91 8999525221", href: "tel:+918999525221" },
+    { icon: Clock, text: "Quick 24-hour response" },
+    { icon: DollarSign, text: "Transparent pricing" },
+    { icon: CalendarDays, text: "Easy Scheduling" },
+    { icon: Phone, text: "+91 8999525221", href: "tel:+918999525221" },
 ];
 
 export default function ContactSection() {
@@ -84,7 +86,7 @@ export default function ContactSection() {
                     <div className="flex flex-col gap-3 mt-10">
                         {perks.map((p) => (
                             <div key={p.text} className="flex items-center gap-3">
-                                <span className="w-5 text-center shrink-0" style={{ color: colors.accent, fontSize: 16 }}>{p.icon}</span>
+                                <p.icon size={18} strokeWidth={1.5} style={{ color: colors.accent, flexShrink: 0 }} />
                                 {p.href ? (
                                     <a href={p.href} className="font-sans no-underline"
                                         style={{ color: colors.dark, fontSize: 16, fontWeight: 400, lineHeight: "20.8px", letterSpacing: "-0.48px" }}>
