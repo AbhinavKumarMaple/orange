@@ -7,6 +7,7 @@ import { usePageTransition } from "@/components/custom/PageTransition";
 import Navbar from "@/components/custom/Navbar";
 import NavOverlay from "@/components/custom/NavOverlay";
 import Footer from "@/components/custom/Footer";
+import ContactSection from "@/components/custom/ContactSection";
 import { colors } from "@/lib/colors";
 import { fadeUp, slideUp, createTransition } from "@/lib/motion";
 import { mediaUrl } from "@/lib/utils";
@@ -33,7 +34,7 @@ export default function ArticlePageClient({ article, related, socialLinks = [] }
             initial={{ y: 40, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             transition={{ duration: 0.6, ease: [0.76, 0, 0.24, 1], delay: 0.1 }}
-            style={{ backgroundColor: "var(--brand-linen)", minHeight: "100vh" }}
+            style={{ backgroundColor: colors.background, minHeight: "100vh" }}
         >
             <Navbar isMenuOpen={menuOpen} onMenuToggle={() => setMenuOpen((p) => !p)} variant="dark" />
             <NavOverlay isOpen={menuOpen} onClose={() => setMenuOpen(false)} />
@@ -127,6 +128,7 @@ export default function ArticlePageClient({ article, related, socialLinks = [] }
                 </div>
             </div>
 
+            <ContactSection />
             <Footer socialLinks={socialLinks} />
         </motion.main>
     );

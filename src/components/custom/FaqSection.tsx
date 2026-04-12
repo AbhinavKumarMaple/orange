@@ -29,7 +29,7 @@ export default function FaqSection({ faqs }: Props) {
                         className="font-mono font-medium mb-3"
                         style={{ color: colors.blue, fontSize: "clamp(14px, 2vw, 20px)", lineHeight: "26px", letterSpacing: "-0.4px" }}
                     >
-                        //010 FAQ
+                        //09 FAQ
                     </p>
                     <h2
                         className="font-sans font-medium uppercase mb-4"

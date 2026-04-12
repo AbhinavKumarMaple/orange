@@ -13,6 +13,9 @@ import type { testimonials } from "@/db/schema";
 import MediaInput from "@/components/custom/MediaInput";
 
 type Testimonial = InferSelectModel<typeof testimonials>;
+
+const POSITIONS = ["10%", "55%", "25%", "45%", "15%", "60%", "35%", "50%"];
+
 const empty = { company: "", quote: "", avatar: "", name: "", role: "", xPercent: "25%", order: 0 };
 
 export default function TestimonialsClient({ initialData }: { initialData: Testimonial[] }) {
@@ -22,7 +25,12 @@ export default function TestimonialsClient({ initialData }: { initialData: Testi
     const [form, setForm] = useState<typeof empty>(empty);
     const [saving, setSaving] = useState(false);
 
-    function openNew() { setEditing(null); setForm(empty); setOpen(true); }
+    function openNew() {
+        const nextPos = POSITIONS[data.length % POSITIONS.length];
+        setEditing(null);
+        setForm({ ...empty, xPercent: nextPos, order: data.length });
+        setOpen(true);
+    }
     function openEdit(t: Testimonial) {
         setEditing(t);
         setForm({ company: t.company, quote: t.quote, avatar: t.avatar, name: t.name, role: t.role, xPercent: t.xPercent, order: t.order });

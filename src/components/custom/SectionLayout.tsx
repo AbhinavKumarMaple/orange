@@ -56,7 +56,7 @@ export default function SectionLayout({
 
                 {headerRight ?? (description && (
                     <p
-                        className="font-sans font-normal sm:self-end sm:text-right"
+                        className="font-sans font-normal sm:self-end"
                         style={{
                             color: textColor,
                             fontSize: "clamp(14px, 1.5vw, 20px)",

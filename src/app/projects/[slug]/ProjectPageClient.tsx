@@ -8,17 +8,21 @@ import { fadeUp, slideUp, createTransition } from "@/lib/motion";
 import { mediaUrl } from "@/lib/utils";
 import Navbar from "@/components/custom/Navbar";
 import NavOverlay from "@/components/custom/NavOverlay";
+import ContactSection from "@/components/custom/ContactSection";
+import Footer from "@/components/custom/Footer";
 import { useState } from "react";
 import type { projects } from "@/db/schema";
 import type { InferSelectModel } from "drizzle-orm";
 
 type Project = InferSelectModel<typeof projects>;
+type SocialLink = { id: string; platform: string; url: string; order: number };
 
 interface Props {
     project: Project;
+    socialLinks?: SocialLink[];
 }
 
-export default function ProjectPageClient({ project }: Props) {
+export default function ProjectPageClient({ project, socialLinks = [] }: Props) {
     const [menuOpen, setMenuOpen] = useState(false);
     const { navigate } = usePageTransition();
 
@@ -35,28 +39,6 @@ export default function ProjectPageClient({ project }: Props) {
 
             {/* Hero text */}
             <div className="px-5 sm:px-14 pt-24 pb-12">
-                {/* Company label */}
-                <motion.div
-                    className="flex items-center gap-3 mb-6"
-                    initial={fadeUp.hidden}
-                    animate={fadeUp.visible}
-                    transition={createTransition({ duration: "medium", ease: "gentle", delay: "short" })}
-                >
-                    <Image
-                        src={project.icon}
-                        alt={project.name}
-                        width={28}
-                        height={28}
-                        className="object-contain"
-                    />
-                    <span
-                        className="font-sans font-medium"
-                        style={{ color: "var(--brand-dark)", fontSize: 18, letterSpacing: "-0.36px" }}
-                    >
-                        {project.name}
-                    </span>
-                </motion.div>
-
                 {/* Big title + description row */}
                 <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4">
                     <div className="overflow-hidden">
@@ -229,6 +211,9 @@ export default function ProjectPageClient({ project }: Props) {
                     ← Back to work
                 </button>
             </div>
+
+            <ContactSection />
+            <Footer socialLinks={socialLinks} />
         </motion.main>
     );
 }

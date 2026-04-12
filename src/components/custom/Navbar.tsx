@@ -13,7 +13,8 @@ interface NavbarProps {
 }
 
 export default function Navbar({ onMenuToggle, isMenuOpen, variant = "light" }: NavbarProps) {
-    const fg = variant === "dark" ? colors.dark : colors.light;
+    // When menu overlay is open, always use light (white) text since overlay bg is dark
+    const fg = isMenuOpen ? colors.light : (variant === "dark" ? colors.dark : colors.light);
 
     return (
         <nav className="absolute top-0 left-0 right-0 z-40 flex items-center justify-between">

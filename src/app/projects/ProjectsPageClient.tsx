@@ -7,6 +7,7 @@ import { usePageTransition } from "@/components/custom/PageTransition";
 import Navbar from "@/components/custom/Navbar";
 import NavOverlay from "@/components/custom/NavOverlay";
 import Footer from "@/components/custom/Footer";
+import ContactSection from "@/components/custom/ContactSection";
 import { colors } from "@/lib/colors";
 import { fadeUp, slideUp, createTransition } from "@/lib/motion";
 import { mediaUrl } from "@/lib/utils";
@@ -103,6 +104,7 @@ export default function ProjectsPageClient({ projects, socialLinks = [] }: { pro
                 ))}
             </div>
 
+            <ContactSection />
             <Footer socialLinks={socialLinks} />
         </motion.main>
     );

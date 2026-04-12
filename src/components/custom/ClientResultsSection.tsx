@@ -68,25 +68,33 @@ function TestimonialCard({ t }: { t: Testimonial }) {
     );
 }
 
+const FALLBACK_POSITIONS = ["10%", "55%", "25%", "45%", "15%", "60%", "35%", "50%"];
+
 function FloatingCard({
     t,
     scrollYProgress,
     index,
     total,
+    allSamePosition,
 }: {
     t: Testimonial;
     scrollYProgress: ReturnType<typeof useScroll>["scrollYProgress"];
     index: number;
     total: number;
+    allSamePosition: boolean;
 }) {
     const sliceSize = 1 / total;
     const cardStart = index * sliceSize * 0.6;
     const cardEnd = cardStart + 0.6;
     const y = useTransform(scrollYProgress, [cardStart, cardEnd], ["100vh", "-100vh"]);
 
+    const leftPos = allSamePosition
+        ? FALLBACK_POSITIONS[index % FALLBACK_POSITIONS.length]
+        : t.xPercent;
+
     return (
         <motion.div
-            style={{ y, left: t.xPercent }}
+            style={{ y, left: leftPos }}
             className="absolute top-1/2 -translate-y-1/2 w-[360px] bg-white rounded-2xl shadow-sm p-8 flex flex-col gap-5"
         >
             <div className="flex items-center gap-3">
@@ -146,15 +154,20 @@ export default function ClientResultsSection({ testimonials }: ClientResultsSect
                         CLIENT RESULTS
                     </span>
                     <div className="absolute inset-0">
-                        {testimonials.map((t, i) => (
-                            <FloatingCard
-                                key={t.company}
-                                t={t}
-                                scrollYProgress={scrollYProgress}
-                                index={i}
-                                total={testimonials.length}
-                            />
-                        ))}
+                        {(() => {
+                            const positions = testimonials.map((t) => t.xPercent);
+                            const allSame = new Set(positions).size <= 1;
+                            return testimonials.map((t, i) => (
+                                <FloatingCard
+                                    key={t.company}
+                                    t={t}
+                                    scrollYProgress={scrollYProgress}
+                                    index={i}
+                                    total={testimonials.length}
+                                    allSamePosition={allSame}
+                                />
+                            ));
+                        })()}
                     </div>
                 </div>
             </section>

@@ -3,6 +3,7 @@ import { getArticle, getArticles, getRelatedArticles, getSocialLinks } from "@/l
 import ArticlePageClient from "./ArticlePageClient";
 
 export const dynamicParams = true;
+export const revalidate = 0;
 
 export async function generateStaticParams() {
     const articles = await getArticles();

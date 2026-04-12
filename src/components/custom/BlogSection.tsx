@@ -34,7 +34,7 @@ export default function BlogSection({ articles }: Props) {
 
     return (
         <SectionLayout
-            label="//08 Blog"
+            label="//07 Blog"
             heading={<>Latest<br />Insights</>}
             bg={colors.background}
             headerRight={headerRight}
