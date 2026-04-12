@@ -57,13 +57,44 @@ export default function HeroSection({
       />
       <NavOverlay isOpen={menuOpen} onClose={() => setMenuOpen(false)} />
 
-      {/* H1 + Since subtext — stacked naturally */}
+      {/* H1 + Since subtext */}
       <div className="absolute" style={{ top: 56, left: 0, right: 0 }}>
-        <div className="overflow-hidden">
+
+        {/* Mobile: each word on its own line, fills viewport width */}
+        <div className="lg:hidden overflow-hidden px-4">
           <motion.h1
-            className="font-medium leading-none pl-4 lg:pl-0 lg:text-center sm:whitespace-nowrap"
+            className="font-medium leading-none"
             style={{
-              fontSize: "clamp(48px, 14.5vw, 280px)",
+              fontSize: "clamp(72px, 24vw, 140px)",
+              color: colors.light,
+              letterSpacing: "-0.03em",
+              lineHeight: "0.92",
+            }}
+            initial={slideUp.hidden}
+            animate={slideUp.visible}
+            transition={createTransition({ duration: "slow", ease: "snappy", delay: "long" })}
+          >
+            {heading.split(" ").map((word, i) => (
+              <span key={i} className="block">{word}</span>
+            ))}
+          </motion.h1>
+          <motion.p
+            className="font-mono font-medium mt-4"
+            style={{ color: colors.light, fontSize: 15, letterSpacing: "0.02em", opacity: 0.85 }}
+            initial={fadeUp.hidden}
+            animate={fadeUp.visible}
+            transition={createTransition({ duration: "medium", ease: "gentle", delay: "xlong" })}
+          >
+            {subtext}
+          </motion.p>
+        </div>
+
+        {/* Desktop: single line, centered */}
+        <div className="hidden lg:block overflow-hidden">
+          <motion.h1
+            className="font-medium leading-none text-center whitespace-nowrap"
+            style={{
+              fontSize: "clamp(80px, 14.5vw, 280px)",
               color: colors.light,
               letterSpacing: "-0.05em",
               lineHeight: "1.03",
@@ -75,19 +106,9 @@ export default function HeroSection({
             {heading}
           </motion.h1>
         </div>
-        {/* Mobile only — flows below title */}
-        <motion.p
-          className="font-mono font-medium pl-4 mt-2 lg:hidden"
-          style={{ color: colors.light, fontSize: "clamp(14px, 2vw, 20px)", letterSpacing: "-0.4px" }}
-          initial={fadeUp.hidden}
-          animate={fadeUp.visible}
-          transition={createTransition({ duration: "medium", ease: "gentle", delay: "xlong" })}
-        >
-          {subtext}
-        </motion.p>
       </div>
 
-      {/* Desktop only — absolute left, vertically centered */}
+      {/* Desktop only — "Since" absolute left, vertically centered */}
       <motion.p
         className="absolute font-mono font-medium hidden lg:block"
         style={{
@@ -121,7 +142,7 @@ export default function HeroSection({
           className="font-medium mb-5"
           style={{
             color: colors.light,
-            fontSize: "clamp(15px, 2vw, 20px)",
+            fontSize: "clamp(15px, 4vw, 20px)",
             lineHeight: "1.4",
             letterSpacing: "-0.6px",
             maxWidth: 448,
@@ -135,7 +156,8 @@ export default function HeroSection({
             href={ctaHref}
             variant="light"
             data-track-click="hero_start_project"
-            style={{ fontSize: 16, whiteSpace: "nowrap", paddingLeft: 24, paddingRight: 24, paddingTop: 10, paddingBottom: 10, alignSelf: "flex-start" }}
+            className="w-full sm:w-auto"
+            style={{ fontSize: 16, whiteSpace: "nowrap", paddingLeft: 24, paddingRight: 24, paddingTop: 12, paddingBottom: 12 }}
           >
             {ctaLabel}
           </Button>
