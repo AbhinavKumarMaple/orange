@@ -5,6 +5,8 @@ import Image from "next/image";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
+import { isVideo } from "@/lib/utils";
+import MediaThumb from "@/components/custom/MediaThumb";
 import type { MediaFile } from "./types";
 
 interface UploadingFile {
@@ -23,7 +25,7 @@ interface Props {
 }
 
 export default function MediaPickerDialog({
-  open, onOpenChange, onSelect, multiple, onMultiSelect, accept = "image/*",
+  open, onOpenChange, onSelect, multiple, onMultiSelect, accept = "image/*,video/*",
 }: Props) {
   const [files, setFiles] = useState<MediaFile[]>([]);
   const [loading, setLoading] = useState(true);
@@ -134,13 +136,11 @@ export default function MediaPickerDialog({
             <div className="grid grid-cols-4 sm:grid-cols-5 gap-3 mb-4 pt-3">
               {uploading.map((u, i) => (
                 <div key={i} className="relative aspect-square rounded-lg overflow-hidden border border-gray-200">
-                  <Image
-                    src={u.preview}
-                    alt={u.name}
-                    fill
-                    className="object-cover opacity-40 grayscale"
-                    sizes="150px"
-                  />
+                  {isVideo(u.name) ? (
+                    <video src={u.preview} muted className="absolute inset-0 w-full h-full object-cover opacity-40 grayscale" />
+                  ) : (
+                    <Image src={u.preview} alt={u.name} fill className="object-cover opacity-40 grayscale" sizes="150px" />
+                  )}
                   <div className="absolute bottom-0 left-0 right-0 h-1.5 bg-gray-200">
                     <div
                       className="h-full bg-gray-900 transition-all duration-300"
@@ -176,13 +176,7 @@ export default function MediaPickerDialog({
                     selected.has(f.url) ? "border-gray-900 ring-2 ring-gray-900/20" : "border-gray-200"
                   )}
                 >
-                  <Image
-                    src={f.url}
-                    alt={f.pathname}
-                    fill
-                    className="object-cover"
-                    sizes="150px"
-                  />
+                  <MediaThumb src={f.url} alt={f.pathname} />
                   {selected.has(f.url) && (
                     <div className="absolute top-1.5 right-1.5 w-5 h-5 bg-gray-900 rounded-full flex items-center justify-center">
                       <span className="text-white text-xs">✓</span>

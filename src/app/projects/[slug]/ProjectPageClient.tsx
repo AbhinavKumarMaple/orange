@@ -5,11 +5,12 @@ import { motion } from "motion/react";
 import { usePageTransition } from "@/components/custom/PageTransition";
 import { colors } from "@/lib/colors";
 import { fadeUp, slideUp, createTransition } from "@/lib/motion";
-import { mediaUrl } from "@/lib/utils";
+import { mediaUrl, isVideo } from "@/lib/utils";
 import Navbar from "@/components/custom/Navbar";
 import NavOverlay from "@/components/custom/NavOverlay";
 import ContactSection from "@/components/custom/ContactSection";
 import Footer from "@/components/custom/Footer";
+import MediaRenderer from "@/components/custom/MediaRenderer";
 import { useState } from "react";
 import type { projects } from "@/db/schema";
 import type { InferSelectModel } from "drizzle-orm";
@@ -88,8 +89,8 @@ export default function ProjectPageClient({ project, socialLinks = [] }: Props) 
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.7, ease: [0.76, 0, 0.24, 1], delay: 0.3 }}
                 >
-                    <Image
-                        src={mediaUrl(project.heroImage, "width=2400")}
+                    <MediaRenderer
+                        src={mediaUrl(project.heroImage, isVideo(project.heroImage) ? undefined : "width=2400")}
                         alt={project.name}
                         fill
                         className="object-cover"
@@ -173,8 +174,8 @@ export default function ProjectPageClient({ project, socialLinks = [] }: Props) 
                                 className="w-full overflow-hidden relative"
                                 style={{ borderRadius: 8, aspectRatio: "4/3" }}
                             >
-                                <Image
-                                    src={mediaUrl(img, "width=1200")}
+                                <MediaRenderer
+                                    src={mediaUrl(img, isVideo(img) ? undefined : "width=1200")}
                                     alt={`${project.name} detail ${i + 1}`}
                                     fill
                                     className="object-cover"
@@ -191,8 +192,8 @@ export default function ProjectPageClient({ project, socialLinks = [] }: Props) 
                         className="w-full overflow-hidden relative"
                         style={{ borderRadius: 8, aspectRatio: "16/9" }}
                     >
-                        <Image
-                            src={mediaUrl(img, "width=2400")}
+                        <MediaRenderer
+                            src={mediaUrl(img, isVideo(img) ? undefined : "width=2400")}
                             alt={`${project.name} ${i + 3}`}
                             fill
                             className="object-cover"

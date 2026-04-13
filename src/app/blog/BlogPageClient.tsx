@@ -10,7 +10,8 @@ import Footer from "@/components/custom/Footer";
 import ContactSection from "@/components/custom/ContactSection";
 import { colors } from "@/lib/colors";
 import { fadeUp, slideUp, createTransition } from "@/lib/motion";
-import { mediaUrl } from "@/lib/utils";
+import { mediaUrl, isVideo } from "@/lib/utils";
+import MediaRenderer from "@/components/custom/MediaRenderer";
 import type { articles } from "@/db/schema";
 import type { InferSelectModel } from "drizzle-orm";
 
@@ -80,8 +81,8 @@ export default function BlogPageClient({ articles, socialLinks = [] }: { article
                         onClick={() => navigate(`/articles/${article.slug}`)}
                     >
                         <div style={{ borderRadius: 8, overflow: "hidden", aspectRatio: "16/10", position: "relative" }}>
-                            <Image
-                                src={mediaUrl(article.image, "scale-down-to=1024&width=1200&height=673")}
+                            <MediaRenderer
+                                src={mediaUrl(article.image, isVideo(article.image) ? undefined : "scale-down-to=1024&width=1200&height=673")}
                                 alt={article.title}
                                 fill
                                 className="object-cover transition-transform duration-500 group-hover:scale-105"
@@ -120,8 +121,8 @@ export default function BlogPageClient({ articles, socialLinks = [] }: { article
                             onClick={() => navigate(`/articles/${article.slug}`)}
                         >
                             <div style={{ borderRadius: 8, overflow: "hidden", aspectRatio: "16/10", position: "relative" }}>
-                                <Image
-                                    src={mediaUrl(article.image, "scale-down-to=1024&width=1200&height=673")}
+                                <MediaRenderer
+                                    src={mediaUrl(article.image, isVideo(article.image) ? undefined : "scale-down-to=1024&width=1200&height=673")}
                                     alt={article.title}
                                     fill
                                     className="object-cover transition-transform duration-500 group-hover:scale-105"

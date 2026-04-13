@@ -5,6 +5,8 @@ import Image from "next/image";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
+import { isVideo } from "@/lib/utils";
+import MediaThumb from "@/components/custom/MediaThumb";
 import type { MediaFile } from "./types";
 
 interface UploadingFile {
@@ -97,7 +99,7 @@ export default function MediaPageClient() {
       <div className="flex items-center justify-between mb-6">
         <div>
           <h1 className="text-2xl font-bold text-gray-900">Media</h1>
-          <p className="text-sm text-gray-500">Upload and manage images used across the site.</p>
+          <p className="text-sm text-gray-500">Upload and manage images and videos used across the site.</p>
         </div>
         <div className="flex gap-2">
           {selected.size > 0 && (
@@ -109,14 +111,18 @@ export default function MediaPageClient() {
         </div>
       </div>
 
-      <input ref={fileRef} type="file" accept="image/*" multiple className="hidden" onChange={handleUpload} />
+      <input ref={fileRef} type="file" accept="image/*,video/*" multiple className="hidden" onChange={handleUpload} />
 
       {/* Uploading cards */}
       {uploading.length > 0 && (
         <div className="grid grid-cols-3 sm:grid-cols-5 lg:grid-cols-6 gap-3 mb-4">
           {uploading.map((u, i) => (
             <div key={i} className="relative aspect-square rounded-lg overflow-hidden border border-gray-200">
-              <Image src={u.preview} alt={u.name} fill className="object-cover opacity-40 grayscale" sizes="150px" />
+              {isVideo(u.name) ? (
+                <video src={u.preview} muted className="absolute inset-0 w-full h-full object-cover opacity-40 grayscale" />
+              ) : (
+                <Image src={u.preview} alt={u.name} fill className="object-cover opacity-40 grayscale" sizes="150px" />
+              )}
               <div className="absolute bottom-0 left-0 right-0 h-1.5 bg-gray-200">
                 <div className="h-full bg-gray-900 transition-all duration-300" style={{ width: `${u.progress}%` }} />
               </div>
@@ -146,7 +152,7 @@ export default function MediaPageClient() {
                   selected.has(f.url) ? "border-gray-900 ring-2 ring-gray-900/20" : "border-gray-200 hover:border-gray-300"
                 )}
               >
-                <Image src={f.url} alt={f.pathname} fill className="object-cover" sizes="150px" />
+                <MediaThumb src={f.url} alt={f.pathname} />
                 {selected.has(f.url) && (
                   <div className="absolute top-1.5 right-1.5 w-5 h-5 bg-gray-900 rounded-full flex items-center justify-center">
                     <span className="text-white text-xs">✓</span>

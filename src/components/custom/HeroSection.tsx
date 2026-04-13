@@ -5,6 +5,7 @@ import Image from "next/image";
 import { motion } from "motion/react";
 import { slideUp, fadeUp, createTransition } from "@/lib/motion";
 import { colors } from "@/lib/colors";
+import { isVideo } from "@/lib/utils";
 import Navbar from "./Navbar";
 import NavOverlay from "./NavOverlay";
 import StarRating from "./StarRating";
@@ -41,15 +42,26 @@ export default function HeroSection({
       className="relative w-full overflow-hidden"
       style={{ height: "100svh" }}
     >
-      {/* Full-bleed background image */}
-      <Image
-        src={image || FALLBACK_IMAGE}
-        alt=""
-        fill
-        className="object-cover object-center"
-        sizes="100vw"
-        priority
-      />
+      {/* Full-bleed background image/video */}
+      {isVideo(image || FALLBACK_IMAGE) ? (
+        <video
+          src={image || FALLBACK_IMAGE}
+          autoPlay
+          muted
+          loop
+          playsInline
+          className="absolute inset-0 w-full h-full object-cover object-center"
+        />
+      ) : (
+        <Image
+          src={image || FALLBACK_IMAGE}
+          alt=""
+          fill
+          className="object-cover object-center"
+          sizes="100vw"
+          priority
+        />
+      )}
 
       <Navbar
         isMenuOpen={menuOpen}

@@ -2,10 +2,11 @@
 
 import Image from "next/image";
 import { colors } from "@/lib/colors";
-import { mediaUrl } from "@/lib/utils";
+import { mediaUrl, isVideo } from "@/lib/utils";
 import SectionLayout from "./SectionLayout";
 import Button from "./Button";
 import { usePageTransition } from "./PageTransition";
+import MediaRenderer from "./MediaRenderer";
 import type { articles } from "@/db/schema";
 import type { InferSelectModel } from "drizzle-orm";
 
@@ -52,8 +53,8 @@ export default function BlogSection({ articles }: Props) {
                         data-track-hover={`blog_article_${post.slug}`}
                     >
                         <div className="relative w-full overflow-hidden" style={{ aspectRatio: "16/10", borderRadius: 8 }}>
-                            <Image
-                                src={mediaUrl(post.image, "scale-down-to=1024&width=1200&height=673")}
+                            <MediaRenderer
+                                src={mediaUrl(post.image, isVideo(post.image) ? undefined : "scale-down-to=1024&width=1200&height=673")}
                                 alt={post.title}
                                 fill
                                 className="object-cover group-hover:scale-105 transition-transform duration-500"

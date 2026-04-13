@@ -10,7 +10,8 @@ import Footer from "@/components/custom/Footer";
 import ContactSection from "@/components/custom/ContactSection";
 import { colors } from "@/lib/colors";
 import { fadeUp, slideUp, createTransition } from "@/lib/motion";
-import { mediaUrl } from "@/lib/utils";
+import { mediaUrl, isVideo } from "@/lib/utils";
+import MediaRenderer from "@/components/custom/MediaRenderer";
 import type { projects } from "@/db/schema";
 import type { InferSelectModel } from "drizzle-orm";
 
@@ -80,8 +81,8 @@ export default function ProjectsPageClient({ projects, socialLinks = [] }: { pro
                         onClick={() => navigate(`/projects/${project.slug}`)}
                     >
                         <div style={{ borderRadius: 8, overflow: "hidden", aspectRatio: "909/838", position: "relative" }}>
-                            <Image
-                                src={mediaUrl(project.heroImage, "width=1818&height=1676")}
+                            <MediaRenderer
+                                src={mediaUrl(project.heroImage, isVideo(project.heroImage) ? undefined : "width=1818&height=1676")}
                                 alt={project.name}
                                 fill
                                 className="object-cover transition-transform duration-500 group-hover:scale-105"

@@ -5,7 +5,8 @@ import { motion } from "motion/react";
 import { fadeUp, createTransition } from "@/lib/motion";
 import { usePageTransition } from "./PageTransition";
 import { colors } from "@/lib/colors";
-import { mediaUrl } from "@/lib/utils";
+import { mediaUrl, isVideo } from "@/lib/utils";
+import MediaRenderer from "./MediaRenderer";
 import type { projects } from "@/db/schema";
 import type { InferSelectModel } from "drizzle-orm";
 
@@ -33,8 +34,8 @@ export default function PortfolioGrid({ projects }: Props) {
                     data-track-hover={`portfolio_${project.slug}`}
                 >
                     <div style={{ borderRadius: 8, overflow: "hidden", aspectRatio: "909 / 838", position: "relative", width: "100%" }}>
-                        <Image
-                            src={mediaUrl(project.heroImage, "width=1818&height=1676")}
+                        <MediaRenderer
+                            src={mediaUrl(project.heroImage, isVideo(project.heroImage) ? undefined : "width=1818&height=1676")}
                             alt={project.name}
                             fill
                             className="object-cover transition-transform duration-500 group-hover:scale-105"

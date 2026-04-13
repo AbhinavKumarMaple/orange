@@ -15,3 +15,11 @@ export function mediaUrl(value: string, query?: string): string {
   if (value.startsWith("data:")) return value;
   return query ? `${value}?${query}` : value;
 }
+
+const VIDEO_EXTENSIONS = /\.(mp4|webm|mov|ogg|avi|mkv)(\?|$)/i;
+
+/** Returns true if the URL points to a video file */
+export function isVideo(url: string): boolean {
+  if (!url) return false;
+  return VIDEO_EXTENSIONS.test(url);
+}

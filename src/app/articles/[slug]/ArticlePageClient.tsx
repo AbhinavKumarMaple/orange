@@ -10,7 +10,8 @@ import Footer from "@/components/custom/Footer";
 import ContactSection from "@/components/custom/ContactSection";
 import { colors } from "@/lib/colors";
 import { fadeUp, slideUp, createTransition } from "@/lib/motion";
-import { mediaUrl } from "@/lib/utils";
+import { mediaUrl, isVideo } from "@/lib/utils";
+import MediaRenderer from "@/components/custom/MediaRenderer";
 import type { articles } from "@/db/schema";
 import type { InferSelectModel } from "drizzle-orm";
 
@@ -80,7 +81,7 @@ export default function ArticlePageClient({ article, related, socialLinks = [] }
                     initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.7, ease: [0.76, 0, 0.24, 1], delay: 0.3 }}
                 >
-                    <Image src={mediaUrl(article.image, "scale-down-to=1024&width=1200&height=673")} alt={article.title} fill className="object-cover" priority />
+                    <MediaRenderer src={mediaUrl(article.image, isVideo(article.image) ? undefined : "scale-down-to=1024&width=1200&height=673")} alt={article.title} fill className="object-cover" priority />
                 </motion.div>
 
                 {/* Article body */}
@@ -111,7 +112,7 @@ export default function ArticlePageClient({ article, related, socialLinks = [] }
                         {related.map((a) => (
                             <div key={a.slug} className="cursor-pointer group" onClick={() => navigate(`/articles/${a.slug}`)}>
                                 <div style={{ borderRadius: 8, overflow: "hidden", aspectRatio: "16/10", position: "relative" }}>
-                                    <Image src={mediaUrl(a.image, "scale-down-to=1024&width=1200&height=673")} alt={a.title} fill className="object-cover transition-transform duration-500 group-hover:scale-105" />
+                                    <MediaRenderer src={mediaUrl(a.image, isVideo(a.image) ? undefined : "scale-down-to=1024&width=1200&height=673")} alt={a.title} fill className="object-cover transition-transform duration-500 group-hover:scale-105" />
                                 </div>
                                 <div className="mt-4">
                                     <div className="flex items-center gap-4 mb-2">
