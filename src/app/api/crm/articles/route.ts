@@ -14,7 +14,6 @@ export async function GET() {
 export async function POST(req: NextRequest) {
   const body = await req.json();
   const [row] = await db.insert(articles).values(body).returning();
-  revalidatePath("/");
-  revalidatePath("/blog");
+  revalidatePath("/", "layout");
   return NextResponse.json(row, { status: 201 });
 }

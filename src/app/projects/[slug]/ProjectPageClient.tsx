@@ -90,11 +90,12 @@ export default function ProjectPageClient({ project, socialLinks = [] }: Props) 
                     transition={{ duration: 0.7, ease: [0.76, 0, 0.24, 1], delay: 0.3 }}
                 >
                     <MediaRenderer
-                        src={mediaUrl(project.heroImage, isVideo(project.heroImage) ? undefined : "width=2400")}
+                        src={mediaUrl(project.heroImage)}
                         alt={project.name}
                         fill
                         className="object-cover"
                         priority
+                        sizes="100vw"
                     />
                 </motion.div>
             </div>
@@ -175,10 +176,11 @@ export default function ProjectPageClient({ project, socialLinks = [] }: Props) 
                                 style={{ borderRadius: 8, aspectRatio: "4/3" }}
                             >
                                 <MediaRenderer
-                                    src={mediaUrl(img, isVideo(img) ? undefined : "width=1200")}
+                                    src={mediaUrl(img)}
                                     alt={`${project.name} detail ${i + 1}`}
                                     fill
                                     className="object-cover"
+                                    sizes="(max-width: 640px) 100vw, 50vw"
                                 />
                             </div>
                         ))}
@@ -193,10 +195,11 @@ export default function ProjectPageClient({ project, socialLinks = [] }: Props) 
                         style={{ borderRadius: 8, aspectRatio: "16/9" }}
                     >
                         <MediaRenderer
-                            src={mediaUrl(img, isVideo(img) ? undefined : "width=2400")}
+                            src={mediaUrl(img)}
                             alt={`${project.name} ${i + 3}`}
                             fill
                             className="object-cover"
+                            sizes="100vw"
                         />
                     </div>
                 ))}

@@ -25,6 +25,6 @@ export async function PUT(req: NextRequest) {
     [row] = await db.insert(heroContent).values(body).returning();
   }
 
-  revalidatePath("/");
+  revalidatePath("/", "layout");
   return NextResponse.json(row);
 }

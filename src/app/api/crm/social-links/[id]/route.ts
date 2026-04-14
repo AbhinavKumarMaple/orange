@@ -15,7 +15,7 @@ export async function PUT(
     .set(body)
     .where(eq(socialLinks.id, id))
     .returning();
-  revalidatePath("/");
+  revalidatePath("/", "layout");
   return NextResponse.json(row);
 }
 
@@ -25,6 +25,6 @@ export async function DELETE(
 ) {
   const { id } = await params;
   await db.delete(socialLinks).where(eq(socialLinks.id, id));
-  revalidatePath("/");
+  revalidatePath("/", "layout");
   return new NextResponse(null, { status: 204 });
 }

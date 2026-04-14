@@ -15,8 +15,7 @@ export async function PUT(
     .set(body)
     .where(eq(projects.id, id))
     .returning();
-  revalidatePath("/");
-  revalidatePath(`/projects/${row.slug}`);
+  revalidatePath("/", "layout");
   return NextResponse.json(row);
 }
 
@@ -27,7 +26,6 @@ export async function DELETE(
   const { id } = await params;
   const [existing] = await db.select({ slug: projects.slug }).from(projects).where(eq(projects.id, id)).limit(1);
   await db.delete(projects).where(eq(projects.id, id));
-  revalidatePath("/");
-  if (existing?.slug) revalidatePath(`/projects/${existing.slug}`);
+  revalidatePath("/", "layout");
   return new NextResponse(null, { status: 204 });
 }

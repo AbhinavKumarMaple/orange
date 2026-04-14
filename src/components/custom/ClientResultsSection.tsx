@@ -57,7 +57,7 @@ function TestimonialCard({ t }: { t: Testimonial }) {
             <p className="text-gray-700 text-[14px] leading-relaxed">{t.quote}</p>
             <div className="border-t border-gray-100 pt-4 flex items-center gap-3 mt-auto">
                 <div className="w-10 h-10 rounded-full bg-gray-200 overflow-hidden shrink-0 relative">
-                    <Image src={t.avatar} alt={t.name} fill className="object-cover" />
+                    <Image src={t.avatar} alt={t.name} fill className="object-cover" sizes="40px" />
                 </div>
                 <div>
                     <p className="text-[14px] font-medium text-gray-900">{t.name}</p>
@@ -107,7 +107,7 @@ function FloatingCard({
             <p className="text-gray-700 text-[15px] leading-relaxed">{t.quote}</p>
             <div className="border-t border-gray-100 pt-4 flex items-center gap-3 mt-auto">
                 <div className="w-11 h-11 rounded-full bg-gray-200 overflow-hidden shrink-0 relative">
-                    <Image src={t.avatar} alt={t.name} fill className="object-cover" />
+                    <Image src={t.avatar} alt={t.name} fill className="object-cover" sizes="44px" />
                 </div>
                 <div>
                     <p className="text-[15px] font-medium text-gray-900">{t.name}</p>

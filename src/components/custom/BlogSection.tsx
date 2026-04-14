@@ -54,10 +54,11 @@ export default function BlogSection({ articles }: Props) {
                     >
                         <div className="relative w-full overflow-hidden" style={{ aspectRatio: "16/10", borderRadius: 8 }}>
                             <MediaRenderer
-                                src={mediaUrl(post.image, isVideo(post.image) ? undefined : "scale-down-to=1024&width=1200&height=673")}
+                                src={mediaUrl(post.image)}
                                 alt={post.title}
                                 fill
                                 className="object-cover group-hover:scale-105 transition-transform duration-500"
+                                sizes="(max-width: 768px) 100vw, 50vw"
                             />
                         </div>
                         <div className="pt-4 pb-2">

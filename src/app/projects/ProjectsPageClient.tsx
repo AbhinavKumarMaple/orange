@@ -82,10 +82,11 @@ export default function ProjectsPageClient({ projects, socialLinks = [] }: { pro
                     >
                         <div style={{ borderRadius: 8, overflow: "hidden", aspectRatio: "909/838", position: "relative" }}>
                             <MediaRenderer
-                                src={mediaUrl(project.heroImage, isVideo(project.heroImage) ? undefined : "width=1818&height=1676")}
+                                src={mediaUrl(project.heroImage)}
                                 alt={project.name}
                                 fill
                                 className="object-cover transition-transform duration-500 group-hover:scale-105"
+                                sizes="(max-width: 640px) 100vw, 50vw"
                             />
                         </div>
                         <div className="flex items-center justify-between mt-4">
