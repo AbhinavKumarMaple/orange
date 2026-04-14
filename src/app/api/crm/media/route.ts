@@ -44,7 +44,7 @@ export async function POST(req: NextRequest) {
     const file = formData.get("file") as File | null;
     if (!file) return NextResponse.json({ error: "No file provided" }, { status: 400 });
 
-    const blob = await put(file.name, file, { access: "public" });
+    const blob = await put(file.name, file, { access: "public", addRandomSuffix: true });
 
     const [asset] = await db.insert(mediaAssets).values({
       url: blob.url,

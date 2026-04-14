@@ -55,7 +55,7 @@ export async function POST(
   if (!file) return NextResponse.json({ error: "No file provided" }, { status: 400 });
 
   // Upload new version to blob
-  const blob = await put(file.name, file, { access: "public" });
+  const blob = await put(file.name, file, { access: "public", addRandomSuffix: true });
   const oldUrl = asset.url;
   const newUrl = blob.url;
 
