@@ -111,3 +111,14 @@ export const heroContent = pgTable("hero_content", {
   roi: text("roi").notNull().default("3.2x Average ROI"),
   updatedAt: timestamp("updated_at").defaultNow(),
 });
+
+export const mediaAssets = pgTable("media_assets", {
+  id: uuid("id").primaryKey().defaultRandom(),
+  url: text("url").notNull(),
+  pathname: text("pathname").notNull(),
+  size: integer("size").notNull().default(0),
+  width: integer("width"),
+  height: integer("height"),
+  versions: jsonb("versions").notNull().default([]),
+  uploadedAt: timestamp("uploaded_at").defaultNow(),
+});

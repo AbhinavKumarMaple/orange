@@ -6,22 +6,13 @@ import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { cn, isVideo } from "@/lib/utils";
 import MediaThumb from "@/components/custom/MediaThumb";
+import MediaPreviewPanel from "./MediaPreviewPanel";
 import type { MediaFile } from "./types";
 
 interface UploadingFile {
   name: string;
   progress: number;
   preview: string;
-}
-
-function formatBytes(bytes: number) {
-  if (bytes < 1024) return `${bytes} B`;
-  if (bytes < 1024 * 1024) return `${(bytes / 1024).toFixed(1)} KB`;
-  return `${(bytes / (1024 * 1024)).toFixed(1)} MB`;
-}
-
-function getExt(pathname: string) {
-  return pathname.split(".").pop()?.toUpperCase() ?? "FILE";
 }
 
 export default function MediaPageClient() {
@@ -166,31 +157,18 @@ export default function MediaPageClient() {
 
         {/* Preview panel */}
         {preview && (
-          <div className="w-72 shrink-0 flex flex-col bg-gray-50/60 overflow-y-auto">
-            <div className="relative w-full aspect-square bg-white border-b border-gray-200 flex items-center justify-center">
-              {isVideo(preview.url) ? (
-                <video src={preview.url} controls muted playsInline className="max-w-full max-h-full object-contain" />
-              ) : (
-                <Image src={preview.url} alt="" fill className="object-contain p-3" sizes="288px" />
-              )}
-            </div>
-            <div className="p-4 flex flex-col gap-2.5 text-[13px]">
-              <p className="font-medium text-gray-900 break-all leading-tight">{preview.pathname.split("/").pop()}</p>
-              <div className="flex flex-col gap-1.5 text-gray-500">
-                <div className="flex justify-between"><span>Type</span><span className="text-gray-700">{getExt(preview.pathname)}</span></div>
-                <div className="flex justify-between"><span>Size</span><span className="text-gray-700">{formatBytes(preview.size)}</span></div>
-                <div className="flex justify-between"><span>Uploaded</span><span className="text-gray-700">{new Date(preview.uploadedAt).toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" })}</span></div>
-              </div>
-              <div className="flex flex-col gap-1.5 pt-2">
-                <Button size="sm" variant={selected.has(preview.url) ? "destructive" : "outline"} className="w-full" onClick={() => toggleSelect(preview.url)}>
-                  {selected.has(preview.url) ? "Deselect" : "Select"}
-                </Button>
-                <Button size="sm" variant="outline" className="w-full" onClick={() => { navigator.clipboard.writeText(preview.url); toast.success("URL copied"); }}>
-                  Copy URL
-                </Button>
-              </div>
-            </div>
-          </div>
+          <MediaPreviewPanel
+            file={preview}
+            onVersionUploaded={(updated) => {
+              setFiles((prev) => prev.map((f) => f.url === preview.url ? { ...f, ...updated } : f));
+              setPreview({ ...preview, ...updated });
+            }}
+            actions={
+              <Button size="sm" variant={selected.has(preview.url) ? "destructive" : "outline"} className="w-full" onClick={() => toggleSelect(preview.url)}>
+                {selected.has(preview.url) ? "Deselect" : "Select"}
+              </Button>
+            }
+          />
         )}
       </div>
     </div>
