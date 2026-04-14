@@ -18,7 +18,7 @@ type Project = InferSelectModel<typeof projects>;
 
 const empty: Omit<Project, "id" | "createdAt"> = {
     slug: "", name: "", category: "", year: "", industry: "", timeline: "",
-    description: "", problem: "", solution: "", heroImage: "", images: [], icon: "", order: 0,
+    description: "", problem: "", solution: "", heroImage: "", coverImage: "", images: [], icon: "", order: 0,
 };
 
 export default function ProjectsClient({ initialData }: { initialData: Project[] }) {
@@ -35,7 +35,7 @@ export default function ProjectsClient({ initialData }: { initialData: Project[]
             slug: p.slug, name: p.name, category: p.category, year: p.year,
             industry: p.industry, timeline: p.timeline, description: p.description,
             problem: p.problem, solution: p.solution, heroImage: p.heroImage,
-            images: p.images, icon: p.icon, order: p.order
+            coverImage: p.coverImage, images: p.images, icon: p.icon, order: p.order
         });
         setOpen(true);
     }
@@ -112,7 +112,10 @@ export default function ProjectsClient({ initialData }: { initialData: Project[]
                             <MediaInput label="Icon" value={form.icon} onChange={(v) => setForm((p) => ({ ...p, icon: v }))} accept="image/*,image/svg+xml" />
                         </div>
                         <div className="col-span-2">
-                            <MediaInput label="Hero Image" value={form.heroImage} onChange={(v) => setForm((p) => ({ ...p, heroImage: v }))} />
+                            <MediaInput label="Thumbnail" value={form.heroImage} onChange={(v) => setForm((p) => ({ ...p, heroImage: v }))} />
+                        </div>
+                        <div className="col-span-2">
+                            <MediaInput label="Cover Image" value={form.coverImage} onChange={(v) => setForm((p) => ({ ...p, coverImage: v }))} />
                         </div>
                         <div className="col-span-2">
                             <GalleryInput

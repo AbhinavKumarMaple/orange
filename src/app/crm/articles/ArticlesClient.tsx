@@ -17,7 +17,7 @@ type Article = InferSelectModel<typeof articles>;
 type ContentBlock = { heading: string; body: string };
 
 const emptyBlock = (): ContentBlock => ({ heading: "", body: "" });
-const empty = { slug: "", title: "", category: "", date: "", excerpt: "", image: "", content: [emptyBlock()], order: 0 };
+const empty = { slug: "", title: "", category: "", date: "", excerpt: "", image: "", coverImage: "", content: [emptyBlock()], order: 0 };
 
 export default function ArticlesClient({ initialData }: { initialData: Article[] }) {
     const [data, setData] = useState(initialData);
@@ -31,7 +31,8 @@ export default function ArticlesClient({ initialData }: { initialData: Article[]
         setEditing(a);
         setForm({
             slug: a.slug, title: a.title, category: a.category, date: a.date,
-            excerpt: a.excerpt, image: a.image, content: (a.content as ContentBlock[]) ?? [emptyBlock()], order: a.order
+            excerpt: a.excerpt, image: a.image, coverImage: a.coverImage,
+            content: (a.content as ContentBlock[]) ?? [emptyBlock()], order: a.order
         });
         setOpen(true);
     }
@@ -111,9 +112,16 @@ export default function ArticlesClient({ initialData }: { initialData: Article[]
                         <div><Label className="mb-1 block">Order</Label><Input type="number" value={form.order} onChange={(e) => setForm((p) => ({ ...p, order: Number(e.target.value) }))} /></div>
                         <div className="col-span-2">
                             <MediaInput
-                                label="Image"
+                                label="Thumbnail"
                                 value={form.image}
                                 onChange={(v) => setForm((p) => ({ ...p, image: v }))}
+                            />
+                        </div>
+                        <div className="col-span-2">
+                            <MediaInput
+                                label="Cover Image"
+                                value={form.coverImage}
+                                onChange={(v) => setForm((p) => ({ ...p, coverImage: v }))}
                             />
                         </div>
                         <div className="col-span-2"><Label className="mb-1 block">Excerpt</Label><Textarea rows={2} value={form.excerpt} onChange={f("excerpt")} /></div>

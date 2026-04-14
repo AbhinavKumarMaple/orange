@@ -90,7 +90,7 @@ export default function ProjectPageClient({ project, socialLinks = [] }: Props) 
                     transition={{ duration: 0.7, ease: [0.76, 0, 0.24, 1], delay: 0.3 }}
                 >
                     <MediaRenderer
-                        src={mediaUrl(project.heroImage)}
+                        src={mediaUrl(project.coverImage || project.heroImage)}
                         alt={project.name}
                         fill
                         className="object-cover"

@@ -81,7 +81,7 @@ export default function ArticlePageClient({ article, related, socialLinks = [] }
                     initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.7, ease: [0.76, 0, 0.24, 1], delay: 0.3 }}
                 >
-                    <MediaRenderer src={mediaUrl(article.image)} alt={article.title} fill className="object-cover" priority sizes="(max-width: 960px) 100vw, 960px" />
+                    <MediaRenderer src={mediaUrl(article.coverImage || article.image)} alt={article.title} fill className="object-cover" priority sizes="(max-width: 960px) 100vw, 960px" />
                 </motion.div>
 
                 {/* Article body */}
