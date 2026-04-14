@@ -102,7 +102,7 @@ export default function MediaPickerDialog({
         <DialogPrimitive.Overlay className="fixed inset-0 z-50 bg-black/40 backdrop-blur-sm data-[state=open]:animate-in data-[state=open]:fade-in-0 data-[state=closed]:animate-out data-[state=closed]:fade-out-0" />
         <DialogPrimitive.Content
           className="fixed z-50 top-[50%] left-[50%] -translate-x-1/2 -translate-y-1/2 bg-white rounded-xl shadow-2xl flex flex-col overflow-hidden data-[state=open]:animate-in data-[state=open]:fade-in-0 data-[state=open]:zoom-in-95 data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=closed]:zoom-out-95"
-          style={{ width: "calc(100vw - 64px)", maxWidth: 1120, height: "calc(100vh - 80px)", maxHeight: 760 }}
+          style={{ width: "calc(100vw - 48px)", maxWidth: 1280, height: "calc(100vh - 64px)", maxHeight: 860 }}
         >
           {/* Header */}
           <div className="flex items-center justify-between px-5 py-3.5 border-b border-gray-200 shrink-0">
@@ -159,14 +159,13 @@ export default function MediaPickerDialog({
                       key={f.url}
                       type="button"
                       onClick={() => handleThumbClick(f)}
-                      onDoubleClick={() => handleSelectFile(f)}
                       className={cn(
                         "relative aspect-square rounded-lg overflow-hidden border-2 transition-all hover:opacity-90 focus:outline-none",
                         preview?.url === f.url ? "border-blue-500 ring-2 ring-blue-200" :
                         selected.has(f.url) ? "border-gray-900 ring-2 ring-gray-900/20" : "border-transparent hover:border-gray-300"
                       )}
                     >
-                      <MediaThumb src={f.url} alt={f.pathname} sizes="160px" />
+                      <MediaThumb src={f.url} alt={f.pathname} sizes="160px" lightbox={false} />
                       {selected.has(f.url) && (
                         <div className="absolute top-1 right-1 w-5 h-5 bg-gray-900 rounded-full flex items-center justify-center">
                           <span className="text-white text-[10px]">✓</span>

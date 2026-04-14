@@ -132,14 +132,13 @@ export default function MediaPageClient() {
                   <button
                     type="button"
                     onClick={() => setPreview(f)}
-                    onDoubleClick={() => toggleSelect(f.url)}
                     className={cn(
                       "relative aspect-square rounded-lg overflow-hidden border-2 transition-all w-full focus:outline-none",
                       preview?.url === f.url ? "border-blue-500 ring-2 ring-blue-200" :
                       selected.has(f.url) ? "border-gray-900 ring-2 ring-gray-900/20" : "border-transparent hover:border-gray-300"
                     )}
                   >
-                    <MediaThumb src={f.url} alt={f.pathname} sizes="160px" />
+                    <MediaThumb src={f.url} alt={f.pathname} sizes="160px" lightbox={false} />
                     {selected.has(f.url) && (
                       <div className="absolute top-1 right-1 w-5 h-5 bg-gray-900 rounded-full flex items-center justify-center">
                         <span className="text-white text-[10px]">✓</span>

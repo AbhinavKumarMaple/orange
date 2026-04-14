@@ -89,7 +89,7 @@ export default function TestimonialsClient({ initialData }: { initialData: Testi
                 </Table>
             </div>
             <Dialog open={open} onOpenChange={setOpen}>
-                <DialogContent className="max-w-lg">
+                <DialogContent className="max-w-2xl">
                     <DialogHeader><DialogTitle>{editing ? "Edit Testimonial" : "New Testimonial"}</DialogTitle></DialogHeader>
                     <div className="grid grid-cols-2 gap-4 mt-2">
                         <div><Label className="mb-1 block">Name</Label><Input value={form.name} onChange={f("name")} /></div>

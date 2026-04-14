@@ -107,3 +107,66 @@ export async function POST(
     uploadedAt: updated.uploadedAt?.toISOString(),
   });
 }
+
+/**
+ * PATCH /api/crm/media/[id] — restore a specific old version by its URL
+ * Body: { restoreUrl: string }
+ * Swaps the current URL with the old version URL, updating all content tables.
+ */
+export async function PATCH(
+  req: NextRequest,
+  { params }: { params: Promise<{ id: string }> },
+) {
+  const { id } = await params;
+  const { restoreUrl } = await req.json();
+  if (!restoreUrl) return NextResponse.json({ error: "restoreUrl required" }, { status: 400 });
+
+  const [asset] = await db.select().from(mediaAssets).where(eq(mediaAssets.id, id)).limit(1);
+  if (!asset) return NextResponse.json({ error: "Not found" }, { status: 404 });
+
+  const oldVersions = (asset.versions as { url: string; size: number; replacedAt: string }[]) ?? [];
+  const targetVersion = oldVersions.find((v) => v.url === restoreUrl);
+  if (!targetVersion) return NextResponse.json({ error: "Version not found" }, { status: 404 });
+
+  const currentUrl = asset.url;
+
+  // Build new versions array: remove the restored version, add current as old version
+  const newVersions = [
+    ...oldVersions.filter((v) => v.url !== restoreUrl),
+    { url: currentUrl, size: asset.size, replacedAt: new Date().toISOString() },
+  ];
+
+  // Update asset record
+  const [updated] = await db.update(mediaAssets).set({
+    url: restoreUrl,
+    versions: newVersions,
+  }).where(eq(mediaAssets.id, id)).returning();
+
+  // Replace old URL with restored URL across all content tables
+  const replaceUrl = (column: string, table: string) =>
+    sql.raw(`UPDATE "${table}" SET "${column}" = REPLACE("${column}", '${currentUrl}', '${restoreUrl}') WHERE "${column}" LIKE '%${currentUrl}%'`);
+
+  const replaceArrayUrl = (column: string, table: string) =>
+    sql.raw(`UPDATE "${table}" SET "${column}" = array_replace("${column}", '${currentUrl}', '${restoreUrl}') WHERE '${currentUrl}' = ANY("${column}")`);
+
+  await Promise.all([
+    db.execute(replaceUrl("hero_image", "projects")),
+    db.execute(replaceUrl("cover_image", "projects")),
+    db.execute(replaceUrl("icon", "projects")),
+    db.execute(replaceArrayUrl("images", "projects")),
+    db.execute(replaceUrl("image", "articles")),
+    db.execute(replaceUrl("cover_image", "articles")),
+    db.execute(replaceUrl("icon", "articles")),
+    db.execute(replaceArrayUrl("images", "articles")),
+    db.execute(replaceUrl("avatar", "testimonials")),
+    db.execute(replaceUrl("image", "services")),
+    db.execute(replaceUrl("image", "hero_content")),
+  ]);
+
+  revalidatePath("/", "layout");
+
+  return NextResponse.json({
+    ...updated,
+    uploadedAt: updated.uploadedAt?.toISOString(),
+  });
+}

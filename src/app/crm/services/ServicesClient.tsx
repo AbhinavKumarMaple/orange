@@ -93,7 +93,7 @@ export default function ServicesClient({ initialData }: { initialData: Service[]
                 </Table>
             </div>
             <Dialog open={open} onOpenChange={setOpen}>
-                <DialogContent className="max-w-lg">
+                <DialogContent className="max-w-2xl">
                     <DialogHeader><DialogTitle>{editing ? "Edit Service" : "New Service"}</DialogTitle></DialogHeader>
                     <div className="flex flex-col gap-4 mt-2">
                         <div className="grid grid-cols-2 gap-4">

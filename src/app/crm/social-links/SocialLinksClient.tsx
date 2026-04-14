@@ -83,7 +83,7 @@ export default function SocialLinksClient({ initialData }: { initialData: Social
                 </Table>
             </div>
             <Dialog open={open} onOpenChange={setOpen}>
-                <DialogContent className="max-w-lg">
+                <DialogContent className="max-w-2xl">
                     <DialogHeader><DialogTitle>{editing ? "Edit Social Link" : "New Social Link"}</DialogTitle></DialogHeader>
                     <div className="flex flex-col gap-4 mt-2">
                         <div>

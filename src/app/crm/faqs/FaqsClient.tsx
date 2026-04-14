@@ -73,7 +73,7 @@ export default function FaqsClient({ initialData }: { initialData: Faq[] }) {
                 </Table>
             </div>
             <Dialog open={open} onOpenChange={setOpen}>
-                <DialogContent className="max-w-lg">
+                <DialogContent className="max-w-2xl">
                     <DialogHeader><DialogTitle>{editing ? "Edit FAQ" : "New FAQ"}</DialogTitle></DialogHeader>
                     <div className="flex flex-col gap-4 mt-2">
                         <div><Label className="mb-1 block">Question</Label>

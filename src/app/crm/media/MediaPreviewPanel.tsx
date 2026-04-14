@@ -5,6 +5,7 @@ import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { isVideo } from "@/lib/utils";
 import { toast } from "sonner";
+import MediaThumb from "@/components/custom/MediaThumb";
 import type { MediaFile, MediaVersion } from "./types";
 
 function formatBytes(bytes: number) {
@@ -28,6 +29,7 @@ interface Props {
 export default function MediaPreviewPanel({ file, onVersionUploaded, actions }: Props) {
   const replaceRef = useRef<HTMLInputElement>(null);
   const [replacing, setReplacing] = useState(false);
+  const [restoring, setRestoring] = useState<string | null>(null);
   const [dims, setDims] = useState<{ w: number; h: number } | null>(
     file.width && file.height ? { w: file.width, h: file.height } : null
   );
@@ -53,6 +55,30 @@ export default function MediaPreviewPanel({ file, onVersionUploaded, actions }: 
     };
     img.src = file.url;
   }, [file.url, file.width, file.height, file.id]);
+
+  async function handleRestore(versionUrl: string) {
+    if (!file.id) return;
+    setRestoring(versionUrl);
+    try {
+      const res = await fetch(`/api/crm/media/${file.id}`, {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ restoreUrl: versionUrl }),
+      });
+      if (!res.ok) throw new Error();
+      const updated = await res.json();
+      toast.success("Version restored — all references updated");
+      onVersionUploaded?.({
+        ...file,
+        url: updated.url,
+        versions: updated.versions,
+      });
+    } catch {
+      toast.error("Restore failed");
+    } finally {
+      setRestoring(null);
+    }
+  }
 
   async function handleReplace(e: React.ChangeEvent<HTMLInputElement>) {
     const f = e.target.files?.[0];
@@ -115,11 +141,25 @@ export default function MediaPreviewPanel({ file, onVersionUploaded, actions }: 
         {versions.length > 0 && (
           <div className="pt-1">
             <p className="text-[11px] text-gray-400 font-medium mb-1.5">Version History</p>
-            <div className="flex flex-col gap-1">
+            <div className="flex flex-col gap-2">
               {[...versions].reverse().map((v, i) => (
-                <div key={i} className="flex items-center justify-between text-[11px] text-gray-500 bg-white rounded px-2 py-1.5 border border-gray-100">
-                  <span>v{versions.length - i} · {formatBytes(v.size)}</span>
-                  <span>{new Date(v.replacedAt).toLocaleDateString("en-US", { month: "short", day: "numeric" })}</span>
+                <div key={i} className="flex items-center gap-2 bg-white rounded border border-gray-100 p-2">
+                  {/* Thumbnail — double-click to expand */}
+                  <div className="relative w-10 h-10 rounded overflow-hidden shrink-0 border border-gray-200 cursor-pointer">
+                    <MediaThumb src={v.url} sizes="40px" />
+                  </div>
+                  <div className="flex flex-col min-w-0 flex-1 text-[11px] text-gray-500">
+                    <span className="font-medium text-gray-700">v{versions.length - i} · {formatBytes(v.size)}</span>
+                    <span>{new Date(v.replacedAt).toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" })}</span>
+                  </div>
+                  <button
+                    type="button"
+                    disabled={restoring === v.url}
+                    onClick={() => handleRestore(v.url)}
+                    className="shrink-0 text-[10px] font-medium text-blue-600 hover:text-blue-800 disabled:opacity-50 cursor-pointer"
+                  >
+                    {restoring === v.url ? "…" : "Restore"}
+                  </button>
                 </div>
               ))}
             </div>
