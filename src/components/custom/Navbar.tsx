@@ -19,7 +19,7 @@ export default function Navbar({ onMenuToggle, isMenuOpen, variant = "light" }: 
     return (
         <nav className="absolute top-0 left-0 right-0 z-40 flex items-center justify-between">
             {/* Logo */}
-            <div style={{ position: "absolute", top: 14, left: 33 }}>
+            <div style={{ position: "absolute", top: 14, left: 16 }}>
                 <Link
                     href="/"
                     className="font-sans font-medium text-xl no-underline"
@@ -39,7 +39,7 @@ export default function Navbar({ onMenuToggle, isMenuOpen, variant = "light" }: 
                     });
                 }}
                 className="absolute flex flex-col justify-center gap-[8px] cursor-pointer"
-                style={{ top: 8, right: 48, width: 32, height: 32 }}
+                style={{ top: 8, right: 16, width: 32, height: 32 }}
                 aria-label={isMenuOpen ? "Close menu" : "Open menu"}
             >
                 {isMenuOpen ? (
