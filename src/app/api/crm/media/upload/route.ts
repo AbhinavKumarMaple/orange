@@ -17,20 +17,21 @@ export async function POST(req: NextRequest) {
     const response = await handleUpload({
       body,
       request: req,
-      onBeforeGenerateToken: async () => ({
+      onBeforeGenerateToken: async (_, clientPayload) => ({
         addRandomSuffix: true,
+        tokenPayload: clientPayload ?? undefined,
         allowedContentTypes: [
           "image/jpeg", "image/png", "image/webp", "image/gif",
           "image/svg+xml", "image/avif",
           "video/mp4", "video/webm", "video/quicktime", "video/ogg",
         ],
       }),
-      onUploadCompleted: async ({ blob }) => {
-        // Track in DB after upload completes
+      onUploadCompleted: async ({ blob, tokenPayload }) => {
+        const size = tokenPayload ? parseInt(tokenPayload, 10) || 0 : 0;
         await db.insert(mediaAssets).values({
           url: blob.url,
           pathname: blob.pathname,
-          size: blob.size,
+          size,
         }).onConflictDoNothing();
       },
     });

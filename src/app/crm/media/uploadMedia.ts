@@ -1,33 +1,36 @@
 import { upload } from "@vercel/blob/client";
+import { compressMedia } from "./compressMedia";
 import type { MediaFile } from "./types";
 
 const SERVER_LIMIT = 4 * 1024 * 1024; // 4 MB
 
 /**
- * Uploads a file to Vercel Blob.
- * - Files ≤ 4MB: go through the server API route (simple, tracked immediately)
- * - Files > 4MB: use Vercel Blob client upload (direct browser → blob, no size limit)
+ * Compresses then uploads a file to Vercel Blob.
+ * - Files ≤ 4MB (after compression): server route
+ * - Files > 4MB (after compression): client upload (direct browser → blob)
  */
 export async function uploadMedia(file: File): Promise<MediaFile> {
-  if (file.size > SERVER_LIMIT) {
-    // Client upload — goes directly from browser to Vercel Blob
-    const blob = await upload(file.name, file, {
+  // Compress first (images only, videos pass through)
+  const processed = await compressMedia(file);
+
+  if (processed.size > SERVER_LIMIT) {
+    const blob = await upload(processed.name, processed, {
       access: "public",
       handleUploadUrl: "/api/crm/media/upload",
+      clientPayload: String(processed.size),
     });
 
     return {
       url: blob.url,
       pathname: blob.pathname,
-      size: file.size,
+      size: processed.size,
       uploadedAt: new Date().toISOString(),
       versions: [],
     };
   }
 
-  // Server upload — tracked in DB immediately
   const formData = new FormData();
-  formData.append("file", file);
+  formData.append("file", processed);
   const res = await fetch("/api/crm/media", { method: "POST", body: formData });
   if (!res.ok) throw new Error("Upload failed");
   return res.json();
