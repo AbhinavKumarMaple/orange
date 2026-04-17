@@ -5,7 +5,6 @@ import { Dialog as DialogPrimitive } from "radix-ui"
 
 import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
-import { ScrollArea } from "@/components/ui/scroll-area"
 import { XIcon } from "lucide-react"
 
 function Dialog({
@@ -62,16 +61,21 @@ function DialogContent({
       <DialogPrimitive.Content
         data-slot="dialog-content"
         className={cn(
-          "fixed top-1/2 left-1/2 z-50 grid w-full max-w-[calc(100%-2rem)] max-h-[calc(100vh-2rem)] -translate-x-1/2 -translate-y-1/2 rounded-xl bg-background text-sm ring-1 ring-foreground/10 duration-100 outline-none sm:max-w-sm data-open:animate-in data-open:fade-in-0 data-open:zoom-in-95 data-closed:animate-out data-closed:fade-out-0 data-closed:zoom-out-95",
+          "fixed top-1/2 left-1/2 z-50 flex flex-col w-full max-w-[calc(100%-2rem)] max-h-[calc(100vh-2rem)] -translate-x-1/2 -translate-y-1/2 rounded-xl bg-background text-sm ring-1 ring-foreground/10 duration-100 outline-none sm:max-w-sm data-open:animate-in data-open:fade-in-0 data-open:zoom-in-95 data-closed:animate-out data-closed:fade-out-0 data-closed:zoom-out-95",
           className
         )}
+        onWheel={(e) => {
+          // Forward wheel events to the inner scrollable div
+          const scrollable = e.currentTarget.querySelector<HTMLElement>('[data-scroll]');
+          if (scrollable) scrollable.scrollTop += e.deltaY;
+        }}
         {...props}
       >
-        <ScrollArea className="max-h-[calc(100vh-2rem)]">
+        <div data-scroll className="overflow-y-auto flex-1 min-h-0" style={{ maxHeight: "calc(100vh - 4rem)" }}>
           <div className="grid gap-4 p-4">
             {children}
           </div>
-        </ScrollArea>
+        </div>
         {showCloseButton && (
           <DialogPrimitive.Close data-slot="dialog-close" asChild>
             <Button
