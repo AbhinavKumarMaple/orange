@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button";
 import { cn, isVideo } from "@/lib/utils";
 import MediaThumb from "@/components/custom/MediaThumb";
 import MediaPreviewPanel from "./MediaPreviewPanel";
+import { uploadMedia } from "./uploadMedia";
 import type { MediaFile } from "./types";
 
 interface UploadingFile {
@@ -42,14 +43,9 @@ export default function MediaPageClient() {
     }));
     setUploading(previews);
     for (let i = 0; i < fileList.length; i++) {
-      const formData = new FormData();
-      formData.append("file", fileList[i]);
       try {
-        const res = await fetch("/api/crm/media", { method: "POST", body: formData });
-        if (res.ok) {
-          const uploaded: MediaFile = await res.json();
-          setFiles((prev) => [uploaded, ...prev]);
-        }
+        const uploaded = await uploadMedia(fileList[i]);
+        setFiles((prev) => [uploaded, ...prev]);
       } catch { toast.error(`Failed to upload ${fileList[i].name}`); }
       setUploading((prev) => prev.map((p, idx) => (idx <= i ? { ...p, progress: 100 } : p)));
     }
