@@ -109,16 +109,16 @@ export default function ProjectPageClient({ project, socialLinks = [] }: Props) 
                 ].map((row) => (
                     <div
                         key={row.label}
-                        className="flex items-center justify-between py-5 border-t border-black/10"
+                        className="flex items-baseline justify-between py-5 border-t border-black/10 gap-4"
                     >
                         <span
-                            className="font-sans"
+                            className="font-sans shrink-0"
                             style={{ color: "var(--brand-dark)", fontSize: 18, letterSpacing: "-0.36px", opacity: 0.5 }}
                         >
                             {row.label}
                         </span>
                         <span
-                            className="font-sans font-medium"
+                            className="font-sans font-medium text-right"
                             style={{ color: "var(--brand-dark)", fontSize: 18, letterSpacing: "-0.36px" }}
                         >
                             {row.value}
