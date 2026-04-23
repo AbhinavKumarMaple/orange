@@ -1,5 +1,4 @@
 import { NextRequest, NextResponse } from "next/server";
-import { revalidatePath } from "next/cache";
 import { createContactSubmission, getContactSubmissions } from "@/lib/queries";
 import { z } from "zod";
 
@@ -17,7 +16,6 @@ export async function POST(req: NextRequest) {
     const body = await req.json();
     const data = schema.parse(body);
     const submission = await createContactSubmission(data);
-    revalidatePath("/", "layout");
     return NextResponse.json(submission, { status: 201 });
   } catch (err) {
     if (err instanceof z.ZodError) {

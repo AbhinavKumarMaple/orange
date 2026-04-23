@@ -60,6 +60,8 @@ export default function HeroSection({
           className="object-cover object-center"
           sizes="100vw"
           priority
+          fetchPriority="high"
+          quality={85}
         />
       )}
 

@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
-import { revalidatePath } from "next/cache";
 import { db } from "@/db";
 import { heroContent } from "@/db/schema";
+import { revalidateHero } from "@/lib/revalidate";
 
 export const dynamic = "force-dynamic";
 
@@ -25,6 +25,6 @@ export async function PUT(req: NextRequest) {
     [row] = await db.insert(heroContent).values(body).returning();
   }
 
-  revalidatePath("/", "layout");
+  revalidateHero();
   return NextResponse.json(row);
 }

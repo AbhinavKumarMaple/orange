@@ -1,12 +1,9 @@
 import { NextRequest, NextResponse } from "next/server";
 import { put } from "@vercel/blob";
-import { revalidatePath } from "next/cache";
 import { db } from "@/db";
-import {
-  mediaAssets, projects, articles, testimonials,
-  services, heroContent,
-} from "@/db/schema";
+import { mediaAssets } from "@/db/schema";
 import { eq, sql } from "drizzle-orm";
+import { revalidateMedia } from "@/lib/revalidate";
 
 /**
  * GET /api/crm/media/[id] — get asset details including versions
@@ -100,7 +97,7 @@ export async function POST(
     db.execute(replaceUrl("image", "hero_content")),
   ]);
 
-  revalidatePath("/", "layout");
+  revalidateMedia();
 
   return NextResponse.json({
     ...updated,
@@ -163,7 +160,7 @@ export async function PATCH(
     db.execute(replaceUrl("image", "hero_content")),
   ]);
 
-  revalidatePath("/", "layout");
+  revalidateMedia();
 
   return NextResponse.json({
     ...updated,

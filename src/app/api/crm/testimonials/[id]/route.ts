@@ -1,8 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
-import { revalidatePath } from "next/cache";
 import { db } from "@/db";
 import { testimonials } from "@/db/schema";
 import { eq } from "drizzle-orm";
+import { revalidateTestimonial } from "@/lib/revalidate";
 
 export async function PUT(
   req: NextRequest,
@@ -15,7 +15,7 @@ export async function PUT(
     .set(body)
     .where(eq(testimonials.id, id))
     .returning();
-  revalidatePath("/", "layout");
+  revalidateTestimonial();
   return NextResponse.json(row);
 }
 
@@ -25,6 +25,6 @@ export async function DELETE(
 ) {
   const { id } = await params;
   await db.delete(testimonials).where(eq(testimonials.id, id));
-  revalidatePath("/", "layout");
+  revalidateTestimonial();
   return new NextResponse(null, { status: 204 });
 }

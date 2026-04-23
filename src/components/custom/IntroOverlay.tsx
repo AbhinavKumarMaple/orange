@@ -41,11 +41,13 @@ export default function IntroOverlay() {
                 <motion.div
                     className="fixed inset-0 z-50 flex flex-col items-center justify-center"
                     style={{ backgroundColor: colors.blue }}
+                    aria-hidden="true"
+                    role="presentation"
                     {...overlayExit}
                     transition={createTransition({ duration: "slow", ease: "snappy" })}
                 >
                     <div className="overflow-hidden">
-                        <motion.h1
+                        <motion.div
                             className="text-3xl md:text-4xl font-medium tracking-tight"
                             style={{ color: colors.light }}
                             initial={slideUp.hidden}
@@ -53,11 +55,11 @@ export default function IntroOverlay() {
                             transition={createTransition({ duration: "medium", ease: "snappy" })}
                         >
                             Orange Studios<sup className="text-sm align-super">®</sup>
-                        </motion.h1>
+                        </motion.div>
                     </div>
 
                     <div className="overflow-hidden mt-2">
-                        <motion.p
+                        <motion.div
                             className="text-sm md:text-base font-normal"
                             style={{ color: colors.light, opacity: 0.7, letterSpacing: "-0.48px" }}
                             initial={slideUp.hidden}
@@ -69,7 +71,7 @@ export default function IntroOverlay() {
                             })}
                         >
                             Creative design studio
-                        </motion.p>
+                        </motion.div>
                     </div>
                 </motion.div>
             )}

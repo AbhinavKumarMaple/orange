@@ -1,8 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
-import { revalidatePath } from "next/cache";
 import { db } from "@/db";
 import { faqs } from "@/db/schema";
 import { asc } from "drizzle-orm";
+import { revalidateFaq } from "@/lib/revalidate";
 
 export const dynamic = "force-dynamic";
 
@@ -14,6 +14,6 @@ export async function GET() {
 export async function POST(req: NextRequest) {
   const body = await req.json();
   const [row] = await db.insert(faqs).values(body).returning();
-  revalidatePath("/", "layout");
+  revalidateFaq();
   return NextResponse.json(row, { status: 201 });
 }

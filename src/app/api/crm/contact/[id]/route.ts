@@ -1,5 +1,4 @@
 import { NextRequest, NextResponse } from "next/server";
-import { revalidatePath } from "next/cache";
 import { deleteContactSubmission } from "@/lib/queries";
 
 export async function DELETE(
@@ -9,7 +8,6 @@ export async function DELETE(
   try {
     const { id } = await params;
     await deleteContactSubmission(id);
-    revalidatePath("/", "layout");
     return NextResponse.json({ success: true });
   } catch {
     return NextResponse.json(
