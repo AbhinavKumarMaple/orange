@@ -126,6 +126,7 @@ export default async function RootLayout({
     },
     image: absoluteUrl(siteConfig.logo),
     description: siteConfig.description,
+    foundingDate: "2023",
     email: siteConfig.contact.email,
     telephone: siteConfig.contact.phoneE164,
     contactPoint: [
