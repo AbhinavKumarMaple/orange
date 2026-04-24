@@ -28,12 +28,17 @@ const PRODUCTION_URL = "https://www.theorangestudios.com";
  * custom domain. Using it for canonicals/sitemap is a catastrophic SEO bug.
  */
 function resolveSiteUrl(): string {
-  if (process.env.NEXT_PUBLIC_SITE_URL) return process.env.NEXT_PUBLIC_SITE_URL;
-  if (process.env.VERCEL_ENV === "production") return PRODUCTION_URL;
-  if (process.env.VERCEL_ENV === "preview" && process.env.VERCEL_URL) {
-    return `https://${process.env.VERCEL_URL}`;
-  }
-  return PRODUCTION_URL;
+  const raw = (() => {
+    if (process.env.NEXT_PUBLIC_SITE_URL) return process.env.NEXT_PUBLIC_SITE_URL;
+    if (process.env.VERCEL_ENV === "production") return PRODUCTION_URL;
+    if (process.env.VERCEL_ENV === "preview" && process.env.VERCEL_URL) {
+      return `https://${process.env.VERCEL_URL}`;
+    }
+    return PRODUCTION_URL;
+  })();
+  // Trim whitespace (env vars routinely get pasted with stray spaces/newlines)
+  // and strip any trailing slashes so concatenation with paths is clean.
+  return raw.trim().replace(/\/+$/, "");
 }
 
 export const siteConfig = {
