@@ -64,14 +64,11 @@ export const metadata: Metadata = {
       "max-snippet": -1,
     },
   },
-  icons: {
-    icon: [
-      { url: "/favicon.ico", sizes: "any" },
-      { url: siteConfig.logo, type: siteConfig.logoMimeType },
-    ],
-    shortcut: siteConfig.logo,
-    apple: [{ url: siteConfig.logo }],
-  },
+  // Icons are auto-registered via app-router file conventions:
+  //   src/app/icon.jpg        → <link rel="icon">
+  //   src/app/apple-icon.jpg  → <link rel="apple-touch-icon">
+  // Leaving `metadata.icons` empty so Next's auto-generated tags win and we
+  // don't re-introduce a stale /favicon.ico reference.
   manifest: "/manifest.webmanifest",
   openGraph: {
     type: "website",
