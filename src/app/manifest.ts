@@ -15,13 +15,13 @@ export default function manifest(): MetadataRoute.Manifest {
       {
         src: siteConfig.logo,
         sizes: "any",
-        type: "image/svg+xml",
+        type: siteConfig.logoMimeType,
         purpose: "any",
       },
       {
         src: siteConfig.logo,
         sizes: "any",
-        type: "image/svg+xml",
+        type: siteConfig.logoMimeType,
         purpose: "maskable",
       },
     ],

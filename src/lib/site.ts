@@ -66,7 +66,8 @@ export const siteConfig = {
     "Orange Studios",
   ],
   /** Path to the branded favicon/logo. Served from public/. */
-  logo: "/fav.svg",
+  logo: "/fav.jpg",
+  logoMimeType: "image/jpeg",
   ogImage: "/opengraph-image",
   /**
    * Contact info surfaced in JSON-LD ContactPoint, mailto/tel links, and the

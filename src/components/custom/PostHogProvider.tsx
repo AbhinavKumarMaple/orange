@@ -8,9 +8,17 @@ export default function PostHogProvider({ children }: { children: React.ReactNod
     const pathname = usePathname();
     const searchParams = useSearchParams();
 
-    // Initialize PostHog once
+    // Defer PostHog init until the browser is idle (or a 2s timeout).
+    // Analytics shouldn't compete with LCP/FCP for main-thread time, and the
+    // pageview below is captured once the SDK finishes loading anyway.
     useEffect(() => {
-        initPostHog();
+        const idle = (window as unknown as { requestIdleCallback?: (cb: () => void, opts?: { timeout: number }) => number; cancelIdleCallback?: (id: number) => void });
+        if (typeof idle.requestIdleCallback === "function") {
+            const id = idle.requestIdleCallback(() => initPostHog(), { timeout: 2000 });
+            return () => idle.cancelIdleCallback?.(id);
+        }
+        const t = window.setTimeout(initPostHog, 1500);
+        return () => window.clearTimeout(t);
     }, []);
 
     // Track page views on route change

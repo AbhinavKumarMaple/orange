@@ -16,6 +16,15 @@ export default function IntroOverlay() {
     const [skip, setSkip] = useState(true); // start hidden, reveal only if first visit
 
     useEffect(() => {
+        // Skip the intro flash on mobile: the fixed blue overlay becomes the LCP
+        // element on every first visit, pushing Largest Contentful Paint past
+        // 4s on slow networks. Desktop users still see the branded entrance.
+        const isSmallViewport = window.innerWidth < 768;
+        if (isSmallViewport) {
+            setDismiss(true);
+            return;
+        }
+
         const alreadySeen = sessionStorage.getItem("intro_seen");
         if (alreadySeen) {
             setDismiss(true);
