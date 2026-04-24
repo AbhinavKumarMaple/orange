@@ -5,7 +5,7 @@ import { motion } from "motion/react";
 import { usePageTransition } from "@/components/custom/PageTransition";
 import { colors } from "@/lib/colors";
 import { fadeUp, slideUp, createTransition } from "@/lib/motion";
-import { mediaUrl, isVideo } from "@/lib/utils";
+import { mediaUrl, isVideo, heroTitleFontSize } from "@/lib/utils";
 import Navbar from "@/components/custom/Navbar";
 import NavOverlay from "@/components/custom/NavOverlay";
 import ContactSection from "@/components/custom/ContactSection";
@@ -42,22 +42,21 @@ export default function ProjectPageClient({ project, socialLinks = [] }: Props) 
             <div className="px-5 sm:px-14 pt-24 pb-12">
                 {/* Big title + description row */}
                 <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4">
-                    <div className="overflow-hidden">
+                    <div className="overflow-hidden" style={{ flex: "1 1 0%", minWidth: 0 }}>
                         <motion.h1
-                            className="font-sans font-medium uppercase"
+                            className="font-sans font-medium uppercase break-words"
                             style={{
                                 color: "var(--brand-dark)",
-                                fontSize: "clamp(56px, 8vw, 120px)",
-                                lineHeight: 0.9,
+                                fontSize: heroTitleFontSize(project.name),
+                                lineHeight: 0.95,
                                 letterSpacing: "-0.04em",
+                                hyphens: "auto",
                             }}
                             initial={slideUp.hidden}
                             animate={slideUp.visible}
                             transition={createTransition({ duration: "slow", ease: "snappy", delay: "short" })}
                         >
-                            {project.name.split(" ").map((word, i) => (
-                                <span key={i} className="block">{word}</span>
-                            ))}
+                            {project.name}
                         </motion.h1>
                     </div>
 

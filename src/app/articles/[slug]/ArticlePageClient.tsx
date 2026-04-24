@@ -10,7 +10,7 @@ import Footer from "@/components/custom/Footer";
 import ContactSection from "@/components/custom/ContactSection";
 import { colors } from "@/lib/colors";
 import { fadeUp, slideUp, createTransition } from "@/lib/motion";
-import { mediaUrl, isVideo } from "@/lib/utils";
+import { mediaUrl, isVideo, heroTitleFontSize } from "@/lib/utils";
 import MediaRenderer from "@/components/custom/MediaRenderer";
 import type { articles } from "@/db/schema";
 import type { InferSelectModel } from "drizzle-orm";
@@ -55,8 +55,8 @@ export default function ArticlePageClient({ article, related, socialLinks = [] }
                     <div className="flex flex-col md:flex-row md:items-start md:justify-between md:gap-12">
                         <div className="overflow-hidden">
                             <motion.h1
-                                className="font-sans font-medium"
-                                style={{ color: "var(--brand-dark)", fontSize: "clamp(28px, 3.5vw, 52px)", lineHeight: 1.1, letterSpacing: "-0.03em", maxWidth: 560 }}
+                                className="font-sans font-medium break-words"
+                                style={{ color: "var(--brand-dark)", fontSize: heroTitleFontSize(article.title), lineHeight: 1.1, letterSpacing: "-0.03em", maxWidth: 560, hyphens: "auto" }}
                                 initial={slideUp.hidden} animate={slideUp.visible}
                                 transition={createTransition({ duration: "slow", ease: "snappy", delay: "short" })}
                             >
