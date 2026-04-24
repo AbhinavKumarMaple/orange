@@ -1,13 +1,13 @@
 "use client";
 
 import Link from "next/link";
-import { useRouter } from "next/navigation";
 import { colors } from "@/lib/colors";
 
-const pages = [
-    { name: "Home", section: "Hero" },
+const pages: { name: string; href: string }[] = [
+    { name: "Home", href: "/" },
     { name: "Work", href: "/projects" },
     { name: "Blog", href: "/blog" },
+    { name: "Contact", href: "/contact" },
 ];
 
 interface SocialLink {
@@ -22,20 +22,6 @@ interface FooterProps {
 }
 
 export default function Footer({ socialLinks = [] }: FooterProps) {
-    const router = useRouter();
-
-    function handlePageClick(page: (typeof pages)[number]) {
-        if (page.href) {
-            router.push(page.href);
-            return;
-        }
-        if (window.location.pathname === "/") {
-            const el = document.querySelector(`[data-section="${page.section}"]`);
-            if (el) el.scrollIntoView({ behavior: "smooth" });
-        } else {
-            router.push(`/#${page.section}`);
-        }
-    }
 
     return (
         <footer data-section="Footer" style={{ backgroundColor: colors.footer }} className="px-5 sm:px-8 pt-16 sm:pt-20 pb-6">
@@ -85,14 +71,14 @@ export default function Footer({ socialLinks = [] }: FooterProps) {
                         <p className="font-sans mb-4" style={{ color: "#6b6b6b", fontSize: 16 }}>Pages</p>
                         <div className="flex flex-col gap-2">
                             {pages.map((p) => (
-                                <button
+                                <Link
                                     key={p.name}
-                                    onClick={() => handlePageClick(p)}
-                                    className="font-sans font-medium text-left cursor-pointer"
-                                    style={{ color: colors.dark, fontSize: "clamp(18px, 2vw, 24px)", lineHeight: "1.3", letterSpacing: "-0.48px", background: "none", border: "none", padding: 0 }}
+                                    href={p.href}
+                                    className="font-sans font-medium text-left"
+                                    style={{ color: colors.dark, fontSize: "clamp(18px, 2vw, 24px)", lineHeight: "1.3", letterSpacing: "-0.48px" }}
                                 >
                                     {p.name}
-                                </button>
+                                </Link>
                             ))}
                         </div>
                     </div>

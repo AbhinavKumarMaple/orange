@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Script from "next/script";
 import { getArticles, getSocialLinks } from "@/lib/queries";
-import { siteConfig, absoluteUrl } from "@/lib/site";
+import { siteConfig, absoluteUrl, twitterCard } from "@/lib/site";
 import BlogPageClient from "./BlogPageClient";
 
 const title = "Blog — Ideas that drive growth";
@@ -24,6 +24,7 @@ export const metadata: Metadata = {
         card: "summary_large_image",
         title,
         description,
+        ...twitterCard(),
     },
 };
 

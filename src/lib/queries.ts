@@ -1,3 +1,4 @@
+import { cache } from "react";
 import { db } from "@/db";
 import {
   projects,
@@ -84,9 +85,14 @@ export async function deleteContactSubmission(id: string) {
   await db.delete(contactSubmissions).where(eq(contactSubmissions.id, id));
 }
 
-export async function getSocialLinks() {
+/**
+ * Social links are read from multiple places per request (root layout for
+ * JSON-LD sameAs, page clients for the footer). React `cache()` dedupes
+ * within a single render so we hit the DB at most once.
+ */
+export const getSocialLinks = cache(async () => {
   return db.select().from(socialLinks).orderBy(asc(socialLinks.order));
-}
+});
 
 export async function getHeroContent() {
   const rows = await db.select().from(heroContent).limit(1);

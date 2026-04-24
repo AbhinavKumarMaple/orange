@@ -7,7 +7,8 @@ import SmoothScroll from "@/components/custom/SmoothScroll";
 import PageTransitionProvider from "@/components/custom/PageTransition";
 import PostHogProvider from "@/components/custom/PostHogProvider";
 import AnalyticsTracker from "@/components/custom/AnalyticsTracker";
-import { siteConfig, absoluteUrl } from "@/lib/site";
+import { siteConfig, absoluteUrl, twitterCard } from "@/lib/site";
+import { getSocialLinks } from "@/lib/queries";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -66,9 +67,10 @@ export const metadata: Metadata = {
   icons: {
     icon: [
       { url: "/favicon.ico", sizes: "any" },
-      { url: "/icon.svg", type: "image/svg+xml" },
+      { url: siteConfig.logo, type: "image/svg+xml" },
     ],
-    apple: [{ url: "/apple-icon.png", sizes: "180x180" }],
+    shortcut: siteConfig.logo,
+    apple: [{ url: siteConfig.logo }],
   },
   manifest: "/manifest.webmanifest",
   openGraph: {
@@ -84,6 +86,7 @@ export const metadata: Metadata = {
         width: 1200,
         height: 630,
         alt: siteConfig.name,
+        type: "image/png",
       },
     ],
   },
@@ -91,9 +94,8 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: siteConfig.name,
     description: siteConfig.description,
-    creator: siteConfig.twitter,
-    site: siteConfig.twitter,
     images: ["/opengraph-image"],
+    ...twitterCard(),
   },
   category: "design",
   formatDetection: {
@@ -103,36 +105,53 @@ export const metadata: Metadata = {
   },
 };
 
-const organizationJsonLd = {
-  "@context": "https://schema.org",
-  "@type": "Organization",
-  name: siteConfig.name,
-  url: siteConfig.url,
-  logo: absoluteUrl("/icon.svg"),
-  description: siteConfig.description,
-  sameAs: [] as string[],
-};
-
-const websiteJsonLd = {
-  "@context": "https://schema.org",
-  "@type": "WebSite",
-  name: siteConfig.name,
-  url: siteConfig.url,
-  potentialAction: {
-    "@type": "SearchAction",
-    target: {
-      "@type": "EntryPoint",
-      urlTemplate: `${siteConfig.url}/blog?q={search_term_string}`,
-    },
-    "query-input": "required name=search_term_string",
-  },
-};
-
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const social = await getSocialLinks();
+  const sameAs = social.map((s) => s.url).filter(Boolean);
+
+  const organizationJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "@id": `${siteConfig.url}#organization`,
+    name: siteConfig.name,
+    legalName: siteConfig.legalName,
+    url: siteConfig.url,
+    logo: {
+      "@type": "ImageObject",
+      url: absoluteUrl(siteConfig.logo),
+    },
+    image: absoluteUrl(siteConfig.logo),
+    description: siteConfig.description,
+    email: siteConfig.contact.email,
+    telephone: siteConfig.contact.phoneE164,
+    contactPoint: [
+      {
+        "@type": "ContactPoint",
+        contactType: "customer support",
+        email: siteConfig.contact.email,
+        telephone: siteConfig.contact.phoneE164,
+        availableLanguage: ["English"],
+        areaServed: "Worldwide",
+      },
+    ],
+    ...(sameAs.length > 0 && { sameAs }),
+  };
+
+  const websiteJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "@id": `${siteConfig.url}#website`,
+    name: siteConfig.name,
+    url: siteConfig.url,
+    description: siteConfig.description,
+    inLanguage: "en-US",
+    publisher: { "@id": `${siteConfig.url}#organization` },
+  };
+
   return (
     <html lang="en" className={`${geistSans.variable} ${geistMono.variable}`} suppressHydrationWarning>
       <head>

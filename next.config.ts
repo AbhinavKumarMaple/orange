@@ -77,6 +77,15 @@ const nextConfig: NextConfig = {
           },
         ],
       },
+      {
+        source: "/api/:path*",
+        headers: [
+          {
+            key: "X-Robots-Tag",
+            value: "noindex, nofollow",
+          },
+        ],
+      },
     ];
   },
 };

@@ -13,7 +13,7 @@ import BlogSection from "@/components/custom/BlogSection";
 import FaqSection from "@/components/custom/FaqSection";
 import ContactSection from "@/components/custom/ContactSection";
 import Footer from "@/components/custom/Footer";
-import { siteConfig } from "@/lib/site";
+import { siteConfig, twitterCard } from "@/lib/site";
 import {
   getProjects,
   getArticles,
@@ -41,6 +41,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: `${siteConfig.name} — ${siteConfig.tagline}`,
     description: siteConfig.description,
+    ...twitterCard(),
   },
 };
 

@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Script from "next/script";
 import ContactPageClient from "./ContactPageClient";
 import { getSocialLinks } from "@/lib/queries";
-import { siteConfig, absoluteUrl } from "@/lib/site";
+import { siteConfig, absoluteUrl, twitterCard } from "@/lib/site";
 
 const title = "Contact Us";
 const description = "Get in touch with Orange Studios. We respond within 24 hours — tell us about your project, timeline and goals.";
@@ -23,6 +23,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: `${title} — ${siteConfig.name}`,
     description,
+    ...twitterCard(),
   },
 };
 

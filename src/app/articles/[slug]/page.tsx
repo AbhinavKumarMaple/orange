@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Script from "next/script";
 import { notFound } from "next/navigation";
 import { getArticle, getArticles, getRelatedArticles, getSocialLinks } from "@/lib/queries";
-import { siteConfig, absoluteUrl } from "@/lib/site";
+import { siteConfig, absoluteUrl, twitterCard } from "@/lib/site";
 import ArticlePageClient from "./ArticlePageClient";
 
 export const dynamicParams = true;
@@ -42,6 +42,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
             title: article.title,
             description: article.excerpt,
             images: [ogImage],
+            ...twitterCard(),
         },
     };
 }

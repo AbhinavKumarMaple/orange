@@ -5,15 +5,16 @@ import Link from "next/link";
 import { toast } from "sonner";
 import { captureEvent } from "@/lib/posthog";
 import { colors } from "@/lib/colors";
+import { siteConfig } from "@/lib/site";
 import Button from "./Button";
 
 import { Clock, DollarSign, CalendarDays, Phone } from "lucide-react";
 
 const perks = [
-    { icon: Clock, text: "Quick 24-hour response" },
+    { icon: Clock, text: `Quick ${siteConfig.contact.responseTime} response` },
     { icon: DollarSign, text: "Transparent pricing" },
     { icon: CalendarDays, text: "Easy Scheduling" },
-    { icon: Phone, text: "+91 8999525221", href: "tel:+918999525221" },
+    { icon: Phone, text: siteConfig.contact.phone, href: `tel:${siteConfig.contact.phoneE164}` },
 ];
 
 export default function ContactSection() {
@@ -80,7 +81,7 @@ export default function ContactSection() {
                         style={{ color: colors.dark, lineHeight: "1.4", letterSpacing: "-0.6px", opacity: 0.6, maxWidth: 280 }}>
                         Reach out today, we&apos;ll respond fast and keep things simple.
                     </p>
-                    <Button href="mailto:hello@orangestudios.com" variant="primary" data-track-click="contact_email_direct" style={{ fontSize: 16, padding: "12px 24px" }}>
+                    <Button href={`mailto:${siteConfig.contact.email}`} variant="primary" data-track-click="contact_email_direct" style={{ fontSize: 16, padding: "12px 24px" }}>
                         Email us directly
                     </Button>
                     <div className="flex flex-col gap-3 mt-10">

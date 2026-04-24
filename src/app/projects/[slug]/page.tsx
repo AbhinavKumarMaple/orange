@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Script from "next/script";
 import { notFound } from "next/navigation";
 import { getProject, getProjects, getSocialLinks } from "@/lib/queries";
-import { siteConfig, absoluteUrl } from "@/lib/site";
+import { siteConfig, absoluteUrl, twitterCard } from "@/lib/site";
 import ProjectPageClient from "./ProjectPageClient";
 
 export const dynamicParams = true;
@@ -41,6 +41,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
             title: `${project.name} — ${project.category}`,
             description: project.description,
             images: [ogImage],
+            ...twitterCard(),
         },
     };
 }
