@@ -70,6 +70,10 @@ export function revalidateClientLogo() {
   revalidatePath("/");
 }
 
+export function revalidateWhyUs() {
+  revalidatePath("/");
+}
+
 export function revalidateMedia() {
   revalidatePath("/", "layout");
 }

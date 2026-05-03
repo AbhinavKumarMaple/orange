@@ -15,7 +15,7 @@ const nav = [
     { label: "Pricing", href: "/crm/pricing" },
     { label: "Testimonials", href: "/crm/testimonials" },
     { label: "Brands", href: "/crm/brands" },
-    { label: "Client Logos", href: "/crm/client-logos" },
+    { label: "Why Choose Us", href: "/crm/why-us" },
     { label: "FAQs", href: "/crm/faqs" },
     { label: "Contact Requests", href: "/crm/contact" },
     { label: "Media", href: "/crm/media" },

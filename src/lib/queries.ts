@@ -13,6 +13,7 @@ import {
   brands,
   showreelContent,
   clientLogos,
+  whyUsContent,
 } from "@/db/schema";
 import { eq, asc, ne, desc } from "drizzle-orm";
 
@@ -113,4 +114,9 @@ export async function getShowreelContent() {
 
 export async function getClientLogos() {
   return db.select().from(clientLogos).orderBy(asc(clientLogos.order));
+}
+
+export async function getWhyUsContent() {
+  const rows = await db.select().from(whyUsContent).limit(1);
+  return rows[0] ?? null;
 }
