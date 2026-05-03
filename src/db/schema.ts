@@ -120,6 +120,9 @@ export const showreelContent = pgTable("showreel_content", {
     "Experience a fast showcase of our best projects, highlighting bold design, seamless strategy, and measurable impact.",
   ),
   video: text("video").notNull().default(""),
+  // CSS aspect-ratio value, e.g. "1841/1050", "16/9", "4/3", "1/1".
+  // The video gets object-fit: cover so the source crops to fit this ratio.
+  aspectRatio: text("aspect_ratio").notNull().default("1841/1050"),
   updatedAt: timestamp("updated_at").defaultNow(),
 });
 

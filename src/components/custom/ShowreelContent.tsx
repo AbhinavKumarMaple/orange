@@ -9,6 +9,7 @@ export interface ShowreelData {
     heading: string;
     description: string;
     video: string;
+    aspectRatio: string;
 }
 
 const FALLBACK: ShowreelData = {
@@ -17,6 +18,7 @@ const FALLBACK: ShowreelData = {
     description:
         "Experience a fast showcase of our best projects, highlighting bold design, seamless strategy, and measurable impact.",
     video: "https://framerusercontent.com/assets/3BDoGQqUun8oJGATqjDVryyVGRc.mp4",
+    aspectRatio: "1841/1050",
 };
 
 export default function ShowreelContent({ data }: { data?: ShowreelData | null }) {
@@ -83,8 +85,11 @@ export default function ShowreelContent({ data }: { data?: ShowreelData | null }
 
             {d.video && (
                 <motion.div
-                    className="overflow-hidden"
-                    style={{ borderRadius: 8 }}
+                    className="relative overflow-hidden w-full"
+                    style={{
+                        borderRadius: 8,
+                        aspectRatio: (d.aspectRatio || "1841/1050").replace("/", " / "),
+                    }}
                     initial={fadeUp.hidden}
                     whileInView={fadeUp.visible}
                     viewport={{ once: true }}
@@ -97,8 +102,7 @@ export default function ShowreelContent({ data }: { data?: ShowreelData | null }
                         muted
                         loop
                         playsInline
-                        className="w-full"
-                        style={{ display: "block", aspectRatio: "1841 / 1050" }}
+                        className="absolute inset-0 w-full h-full object-cover"
                     />
                 </motion.div>
             )}
