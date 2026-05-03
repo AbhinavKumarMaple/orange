@@ -17,6 +17,7 @@ type FormData = Omit<HeroContent, "id" | "updatedAt">;
 
 const defaults: FormData = {
   image: "",
+  mobileImage: "",
   heading: "Orange Studios",
   subtext: "Since 2023",
   description:
@@ -32,6 +33,7 @@ export default function HeroClient({ initialData }: { initialData: HeroContent |
     initialData
       ? {
           image: initialData.image,
+          mobileImage: initialData.mobileImage ?? "",
           heading: initialData.heading,
           subtext: initialData.subtext,
           description: initialData.description,
@@ -74,17 +76,47 @@ export default function HeroClient({ initialData }: { initialData: HeroContent |
       </div>
 
       <div className="bg-white rounded-lg border border-gray-200 p-6 flex flex-col gap-5">
-        {/* Image preview */}
-        {form.image && (
-          <div className="relative w-full aspect-video rounded-md overflow-hidden border border-gray-200">
-            <Image src={form.image} alt="Hero preview" fill className="object-cover" sizes="672px" />
+        {/* Desktop + mobile previews side by side */}
+        {(form.image || form.mobileImage) && (
+          <div className="grid grid-cols-[1fr_auto] gap-4 items-start">
+            <div>
+              <p className="text-xs text-gray-500 mb-1.5">Desktop / tablet (≥ 1024px)</p>
+              <div className="relative w-full aspect-video rounded-md overflow-hidden border border-gray-200 bg-gray-50">
+                {form.image && (
+                  <Image src={form.image} alt="Hero desktop preview" fill className="object-cover" sizes="672px" />
+                )}
+              </div>
+            </div>
+            <div>
+              <p className="text-xs text-gray-500 mb-1.5">Mobile (&lt; 1024px)</p>
+              <div
+                className="relative rounded-md overflow-hidden border border-gray-200 bg-gray-50"
+                style={{ width: 120, aspectRatio: "9 / 16" }}
+              >
+                {(form.mobileImage || form.image) && (
+                  <Image
+                    src={form.mobileImage || form.image}
+                    alt="Hero mobile preview"
+                    fill
+                    className="object-cover"
+                    sizes="120px"
+                  />
+                )}
+              </div>
+            </div>
           </div>
         )}
 
         <MediaInput
-          label="Background Image"
+          label="Background Image (desktop / tablet)"
           value={form.image}
           onChange={(v) => setForm((p) => ({ ...p, image: v }))}
+        />
+
+        <MediaInput
+          label="Background Image (mobile) — optional, falls back to desktop if empty"
+          value={form.mobileImage}
+          onChange={(v) => setForm((p) => ({ ...p, mobileImage: v }))}
         />
 
         <div>

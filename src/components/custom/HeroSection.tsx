@@ -13,6 +13,7 @@ import Button from "./Button";
 
 interface HeroProps {
   image?: string;
+  mobileImage?: string;
   heading?: string;
   subtext?: string;
   description?: string;
@@ -24,8 +25,35 @@ interface HeroProps {
 
 const FALLBACK_IMAGE = "https://tfo7hwi103lzosbj.public.blob.vercel-storage.com/hero.webp";
 
+function HeroMedia({ src, className }: { src: string; className: string }) {
+  return isVideo(src) ? (
+    <video
+      src={src}
+      autoPlay
+      muted
+      loop
+      playsInline
+      className={`absolute inset-0 w-full h-full object-cover object-center ${className}`}
+    />
+  ) : (
+    <div className={`absolute inset-0 ${className}`}>
+      <Image
+        src={src}
+        alt=""
+        fill
+        className="object-cover object-center"
+        sizes="100vw"
+        priority
+        fetchPriority="high"
+        quality={85}
+      />
+    </div>
+  );
+}
+
 export default function HeroSection({
   image = FALLBACK_IMAGE,
+  mobileImage = "",
   heading = "Orange Studios",
   subtext = "Since 2023",
   description = "We are a creative studio building brands and websites that stand out, scale with growth and deliver measurable results.",
@@ -36,33 +64,29 @@ export default function HeroSection({
 }: HeroProps) {
   const [menuOpen, setMenuOpen] = useState(false);
 
+  const desktopSrc = image || FALLBACK_IMAGE;
+  // Mobile asset is opt-in — fall back to desktop when empty so the layout
+  // never breaks for hero rows that pre-date the column.
+  const mobileSrc = mobileImage || desktopSrc;
+  const sameAsset = mobileSrc === desktopSrc;
+
   return (
     <section
       data-section="Hero"
       className="relative w-full overflow-hidden"
       style={{ height: "100svh" }}
     >
-      {/* Full-bleed background image/video */}
-      {isVideo(image || FALLBACK_IMAGE) ? (
-        <video
-          src={image || FALLBACK_IMAGE}
-          autoPlay
-          muted
-          loop
-          playsInline
-          className="absolute inset-0 w-full h-full object-cover object-center"
-        />
+      {/* Full-bleed background image/video.
+          When mobileImage is set, render a separate asset for < lg breakpoint
+          so users on phones get a portrait-friendly version. When it isn't set
+          we render a single asset to avoid double-fetching the same URL. */}
+      {sameAsset ? (
+        <HeroMedia src={desktopSrc} className="" />
       ) : (
-        <Image
-          src={image || FALLBACK_IMAGE}
-          alt=""
-          fill
-          className="object-cover object-center"
-          sizes="100vw"
-          priority
-          fetchPriority="high"
-          quality={85}
-        />
+        <>
+          <HeroMedia src={mobileSrc} className="lg:hidden" />
+          <HeroMedia src={desktopSrc} className="hidden lg:block" />
+        </>
       )}
 
       <Navbar

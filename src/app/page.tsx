@@ -88,6 +88,7 @@ export default async function Home() {
       <IntroOverlay />
       <HeroSection
         image={hero?.image}
+        mobileImage={hero?.mobileImage}
         heading={hero?.heading}
         subtext={hero?.subtext}
         description={hero?.description}
