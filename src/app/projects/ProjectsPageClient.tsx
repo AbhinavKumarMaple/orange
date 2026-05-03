@@ -10,7 +10,7 @@ import Footer from "@/components/custom/Footer";
 import ContactSection from "@/components/custom/ContactSection";
 import { colors } from "@/lib/colors";
 import { fadeUp, slideUp, createTransition } from "@/lib/motion";
-import { mediaUrl, isVideo } from "@/lib/utils";
+import { mediaUrl, isVideo, flattenHeading } from "@/lib/utils";
 import MediaRenderer from "@/components/custom/MediaRenderer";
 import type { projects } from "@/db/schema";
 import type { InferSelectModel } from "drizzle-orm";
@@ -83,7 +83,7 @@ export default function ProjectsPageClient({ projects, socialLinks = [] }: { pro
                         <div style={{ borderRadius: 8, overflow: "hidden", aspectRatio: "909/838", position: "relative" }}>
                             <MediaRenderer
                                 src={mediaUrl(project.heroImage)}
-                                alt={project.name}
+                                alt={flattenHeading(project.name)}
                                 fill
                                 className="object-cover transition-transform duration-500 group-hover:scale-105"
                                 sizes="(max-width: 640px) 100vw, 50vw"
@@ -92,7 +92,7 @@ export default function ProjectsPageClient({ projects, socialLinks = [] }: { pro
                         <div className="flex items-center justify-between mt-4">
                             <div>
                                 <p className="font-sans font-medium" style={{ color: colors.dark, fontSize: "clamp(18px, 2vw, 24px)", lineHeight: "1.3", letterSpacing: "-0.48px" }}>
-                                    {project.name}
+                                    {flattenHeading(project.name)}
                                 </p>
                                 <p className="font-sans font-normal" style={{ color: colors.dark, fontSize: "clamp(14px, 1.5vw, 20px)", lineHeight: "1.4", letterSpacing: "-0.4px", opacity: 0.6 }}>
                                     {project.category}

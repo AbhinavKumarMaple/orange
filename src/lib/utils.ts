@@ -37,10 +37,27 @@ export function isVideo(url: string): boolean {
  * here to change the entire editorial typography in one place.
  */
 export function heroTitleFontSize(text: string): string {
-  const len = (text ?? "").trim().length;
+  const len = (flattenHeading(text ?? "")).trim().length;
   if (len <= 12) return "clamp(56px, 10vw, 140px)";
   if (len <= 20) return "clamp(48px, 8vw, 104px)";
   if (len <= 30) return "clamp(40px, 6vw, 80px)";
   if (len <= 45) return "clamp(36px, 5vw, 64px)";
   return "clamp(28px, 4vw, 52px)";
+}
+
+/**
+ * Heading line-break marker. A single pipe `|` inside a heading string forces
+ * a visual line break wherever the heading is rendered as a multi-line title.
+ * In compact contexts (cards, alt text, metadata) call `flattenHeading` to
+ * collapse the marker back to whitespace so it never leaks into the UI.
+ */
+export function splitHeading(text: string): string[] {
+  return (text ?? "")
+    .split("|")
+    .map((s) => s.trim())
+    .filter(Boolean);
+}
+
+export function flattenHeading(text: string): string {
+  return (text ?? "").split("|").map((s) => s.trim()).filter(Boolean).join(" ");
 }

@@ -3,6 +3,7 @@ import Script from "next/script";
 import { notFound } from "next/navigation";
 import { getProject, getProjects, getSocialLinks } from "@/lib/queries";
 import { siteConfig, absoluteUrl, twitterCard } from "@/lib/site";
+import { flattenHeading } from "@/lib/utils";
 import ProjectPageClient from "./ProjectPageClient";
 
 export const dynamicParams = true;
@@ -22,23 +23,24 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
         project.coverImage ||
         project.heroImage ||
         absoluteUrl(`/projects/${project.slug}/opengraph-image`);
+    const flatName = flattenHeading(project.name);
 
     return {
-        title: project.name,
+        title: flatName,
         description: project.description,
         keywords: [project.category, project.industry, "case study", "project", ...siteConfig.keywords],
         alternates: { canonical: `/projects/${project.slug}` },
         openGraph: {
             type: "article",
             url,
-            title: `${project.name} — ${project.category}`,
+            title: `${flatName} — ${project.category}`,
             description: project.description,
             siteName: siteConfig.name,
-            images: [{ url: ogImage, width: 1200, height: 630, alt: project.name }],
+            images: [{ url: ogImage, width: 1200, height: 630, alt: flatName }],
         },
         twitter: {
             card: "summary_large_image",
-            title: `${project.name} — ${project.category}`,
+            title: `${flatName} — ${project.category}`,
             description: project.description,
             images: [ogImage],
             ...twitterCard(),
@@ -54,10 +56,11 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
     const url = absoluteUrl(`/projects/${project.slug}`);
     const image = project.coverImage || project.heroImage;
 
+    const flatName = flattenHeading(project.name);
     const projectJsonLd = {
         "@context": "https://schema.org",
         "@type": "CreativeWork",
-        name: project.name,
+        name: flatName,
         description: project.description,
         image: image ? [image] : undefined,
         url,
@@ -73,7 +76,7 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
         itemListElement: [
             { "@type": "ListItem", position: 1, name: "Home", item: siteConfig.url },
             { "@type": "ListItem", position: 2, name: "Portfolio", item: absoluteUrl("/projects") },
-            { "@type": "ListItem", position: 3, name: project.name, item: url },
+            { "@type": "ListItem", position: 3, name: flatName, item: url },
         ],
     };
 

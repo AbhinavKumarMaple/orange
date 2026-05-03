@@ -5,7 +5,7 @@ import { motion } from "motion/react";
 import { usePageTransition } from "@/components/custom/PageTransition";
 import { colors } from "@/lib/colors";
 import { fadeUp, slideUp, createTransition } from "@/lib/motion";
-import { mediaUrl, isVideo, heroTitleFontSize } from "@/lib/utils";
+import { mediaUrl, isVideo, heroTitleFontSize, splitHeading, flattenHeading } from "@/lib/utils";
 import Navbar from "@/components/custom/Navbar";
 import NavOverlay from "@/components/custom/NavOverlay";
 import ContactSection from "@/components/custom/ContactSection";
@@ -56,7 +56,12 @@ export default function ProjectPageClient({ project, socialLinks = [] }: Props) 
                             animate={slideUp.visible}
                             transition={createTransition({ duration: "slow", ease: "snappy", delay: "short" })}
                         >
-                            {project.name}
+                            {splitHeading(project.name).map((line, i, arr) => (
+                                <span key={i}>
+                                    {line}
+                                    {i < arr.length - 1 && <br />}
+                                </span>
+                            ))}
                         </motion.h1>
                     </div>
 
@@ -90,7 +95,7 @@ export default function ProjectPageClient({ project, socialLinks = [] }: Props) 
                 >
                     <MediaRenderer
                         src={mediaUrl(project.coverImage || project.heroImage)}
-                        alt={project.name}
+                        alt={flattenHeading(project.name)}
                         fill
                         className="object-cover"
                         priority
@@ -173,7 +178,7 @@ export default function ProjectPageClient({ project, socialLinks = [] }: Props) 
                     >
                         <MediaRenderer
                             src={mediaUrl(project.images[0])}
-                            alt={`${project.name} detail`}
+                            alt={`${flattenHeading(project.name)} detail`}
                             fill
                             className="object-cover"
                             sizes="100vw"
@@ -192,7 +197,7 @@ export default function ProjectPageClient({ project, socialLinks = [] }: Props) 
                             >
                                 <MediaRenderer
                                     src={mediaUrl(img)}
-                                    alt={`${project.name} detail ${i + 1}`}
+                                    alt={`${flattenHeading(project.name)} detail ${i + 1}`}
                                     fill
                                     className="object-cover"
                                     sizes="(max-width: 640px) 100vw, 50vw"
@@ -211,7 +216,7 @@ export default function ProjectPageClient({ project, socialLinks = [] }: Props) 
                     >
                         <MediaRenderer
                             src={mediaUrl(img)}
-                            alt={`${project.name} ${i + 3}`}
+                            alt={`${flattenHeading(project.name)} ${i + 3}`}
                             fill
                             className="object-cover"
                             sizes="100vw"
