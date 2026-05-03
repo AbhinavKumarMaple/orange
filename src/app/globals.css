@@ -171,3 +171,12 @@
 .animate-marquee-ltr {
   animation: marquee-ltr 30s linear infinite;
 }
+
+/* Pause marquee while a brand tile is hovered so the color bleed can land. */
+.animate-marquee-ltr:has(.brand-tile:hover),
+.animate-marquee-rtl:has(.brand-tile:hover) {
+  animation-play-state: paused;
+}
+
+/* Marquee tile hover state is owned by the LogoMarquee component (Framer
+   Motion). Only CSS responsibility here is pausing the scroll on hover. */
