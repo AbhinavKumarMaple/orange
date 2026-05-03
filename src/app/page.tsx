@@ -97,7 +97,7 @@ export default async function Home() {
         rating={hero?.rating}
         roi={hero?.roi}
       />
-      <ShowreelSection brands={brands} showreel={showreel} />
+      {/* <ShowreelSection brands={brands} showreel={showreel} /> */}
       <PortfolioSection projects={projects} />
       <ServicesSection services={services} />
       <WhyUsSection />
