@@ -5,6 +5,7 @@ import Script from "next/script";
 import "./globals.css";
 import SmoothScroll from "@/components/custom/SmoothScroll";
 import PageTransitionProvider from "@/components/custom/PageTransition";
+import ScrollResetOnRoute from "@/components/custom/ScrollResetOnRoute";
 import PostHogProvider from "@/components/custom/PostHogProvider";
 import AnalyticsTracker from "@/components/custom/AnalyticsTracker";
 import { siteConfig, absoluteUrl, twitterCard } from "@/lib/site";
@@ -177,6 +178,7 @@ export default async function RootLayout({
           <PostHogProvider>
             <AnalyticsTracker />
             <PageTransitionProvider>
+              <ScrollResetOnRoute />
               <SmoothScroll>{children}</SmoothScroll>
             </PageTransitionProvider>
           </PostHogProvider>
