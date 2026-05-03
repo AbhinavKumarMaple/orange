@@ -62,6 +62,10 @@ export function revalidateBrand() {
   revalidatePath("/");
 }
 
+export function revalidateShowreel() {
+  revalidatePath("/");
+}
+
 export function revalidateMedia() {
   revalidatePath("/", "layout");
 }

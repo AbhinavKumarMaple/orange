@@ -1,12 +1,18 @@
 import { colors } from "@/lib/colors";
 import LogoMarquee, { type MarqueeBrand } from "./LogoMarquee";
-import ShowreelContent from "./ShowreelContent";
+import ShowreelContent, { type ShowreelData } from "./ShowreelContent";
 
-export default function ShowreelSection({ brands }: { brands: MarqueeBrand[] }) {
+export default function ShowreelSection({
+    brands,
+    showreel,
+}: {
+    brands: MarqueeBrand[];
+    showreel: ShowreelData | null;
+}) {
     return (
         <section data-section="Showreel" style={{ backgroundColor: colors.background }}>
             <LogoMarquee brands={brands} />
-            <ShowreelContent />
+            <ShowreelContent data={showreel} />
         </section>
     );
 }

@@ -112,6 +112,17 @@ export const heroContent = pgTable("hero_content", {
   updatedAt: timestamp("updated_at").defaultNow(),
 });
 
+export const showreelContent = pgTable("showreel_content", {
+  id: uuid("id").primaryKey().defaultRandom(),
+  label: text("label").notNull().default("//02 Showreel"),
+  heading: text("heading").notNull().default("See Our Work\nIn Motion"),
+  description: text("description").notNull().default(
+    "Experience a fast showcase of our best projects, highlighting bold design, seamless strategy, and measurable impact.",
+  ),
+  video: text("video").notNull().default(""),
+  updatedAt: timestamp("updated_at").defaultNow(),
+});
+
 export const brands = pgTable("brands", {
   id: uuid("id").primaryKey().defaultRandom(),
   name: text("name").notNull(),

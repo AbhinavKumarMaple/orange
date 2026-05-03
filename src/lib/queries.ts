@@ -11,6 +11,7 @@ import {
   socialLinks,
   heroContent,
   brands,
+  showreelContent,
 } from "@/db/schema";
 import { eq, asc, ne, desc } from "drizzle-orm";
 
@@ -102,4 +103,9 @@ export async function getHeroContent() {
 
 export async function getBrands() {
   return db.select().from(brands).orderBy(asc(brands.order));
+}
+
+export async function getShowreelContent() {
+  const rows = await db.select().from(showreelContent).limit(1);
+  return rows[0] ?? null;
 }

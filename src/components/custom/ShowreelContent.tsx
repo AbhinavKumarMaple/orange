@@ -4,7 +4,24 @@ import { motion } from "motion/react";
 import { fadeUp, createTransition } from "@/lib/motion";
 import { colors } from "@/lib/colors";
 
-export default function ShowreelContent() {
+export interface ShowreelData {
+    label: string;
+    heading: string;
+    description: string;
+    video: string;
+}
+
+const FALLBACK: ShowreelData = {
+    label: "//02 Showreel",
+    heading: "See Our Work\nIn Motion",
+    description:
+        "Experience a fast showcase of our best projects, highlighting bold design, seamless strategy, and measurable impact.",
+    video: "https://framerusercontent.com/assets/3BDoGQqUun8oJGATqjDVryyVGRc.mp4",
+};
+
+export default function ShowreelContent({ data }: { data?: ShowreelData | null }) {
+    const d = data ?? FALLBACK;
+
     return (
         <div className="px-5 sm:px-8 pt-16 pb-0">
             {/* Label + heading row — stacks on mobile */}
@@ -23,12 +40,12 @@ export default function ShowreelContent() {
                         viewport={{ once: true }}
                         transition={createTransition({ duration: "medium", ease: "snappy" })}
                     >
-                        //02 Showreel
+                        {d.label}
                     </motion.p>
 
                     <div className="overflow-hidden">
                         <motion.h2
-                            className="font-sans font-medium uppercase"
+                            className="font-sans font-medium uppercase whitespace-pre-line"
                             style={{
                                 color: colors.dark,
                                 fontSize: "clamp(48px, 7vw, 88px)",
@@ -40,9 +57,7 @@ export default function ShowreelContent() {
                             viewport={{ once: true }}
                             transition={createTransition({ duration: "slow", ease: "snappy", delay: "tiny" })}
                         >
-                            See Our Work
-                            <br />
-                            In Motion
+                            {d.heading}
                         </motion.h2>
                     </div>
                 </div>
@@ -62,28 +77,31 @@ export default function ShowreelContent() {
                     viewport={{ once: true }}
                     transition={createTransition({ duration: "medium", ease: "gentle", delay: "short" })}
                 >
-                    Experience a fast showcase of our best projects, highlighting bold design, seamless strategy, and measurable impact.
+                    {d.description}
                 </motion.p>
             </div>
 
-            <motion.div
-                className="overflow-hidden"
-                style={{ borderRadius: 8 }}
-                initial={fadeUp.hidden}
-                whileInView={fadeUp.visible}
-                viewport={{ once: true }}
-                transition={createTransition({ duration: "slow", ease: "snappy", delay: "short" })}
-            >
-                <video
-                    src="https://framerusercontent.com/assets/3BDoGQqUun8oJGATqjDVryyVGRc.mp4"
-                    autoPlay
-                    muted
-                    loop
-                    playsInline
-                    className="w-full"
-                    style={{ display: "block", aspectRatio: "1841 / 1050" }}
-                />
-            </motion.div>
+            {d.video && (
+                <motion.div
+                    className="overflow-hidden"
+                    style={{ borderRadius: 8 }}
+                    initial={fadeUp.hidden}
+                    whileInView={fadeUp.visible}
+                    viewport={{ once: true }}
+                    transition={createTransition({ duration: "slow", ease: "snappy", delay: "short" })}
+                >
+                    <video
+                        key={d.video}
+                        src={d.video}
+                        autoPlay
+                        muted
+                        loop
+                        playsInline
+                        className="w-full"
+                        style={{ display: "block", aspectRatio: "1841 / 1050" }}
+                    />
+                </motion.div>
+            )}
         </div>
     );
 }
