@@ -355,6 +355,53 @@ async function seed() {
     },
   ]);
 
+  // Brands
+  await db.delete(schema.brands);
+  await db.insert(schema.brands).values([
+    {
+      name: "Logoipsum",
+      image: "https://framerusercontent.com/images/OPToRxvhQd2ScvavfIOXuI6o.svg",
+      width: 194,
+      height: 37,
+      order: 1,
+    },
+    {
+      name: "Velo Studio",
+      image: "https://framerusercontent.com/images/Ntc48i8GxNtzZe6K8P7DeRLzQ.svg",
+      width: 256,
+      height: 42,
+      order: 2,
+    },
+    {
+      name: "Urban Bites",
+      image: "https://framerusercontent.com/images/9XfpXOcQrpiKYnZNcFlnYhYZVI.svg",
+      width: 256,
+      height: 42,
+      order: 3,
+    },
+    {
+      name: "Baseline Sports",
+      image: "https://framerusercontent.com/images/2rq9YMILXCGw0qOqXvxaPhzIuWo.svg",
+      width: 279,
+      height: 42,
+      order: 4,
+    },
+    {
+      name: "Northcap Supply",
+      image: "https://framerusercontent.com/images/rHPu3YfQxZrz1Xw15tIQTPQIsU.svg",
+      width: 222,
+      height: 40,
+      order: 5,
+    },
+    {
+      name: "Logoipsum 2",
+      image: "https://framerusercontent.com/images/OEklTYyEPGkk7846aK5rBd4nfcs.svg",
+      width: 220,
+      height: 37,
+      order: 6,
+    },
+  ]);
+
   console.log("✅ Seed complete");
   process.exit(0);
 }

@@ -10,6 +10,7 @@ import {
   contactSubmissions,
   socialLinks,
   heroContent,
+  brands,
 } from "@/db/schema";
 import { eq, asc, ne, desc } from "drizzle-orm";
 
@@ -97,4 +98,8 @@ export const getSocialLinks = cache(async () => {
 export async function getHeroContent() {
   const rows = await db.select().from(heroContent).limit(1);
   return rows[0] ?? null;
+}
+
+export async function getBrands() {
+  return db.select().from(brands).orderBy(asc(brands.order));
 }

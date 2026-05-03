@@ -112,6 +112,15 @@ export const heroContent = pgTable("hero_content", {
   updatedAt: timestamp("updated_at").defaultNow(),
 });
 
+export const brands = pgTable("brands", {
+  id: uuid("id").primaryKey().defaultRandom(),
+  name: text("name").notNull(),
+  image: text("image").notNull(),
+  width: integer("width").notNull().default(200),
+  height: integer("height").notNull().default(60),
+  order: integer("order").notNull().default(0),
+});
+
 export const mediaAssets = pgTable("media_assets", {
   id: uuid("id").primaryKey().defaultRandom(),
   url: text("url").notNull(),

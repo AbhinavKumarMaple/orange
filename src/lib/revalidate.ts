@@ -58,6 +58,10 @@ export function revalidateSocialLinks() {
   revalidatePath("/", "layout");
 }
 
+export function revalidateBrand() {
+  revalidatePath("/");
+}
+
 export function revalidateMedia() {
   revalidatePath("/", "layout");
 }

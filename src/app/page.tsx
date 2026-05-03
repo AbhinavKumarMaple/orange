@@ -22,6 +22,7 @@ import {
   getServices,
   getSocialLinks,
   getHeroContent,
+  getBrands,
 } from "@/lib/queries";
 
 export const metadata: Metadata = {
@@ -46,7 +47,7 @@ export const metadata: Metadata = {
 };
 
 export default async function Home() {
-  const [projects, articles, testimonials, faqs, services, socialLinks, hero] =
+  const [projects, articles, testimonials, faqs, services, socialLinks, hero, brands] =
     await Promise.all([
       getProjects(),
       getArticles(),
@@ -55,6 +56,7 @@ export default async function Home() {
       getServices(),
       getSocialLinks(),
       getHeroContent(),
+      getBrands(),
     ]);
 
   const faqJsonLd = {
@@ -92,7 +94,7 @@ export default async function Home() {
         rating={hero?.rating}
         roi={hero?.roi}
       />
-      <ShowreelSection />
+      <ShowreelSection brands={brands} />
       <PortfolioSection projects={projects} />
       <ServicesSection services={services} />
       <WhyUsSection />

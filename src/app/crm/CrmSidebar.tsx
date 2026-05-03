@@ -13,6 +13,7 @@ const nav = [
     { label: "Services", href: "/crm/services" },
     { label: "Pricing", href: "/crm/pricing" },
     { label: "Testimonials", href: "/crm/testimonials" },
+    { label: "Brands", href: "/crm/brands" },
     { label: "FAQs", href: "/crm/faqs" },
     { label: "Contact Requests", href: "/crm/contact" },
     { label: "Media", href: "/crm/media" },
