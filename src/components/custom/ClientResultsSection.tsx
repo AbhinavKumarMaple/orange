@@ -19,6 +19,34 @@ interface ClientResultsSectionProps {
     testimonials: Testimonial[];
 }
 
+/**
+ * Avatar with initial fallback. Renders the uploaded image when present;
+ * otherwise a gray circle with the first letter of `name` (uppercase, bold)
+ * in the site's sans typeface. Letter size scales with the circle.
+ */
+function Avatar({ src, name, size }: { src: string; name: string; size: number }) {
+    if (src) {
+        return (
+            <div
+                className="rounded-full bg-gray-200 overflow-hidden shrink-0 relative"
+                style={{ width: size, height: size }}
+            >
+                <Image src={src} alt={name} fill className="object-cover" sizes={`${size}px`} />
+            </div>
+        );
+    }
+    const initial = (name.trim().charAt(0) || "?").toUpperCase();
+    return (
+        <div
+            aria-label={name}
+            className="rounded-full bg-gray-200 flex items-center justify-center shrink-0 select-none font-sans font-bold text-gray-900"
+            style={{ width: size, height: size, fontSize: Math.round(size * 0.5), lineHeight: 1 }}
+        >
+            {initial}
+        </div>
+    );
+}
+
 const companyIcons: Record<string, React.ReactNode> = {
     "Urban bites": (
         <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
@@ -56,9 +84,7 @@ function TestimonialCard({ t }: { t: Testimonial }) {
             <div className="border-t border-gray-100" />
             <p className="text-gray-700 text-[14px] leading-relaxed">{t.quote}</p>
             <div className="border-t border-gray-100 pt-4 flex items-center gap-3 mt-auto">
-                <div className="w-10 h-10 rounded-full bg-gray-200 overflow-hidden shrink-0 relative">
-                    <Image src={t.avatar} alt={t.name} fill className="object-cover" sizes="40px" />
-                </div>
+                <Avatar src={t.avatar} name={t.name} size={40} />
                 <div>
                     <p className="text-[14px] font-medium text-gray-900">{t.name}</p>
                     <p className="text-[12px] text-gray-500">{t.role}</p>
@@ -106,9 +132,7 @@ function FloatingCard({
             <div className="border-t border-gray-100" />
             <p className="text-gray-700 text-[15px] leading-relaxed">{t.quote}</p>
             <div className="border-t border-gray-100 pt-4 flex items-center gap-3 mt-auto">
-                <div className="w-11 h-11 rounded-full bg-gray-200 overflow-hidden shrink-0 relative">
-                    <Image src={t.avatar} alt={t.name} fill className="object-cover" sizes="44px" />
-                </div>
+                <Avatar src={t.avatar} name={t.name} size={44} />
                 <div>
                     <p className="text-[15px] font-medium text-gray-900">{t.name}</p>
                     <p className="text-[13px] text-gray-500">{t.role}</p>
