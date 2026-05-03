@@ -165,6 +165,22 @@ export default function ProjectPageClient({ project, socialLinks = [] }: Props) 
 
             {/* Gallery images */}
             <div className="px-5 sm:px-14 pb-24 space-y-6">
+                {/* Single image — full width hero */}
+                {project.images.length === 1 && (
+                    <div
+                        className="w-full overflow-hidden relative"
+                        style={{ borderRadius: 8, aspectRatio: "16/9" }}
+                    >
+                        <MediaRenderer
+                            src={mediaUrl(project.images[0])}
+                            alt={`${project.name} detail`}
+                            fill
+                            className="object-cover"
+                            sizes="100vw"
+                        />
+                    </div>
+                )}
+
                 {/* First 2 images — side by side */}
                 {project.images.length >= 2 && (
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
