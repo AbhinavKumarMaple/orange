@@ -24,6 +24,7 @@ import {
   getHeroContent,
   getBrands,
   getShowreelContent,
+  getClientLogos,
 } from "@/lib/queries";
 
 export const metadata: Metadata = {
@@ -48,18 +49,29 @@ export const metadata: Metadata = {
 };
 
 export default async function Home() {
-  const [projects, articles, testimonials, faqs, services, socialLinks, hero, brands, showreel] =
-    await Promise.all([
-      getProjects(),
-      getArticles(),
-      getTestimonials(),
-      getFaqs(),
-      getServices(),
-      getSocialLinks(),
-      getHeroContent(),
-      getBrands(),
-      getShowreelContent(),
-    ]);
+  const [
+    projects,
+    articles,
+    testimonials,
+    faqs,
+    services,
+    socialLinks,
+    hero,
+    brands,
+    showreel,
+    clientLogos,
+  ] = await Promise.all([
+    getProjects(),
+    getArticles(),
+    getTestimonials(),
+    getFaqs(),
+    getServices(),
+    getSocialLinks(),
+    getHeroContent(),
+    getBrands(),
+    getShowreelContent(),
+    getClientLogos(),
+  ]);
 
   const faqJsonLd = {
     "@context": "https://schema.org",
@@ -97,10 +109,10 @@ export default async function Home() {
         rating={hero?.rating}
         roi={hero?.roi}
       />
-      {/* <ShowreelSection brands={brands} showreel={showreel} /> */}
+      <ShowreelSection brands={brands} showreel={showreel} />
       <PortfolioSection projects={projects} />
       <ServicesSection services={services} />
-      <WhyUsSection />
+      <WhyUsSection logos={clientLogos} />
       <ClientResultsSection testimonials={testimonials} />
       {/* <PricingSection plans={pricingPlans} /> */}
       <BlogSection articles={articles} />

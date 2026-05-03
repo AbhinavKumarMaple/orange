@@ -7,6 +7,7 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import MediaInput from "@/components/custom/MediaInput";
+import DeferredVideo from "@/components/custom/DeferredVideo";
 import type { InferSelectModel } from "drizzle-orm";
 import type { showreelContent } from "@/db/schema";
 
@@ -84,13 +85,9 @@ export default function ShowreelClient({ initialData }: { initialData: ShowreelC
                         className="relative w-full rounded-md overflow-hidden border border-gray-200 bg-gray-50"
                         style={{ aspectRatio: form.aspectRatio.replace("/", " / ") || "16 / 9" }}
                     >
-                        <video
+                        <DeferredVideo
                             key={form.video}
                             src={form.video}
-                            muted
-                            autoPlay
-                            loop
-                            playsInline
                             className="absolute inset-0 w-full h-full object-cover"
                         />
                     </div>

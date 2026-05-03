@@ -12,6 +12,7 @@ import {
   heroContent,
   brands,
   showreelContent,
+  clientLogos,
 } from "@/db/schema";
 import { eq, asc, ne, desc } from "drizzle-orm";
 
@@ -108,4 +109,8 @@ export async function getBrands() {
 export async function getShowreelContent() {
   const rows = await db.select().from(showreelContent).limit(1);
   return rows[0] ?? null;
+}
+
+export async function getClientLogos() {
+  return db.select().from(clientLogos).orderBy(asc(clientLogos.order));
 }

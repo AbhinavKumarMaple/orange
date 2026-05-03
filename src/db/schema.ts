@@ -108,7 +108,7 @@ export const heroContent = pgTable("hero_content", {
   subtext: text("subtext").notNull().default("Since 2023"),
   description: text("description").notNull().default("We are a creative studio building brands and websites that stand out, scale with growth and deliver measurable results."),
   ctaLabel: text("cta_label").notNull().default("Start your project"),
-  ctaHref: text("cta_href").notNull().default("#"),
+  ctaHref: text("cta_href").notNull().default("#Contact"),
   rating: text("rating").notNull().default("4.8/5"),
   roi: text("roi").notNull().default("3.2x Average ROI"),
   updatedAt: timestamp("updated_at").defaultNow(),
@@ -129,6 +129,18 @@ export const showreelContent = pgTable("showreel_content", {
 });
 
 export const brands = pgTable("brands", {
+  id: uuid("id").primaryKey().defaultRandom(),
+  name: text("name").notNull(),
+  image: text("image").notNull(),
+  width: integer("width").notNull().default(200),
+  height: integer("height").notNull().default(60),
+  order: integer("order").notNull().default(0),
+});
+
+// Logos rendered in the //05 Why Choose Us grid. Distinct table from `brands`
+// because the visual context, sizing, and editorial intent differ — those are
+// the scrolling marquee, these are the trust-building 4-up grid below stats.
+export const clientLogos = pgTable("client_logos", {
   id: uuid("id").primaryKey().defaultRandom(),
   name: text("name").notNull(),
   image: text("image").notNull(),

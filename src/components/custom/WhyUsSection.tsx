@@ -10,16 +10,17 @@ const stats = [
     { value: "24hr", label: "Average response time" },
 ];
 
-const clientLogos = [
-    { src: "https://framerusercontent.com/images/awDtj7rqkXF0BCm12jsm7BzLczg.svg", alt: "Velo Studio" },
-    { src: "https://framerusercontent.com/images/zUJMCCKSzjR4tLQ8amSnfss8UUA.svg", alt: "Urban bites" },
-    { src: "https://framerusercontent.com/images/faK3uVL6HKHj0lUYRZh2fWmn3o.svg", alt: "Baseline Sports" },
-    { src: "https://framerusercontent.com/images/NwlOGrknUmkPlpa4MVL7oF0w48Q.svg", alt: "Northcap Supply" },
-];
+export interface ClientLogo {
+    id: string;
+    name: string;
+    image: string;
+    width: number;
+    height: number;
+}
 
 const dark = colors.dark;
 
-export default function WhyUsSection() {
+export default function WhyUsSection({ logos = [] }: { logos?: ClientLogo[] }) {
     return (
         <SectionLayout
             label="//05 Why choose us"
@@ -45,24 +46,28 @@ export default function WhyUsSection() {
                 </div>
             </div>
 
-            {/* Client logos — 2 cols on mobile, 4 on desktop */}
-            <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 sm:gap-6">
-                {clientLogos.map((logo) => (
-                    <div
-                        key={logo.alt}
-                        className="flex items-center justify-center"
-                        style={{ backgroundColor: dark, borderRadius: 8, height: 100, border: "1px solid rgba(240,245,249,0.1)" }}
-                    >
-                        <Image
-                            src={`${logo.src}?width=320&height=104`}
-                            alt={logo.alt}
-                            width={120}
-                            height={40}
-                            className="object-contain"
-                        />
-                    </div>
-                ))}
-            </div>
+            {/* Client logos — 2 cols on mobile, 4 on desktop. Grid grows naturally
+                with row count, so any logo count (2, 6, 8…) lays out cleanly. */}
+            {logos.length > 0 && (
+                <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 sm:gap-6">
+                    {logos.map((logo) => (
+                        <div
+                            key={logo.id}
+                            className="flex items-center justify-center"
+                            style={{ backgroundColor: dark, borderRadius: 8, height: 100, border: "1px solid rgba(240,245,249,0.1)" }}
+                        >
+                            <Image
+                                src={logo.image}
+                                alt={logo.name}
+                                width={logo.width}
+                                height={logo.height}
+                                className="object-contain"
+                                style={{ width: "auto", height: "auto", maxWidth: "70%", maxHeight: 40 }}
+                            />
+                        </div>
+                    ))}
+                </div>
+            )}
         </SectionLayout>
     );
 }

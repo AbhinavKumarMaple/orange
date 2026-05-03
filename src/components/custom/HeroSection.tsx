@@ -10,6 +10,7 @@ import Navbar from "./Navbar";
 import NavOverlay from "./NavOverlay";
 import StarRating from "./StarRating";
 import Button from "./Button";
+import DeferredVideo from "./DeferredVideo";
 
 interface HeroProps {
   image?: string;
@@ -27,12 +28,8 @@ const FALLBACK_IMAGE = "https://tfo7hwi103lzosbj.public.blob.vercel-storage.com/
 
 function HeroMedia({ src, className }: { src: string; className: string }) {
   return isVideo(src) ? (
-    <video
+    <DeferredVideo
       src={src}
-      autoPlay
-      muted
-      loop
-      playsInline
       className={`absolute inset-0 w-full h-full object-cover object-center ${className}`}
     />
   ) : (
@@ -58,7 +55,7 @@ export default function HeroSection({
   subtext = "Since 2023",
   description = "We are a creative studio building brands and websites that stand out, scale with growth and deliver measurable results.",
   ctaLabel = "Start your project",
-  ctaHref = "#",
+  ctaHref = "#Contact",
   rating = "4.8/5",
   roi = "3.2x Average ROI",
 }: HeroProps) {

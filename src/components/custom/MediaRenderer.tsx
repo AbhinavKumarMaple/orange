@@ -3,6 +3,7 @@
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 import { isVideo } from "@/lib/utils";
+import DeferredVideo from "./DeferredVideo";
 
 interface Props {
   src: string;
@@ -65,16 +66,15 @@ export default function MediaRenderer({
   if (!src) return null;
 
   if (isVideo(src)) {
+    // shouldPlay flips true once the element scrolls near the viewport.
+    // While false: no src is set, so nothing downloads.
+    // While true: DeferredVideo waits for canplaythrough before calling
+    // play(), so the first frame is shown still until the buffer is ready.
     return (
-      <video
-        ref={videoRef}
+      <DeferredVideo
+        videoRef={videoRef}
         src={shouldPlay ? src : undefined}
-        data-src={src}
         className={className}
-        autoPlay={autoPlay && shouldPlay}
-        muted
-        loop
-        playsInline
         preload={shouldPlay ? "auto" : "metadata"}
         style={fill ? { position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover" } : { width, height }}
       />

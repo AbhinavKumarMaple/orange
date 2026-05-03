@@ -66,6 +66,10 @@ export function revalidateShowreel() {
   revalidatePath("/");
 }
 
+export function revalidateClientLogo() {
+  revalidatePath("/");
+}
+
 export function revalidateMedia() {
   revalidatePath("/", "layout");
 }

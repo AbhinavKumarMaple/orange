@@ -23,7 +23,7 @@ const defaults: FormData = {
   description:
     "We are a creative studio building brands and websites that stand out, scale with growth and deliver measurable results.",
   ctaLabel: "Start your project",
-  ctaHref: "#",
+  ctaHref: "#Contact",
   rating: "4.8/5",
   roi: "3.2x Average ROI",
 };

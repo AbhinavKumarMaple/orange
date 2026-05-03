@@ -3,6 +3,7 @@
 import { motion } from "motion/react";
 import { fadeUp, createTransition } from "@/lib/motion";
 import { colors } from "@/lib/colors";
+import DeferredVideo from "./DeferredVideo";
 
 export interface ShowreelData {
     label: string;
@@ -95,13 +96,9 @@ export default function ShowreelContent({ data }: { data?: ShowreelData | null }
                     viewport={{ once: true }}
                     transition={createTransition({ duration: "slow", ease: "snappy", delay: "short" })}
                 >
-                    <video
+                    <DeferredVideo
                         key={d.video}
                         src={d.video}
-                        autoPlay
-                        muted
-                        loop
-                        playsInline
                         className="absolute inset-0 w-full h-full object-cover"
                     />
                 </motion.div>

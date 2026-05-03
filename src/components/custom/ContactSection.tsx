@@ -66,7 +66,7 @@ export default function ContactSection() {
     }
 
     return (
-        <section data-section="Contact" style={{ backgroundColor: colors.contact }} className="px-5 sm:px-8 pt-16 pb-16">
+        <section id="Contact" data-section="Contact" style={{ backgroundColor: colors.contact }} className="px-5 sm:px-8 pt-16 pb-16">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-start">
                 <div>
                     <p className="font-mono font-medium mb-3"
