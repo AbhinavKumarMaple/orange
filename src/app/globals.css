@@ -144,6 +144,18 @@
   html {
     @apply font-sans;
   }
+
+  /* Branded text selection — soft footer grey highlight with the orange
+     accent as the text color. Inherits the CSS vars so any future theme
+     tweak in :root automatically propagates everywhere. */
+  ::selection {
+    background-color: var(--brand-footer);
+    color: var(--brand-accent);
+  }
+  ::-moz-selection {
+    background-color: var(--brand-footer);
+    color: var(--brand-accent);
+  }
 }
 
 @keyframes marquee-ltr {
