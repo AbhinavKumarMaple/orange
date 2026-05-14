@@ -3,6 +3,8 @@ import Script from "next/script";
 import { notFound } from "next/navigation";
 import { getArticle, getArticles, getRelatedArticles, getSocialLinks } from "@/lib/queries";
 import { siteConfig, absoluteUrl, twitterCard } from "@/lib/site";
+import { VideoPosterProvider } from "@/components/custom/VideoPosterProvider";
+import { loadVideoPosters, collectMediaUrls } from "@/lib/media-posters";
 import ArticlePageClient from "./ArticlePageClient";
 
 export const dynamicParams = true;
@@ -88,8 +90,22 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
         ],
     };
 
+    const posters = Array.from(
+        (
+            await loadVideoPosters(
+                collectMediaUrls(
+                    article.image,
+                    article.coverImage,
+                    article.icon,
+                    article.images,
+                    ...related.flatMap((a) => [a.image, a.coverImage, a.icon, ...(a.images ?? [])]),
+                ),
+            )
+        ).entries(),
+    );
+
     return (
-        <>
+        <VideoPosterProvider posters={posters}>
             <Script
                 id={`ld-json-article-${article.slug}`}
                 type="application/ld+json"
@@ -103,6 +119,6 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
                 dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
             />
             <ArticlePageClient article={article} related={related} socialLinks={socialLinks} />
-        </>
+        </VideoPosterProvider>
     );
 }

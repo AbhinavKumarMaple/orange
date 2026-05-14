@@ -13,7 +13,9 @@ import BlogSection from "@/components/custom/BlogSection";
 import FaqSection from "@/components/custom/FaqSection";
 import ContactSection from "@/components/custom/ContactSection";
 import Footer from "@/components/custom/Footer";
+import { VideoPosterProvider } from "@/components/custom/VideoPosterProvider";
 import { siteConfig, twitterCard } from "@/lib/site";
+import { loadVideoPosters, collectMediaUrls } from "@/lib/media-posters";
 import {
   getProjects,
   getArticles,
@@ -76,6 +78,23 @@ export default async function Home() {
     getWhyUsContent(),
   ]);
 
+  // Collect every URL that might point to a video, then look up posters in
+  // a single DB query so MediaRenderer down the tree can pick them up via
+  // context without prop threading.
+  const allMediaUrls = collectMediaUrls(
+    hero?.image,
+    hero?.mobileImage,
+    showreel?.video,
+    ...projects.flatMap((p) => [p.heroImage, p.coverImage, p.icon, ...(p.images ?? [])]),
+    ...articles.flatMap((a) => [a.image, a.coverImage, a.icon, ...(a.images ?? [])]),
+    ...brands.map((b) => b.image),
+    ...clientLogos.map((l) => l.image),
+    ...testimonials.map((t) => t.avatar),
+    ...services.map((s) => s.image),
+  );
+  const posterMap = await loadVideoPosters(allMediaUrls);
+  const posters = Array.from(posterMap.entries());
+
   const faqJsonLd = {
     "@context": "https://schema.org",
     "@type": "FAQPage",
@@ -90,7 +109,7 @@ export default async function Home() {
   };
 
   return (
-    <>
+    <VideoPosterProvider posters={posters}>
       {faqs.length > 0 && (
         <Script
           id="ld-json-faq"
@@ -122,6 +141,6 @@ export default async function Home() {
       <FaqSection faqs={faqs} />
       <ContactSection />
       <Footer socialLinks={socialLinks} />
-    </>
+    </VideoPosterProvider>
   );
 }

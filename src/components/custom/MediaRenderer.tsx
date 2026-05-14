@@ -4,6 +4,7 @@ import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 import { isVideo } from "@/lib/utils";
 import DeferredVideo from "./DeferredVideo";
+import { useVideoPoster } from "./VideoPosterProvider";
 
 interface Props {
   src: string;
@@ -42,6 +43,10 @@ export default function MediaRenderer({
 }: Props) {
   const videoRef = useRef<HTMLVideoElement | null>(null);
   const [shouldPlay, setShouldPlay] = useState(priority === true);
+  // Resolved by VideoPosterProvider higher up the tree. Undefined when the
+  // src isn't a known video asset (legacy/external URL) or when no provider
+  // is mounted (public pages without video have no provider).
+  const poster = useVideoPoster(src);
 
   useEffect(() => {
     if (!isVideo(src) || !autoPlay || priority) return;
@@ -76,6 +81,7 @@ export default function MediaRenderer({
         src={shouldPlay ? src : undefined}
         className={className}
         preload={shouldPlay ? "auto" : "metadata"}
+        poster={poster}
         style={fill ? { position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover" } : { width, height }}
       />
     );

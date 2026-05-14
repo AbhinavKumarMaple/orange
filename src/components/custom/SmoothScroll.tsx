@@ -1,22 +1,29 @@
 "use client";
 
 import { useEffect } from "react";
+import { usePathname } from "next/navigation";
 
 /**
- * Lenis smooth scroll is desktop-only.
+ * Lenis smooth scroll for the public marketing site.
  *
- * Why:
- *  - ~20KB of JS + a permanent requestAnimationFrame loop is a direct INP
- *    and TBT tax on mobile, where native momentum scrolling is already
- *    smooth and users expect it.
- *  - Smooth-scroll libraries regularly fight with mobile scroll-anchoring
- *    and pull-to-refresh, producing worse UX than stock.
+ * Disabled on:
+ *  - touch / coarse-pointer devices (native momentum scrolling is better)
+ *  - the CRM and sign-in surfaces, which use internal scroll containers
+ *    (overflow-y-auto). Lenis hooks wheel events on `window` and
+ *    preventDefaults them, which swallows the events before they reach
+ *    those inner containers — the result is "scroll wheel does nothing,
+ *    user has to grab the scrollbar". Marketing pages have no inner
+ *    scroll containers so they're unaffected.
  *
- * Implementation: gate by `pointer: fine` (mouse / trackpad) and dynamic-
- * import the Lenis module so touch-primary devices never download it.
+ * Lenis is dynamic-imported so devices that opt out never download it.
  */
 export default function SmoothScroll({ children }: { children: React.ReactNode }) {
+    const pathname = usePathname();
+    // Surfaces that have their own internal scroll containers.
+    const internalScrollRoute = pathname.startsWith("/crm") || pathname.startsWith("/sign-in");
+
     useEffect(() => {
+        if (internalScrollRoute) return;
         if (!window.matchMedia("(pointer: fine)").matches) return;
         let cleanup: (() => void) | undefined;
 
@@ -45,7 +52,7 @@ export default function SmoothScroll({ children }: { children: React.ReactNode }
         })();
 
         return () => cleanup?.();
-    }, []);
+    }, [internalScrollRoute]);
 
     return <>{children}</>;
 }

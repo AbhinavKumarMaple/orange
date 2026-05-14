@@ -41,7 +41,7 @@ export default function CrmSidebar() {
     }
 
     return (
-        <aside className="w-56 shrink-0 bg-white border-r border-gray-200 flex flex-col">
+        <aside className="w-56 shrink-0 bg-white border-r border-gray-200 flex flex-col h-full overflow-y-auto">
             <div className="px-6 py-5 border-b border-gray-200">
                 <p className="font-semibold text-gray-900 text-sm tracking-tight">Orange Studios</p>
                 <p className="text-xs text-gray-400 mt-0.5">Content Manager</p>

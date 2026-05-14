@@ -4,6 +4,8 @@ import { notFound } from "next/navigation";
 import { getProject, getProjects, getSocialLinks } from "@/lib/queries";
 import { siteConfig, absoluteUrl, twitterCard } from "@/lib/site";
 import { flattenHeading } from "@/lib/utils";
+import { VideoPosterProvider } from "@/components/custom/VideoPosterProvider";
+import { loadVideoPosters, collectMediaUrls } from "@/lib/media-posters";
 import ProjectPageClient from "./ProjectPageClient";
 
 export const dynamicParams = true;
@@ -80,8 +82,21 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
         ],
     };
 
+    const posters = Array.from(
+        (
+            await loadVideoPosters(
+                collectMediaUrls(
+                    project.heroImage,
+                    project.coverImage,
+                    project.icon,
+                    project.images,
+                ),
+            )
+        ).entries(),
+    );
+
     return (
-        <>
+        <VideoPosterProvider posters={posters}>
             <Script
                 id={`ld-json-project-${project.slug}`}
                 type="application/ld+json"
@@ -95,6 +110,6 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
                 dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
             />
             <ProjectPageClient project={project} socialLinks={socialLinks} />
-        </>
+        </VideoPosterProvider>
     );
 }

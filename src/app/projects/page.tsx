@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import Script from "next/script";
 import { getProjects, getSocialLinks } from "@/lib/queries";
 import { siteConfig, absoluteUrl, twitterCard } from "@/lib/site";
+import { VideoPosterProvider } from "@/components/custom/VideoPosterProvider";
+import { loadVideoPosters, collectMediaUrls } from "@/lib/media-posters";
 import ProjectsPageClient from "./ProjectsPageClient";
 
 const title = "Portfolio — Selected Work";
@@ -44,8 +46,18 @@ export default async function ProjectsPage() {
         })),
     };
 
+    const posters = Array.from(
+        (
+            await loadVideoPosters(
+                collectMediaUrls(
+                    ...projects.flatMap((p) => [p.heroImage, p.coverImage, p.icon, ...(p.images ?? [])]),
+                ),
+            )
+        ).entries(),
+    );
+
     return (
-        <>
+        <VideoPosterProvider posters={posters}>
             <Script
                 id="ld-json-portfolio"
                 type="application/ld+json"
@@ -53,6 +65,6 @@ export default async function ProjectsPage() {
                 dangerouslySetInnerHTML={{ __html: JSON.stringify(itemListJsonLd) }}
             />
             <ProjectsPageClient projects={projects} socialLinks={socialLinks} />
-        </>
+        </VideoPosterProvider>
     );
 }

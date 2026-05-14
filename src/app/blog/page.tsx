@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import Script from "next/script";
 import { getArticles, getSocialLinks } from "@/lib/queries";
 import { siteConfig, absoluteUrl, twitterCard } from "@/lib/site";
+import { VideoPosterProvider } from "@/components/custom/VideoPosterProvider";
+import { loadVideoPosters, collectMediaUrls } from "@/lib/media-posters";
 import BlogPageClient from "./BlogPageClient";
 
 const title = "Blog — Ideas that drive growth";
@@ -47,8 +49,18 @@ export default async function BlogPage() {
         })),
     };
 
+    const posters = Array.from(
+        (
+            await loadVideoPosters(
+                collectMediaUrls(
+                    ...articles.flatMap((a) => [a.image, a.coverImage, a.icon, ...(a.images ?? [])]),
+                ),
+            )
+        ).entries(),
+    );
+
     return (
-        <>
+        <VideoPosterProvider posters={posters}>
             <Script
                 id="ld-json-blog"
                 type="application/ld+json"
@@ -56,6 +68,6 @@ export default async function BlogPage() {
                 dangerouslySetInnerHTML={{ __html: JSON.stringify(itemListJsonLd) }}
             />
             <BlogPageClient articles={articles} socialLinks={socialLinks} />
-        </>
+        </VideoPosterProvider>
     );
 }

@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, type CSSProperties, type Ref } from "react";
+import { useVideoPoster } from "./VideoPosterProvider";
 
 export interface DeferredVideoProps {
     src: string | undefined;
@@ -39,6 +40,13 @@ export default function DeferredVideo({
     videoRef,
 }: DeferredVideoProps) {
     const internalRef = useRef<HTMLVideoElement | null>(null);
+
+    // If no explicit poster was supplied, fall back to the one registered
+    // for this URL by <VideoPosterProvider>. Lets every consumer of
+    // DeferredVideo (Showreel, Hero, MediaRenderer, ...) auto-pick up the
+    // matching poster without each one wiring it up itself.
+    const contextPoster = useVideoPoster(src);
+    const resolvedPoster = poster ?? contextPoster;
 
     const setRef = (el: HTMLVideoElement | null) => {
         internalRef.current = el;
@@ -83,7 +91,7 @@ export default function DeferredVideo({
             muted={muted}
             playsInline={playsInline}
             preload={preload}
-            poster={poster}
+            poster={resolvedPoster}
         />
     );
 }

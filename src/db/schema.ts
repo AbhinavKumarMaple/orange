@@ -180,6 +180,10 @@ export const mediaAssets = pgTable("media_assets", {
   height: integer("height"),
   versions: jsonb("versions").notNull().default([]),
   uploadedAt: timestamp("uploaded_at").defaultNow(),
+  // Poster image for video assets — captured first frame, served from
+  // Vercel Blob. NULL for images (not needed) and for videos that haven't
+  // been backfilled yet. Renderer falls back to no poster when NULL.
+  thumbnailUrl: text("thumbnail_url"),
 });
 
 // CRM operators. Acts as the auth allowlist — only rows in this table can

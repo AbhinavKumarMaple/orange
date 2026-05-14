@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import { isVideo } from "@/lib/utils";
 import { toast } from "sonner";
 import MediaThumb from "@/components/custom/MediaThumb";
+import { backfillThumbnail } from "./backfillThumbnails";
 import type { MediaFile, MediaVersion } from "./types";
 
 function formatBytes(bytes: number) {
@@ -30,6 +31,7 @@ export default function MediaPreviewPanel({ file, onVersionUploaded, actions }: 
   const replaceRef = useRef<HTMLInputElement>(null);
   const [replacing, setReplacing] = useState(false);
   const [restoring, setRestoring] = useState<string | null>(null);
+  const [regenerating, setRegenerating] = useState(false);
   const [dims, setDims] = useState<{ w: number; h: number } | null>(
     file.width && file.height ? { w: file.width, h: file.height } : null
   );
@@ -77,6 +79,21 @@ export default function MediaPreviewPanel({ file, onVersionUploaded, actions }: 
       toast.error("Restore failed");
     } finally {
       setRestoring(null);
+    }
+  }
+
+  async function handleRegeneratePoster() {
+    if (!file.id || regenerating) return;
+    setRegenerating(true);
+    try {
+      const thumbnailUrl = await backfillThumbnail(file);
+      toast.success(file.thumbnailUrl ? "Poster regenerated" : "Poster generated");
+      onVersionUploaded?.({ ...file, thumbnailUrl });
+    } catch (err) {
+      console.error("Regenerate poster failed:", err);
+      toast.error("Failed to generate poster");
+    } finally {
+      setRegenerating(false);
     }
   }
 
@@ -182,6 +199,22 @@ export default function MediaPreviewPanel({ file, onVersionUploaded, actions }: 
               </Button>
               <input ref={replaceRef} type="file" accept="image/*,video/*" className="hidden" onChange={handleReplace} />
             </>
+          )}
+          {isVid && file.id && (
+            <Button
+              size="sm"
+              variant="outline"
+              className="w-full"
+              disabled={regenerating}
+              onClick={handleRegeneratePoster}
+              title="Picks the first frame with real content (skips solid black/white intros)"
+            >
+              {regenerating
+                ? "Generating poster…"
+                : file.thumbnailUrl
+                  ? "Regenerate Poster"
+                  : "Generate Poster"}
+            </Button>
           )}
           <Button size="sm" variant="outline" className="w-full" onClick={() => { navigator.clipboard.writeText(file.url); toast.success("URL copied"); }}>
             Copy URL

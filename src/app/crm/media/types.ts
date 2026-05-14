@@ -8,6 +8,9 @@ export interface MediaFile {
   width?: number | null;
   height?: number | null;
   versions?: MediaVersion[];
+  /** Poster image URL for video assets. NULL/undefined for images or
+   *  videos that haven't been backfilled yet. */
+  thumbnailUrl?: string | null;
 }
 
 export interface MediaVersion {
