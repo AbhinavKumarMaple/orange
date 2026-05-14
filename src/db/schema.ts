@@ -181,3 +181,15 @@ export const mediaAssets = pgTable("media_assets", {
   versions: jsonb("versions").notNull().default([]),
   uploadedAt: timestamp("uploaded_at").defaultNow(),
 });
+
+// CRM operators. Acts as the auth allowlist — only rows in this table can
+// sign in. There's no self-signup endpoint anywhere in the app; users are
+// added via the `scripts/create-crm-user.ts` CLI by an administrator.
+// `passwordHash` is a bcrypt hash (never the plaintext password).
+export const crmUsers = pgTable("crm_users", {
+  id: uuid("id").primaryKey().defaultRandom(),
+  email: text("email").unique().notNull(),
+  passwordHash: text("password_hash").notNull(),
+  createdAt: timestamp("created_at").defaultNow(),
+  lastSignInAt: timestamp("last_sign_in_at"),
+});

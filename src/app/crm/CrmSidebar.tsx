@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { useState } from "react";
 import { cn } from "@/lib/utils";
 
 const nav = [
@@ -24,6 +25,21 @@ const nav = [
 
 export default function CrmSidebar() {
     const path = usePathname();
+    const [signingOut, setSigningOut] = useState(false);
+
+    async function handleSignOut() {
+        if (signingOut) return;
+        setSigningOut(true);
+        try {
+            await fetch("/api/auth/sign-out", { method: "POST" });
+        } catch {
+            /* even if the request fails, redirect — the cookie may be cleared */
+        }
+        // Hard navigation so all server components re-fetch without the
+        // stale session cookie.
+        window.location.assign("/sign-in");
+    }
+
     return (
         <aside className="w-56 shrink-0 bg-white border-r border-gray-200 flex flex-col">
             <div className="px-6 py-5 border-b border-gray-200">
@@ -46,7 +62,7 @@ export default function CrmSidebar() {
                     </Link>
                 ))}
             </nav>
-            <div className="p-3 border-t border-gray-200">
+            <div className="p-3 border-t border-gray-200 flex flex-col gap-1">
                 <Link
                     href="/"
                     className="block px-3 py-2 rounded-md text-sm text-gray-500 hover:bg-gray-100 hover:text-gray-900 transition-colors"
@@ -54,6 +70,14 @@ export default function CrmSidebar() {
                 >
                     ↗ View site
                 </Link>
+                <button
+                    type="button"
+                    onClick={handleSignOut}
+                    disabled={signingOut}
+                    className="block w-full px-3 py-2 rounded-md text-left text-sm text-gray-500 hover:bg-gray-100 hover:text-gray-900 transition-colors disabled:opacity-50"
+                >
+                    {signingOut ? "Signing out..." : "Sign out"}
+                </button>
             </div>
         </aside>
     );
