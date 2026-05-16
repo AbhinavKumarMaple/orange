@@ -197,3 +197,123 @@ export const crmUsers = pgTable("crm_users", {
   createdAt: timestamp("created_at").defaultNow(),
   lastSignInAt: timestamp("last_sign_in_at"),
 });
+
+/**
+ * Tracking links — marketing attribution / URL shortener.
+ *
+ * Each row is a short slug that, when visited via /t/<slug>, redirects
+ * the user to `destinationUrl` after logging a row in
+ * `tracking_link_clicks` with whatever metadata the request exposes.
+ *
+ * `source`/`medium`/`campaign` are user-set tags that we also append to
+ * the destination URL as utm_* params (without overwriting any UTMs the
+ * destination URL already has), so downstream analytics on the
+ * destination (e.g. GA, PostHog there) also see the attribution.
+ *
+ * `clickCount` is denormalized for fast list rendering — we increment it
+ * atomically alongside each click insert.
+ */
+export const trackingLinks = pgTable("tracking_links", {
+  id: uuid("id").primaryKey().defaultRandom(),
+  slug: text("slug").unique().notNull(),
+  destinationUrl: text("destination_url").notNull(),
+  label: text("label"),
+  source: text("source"),
+  medium: text("medium"),
+  campaign: text("campaign"),
+  active: boolean("active").notNull().default(true),
+  clickCount: integer("click_count").notNull().default(0),
+  createdAt: timestamp("created_at").defaultNow(),
+  createdBy: uuid("created_by").references(() => crmUsers.id, { onDelete: "set null" }),
+  // Soft-delete timestamp. NULL = live, otherwise = "in trash since this
+  // moment". `active = false` is a temporary off-switch (link can come
+  // back); `deleted_at != NULL` means the editor moved it to trash. Both
+  // make /t/<slug> return 410 Gone — but the data and click history are
+  // preserved until a separate "delete permanently" action.
+  deletedAt: timestamp("deleted_at"),
+});
+
+/**
+ * Per-click event log. Every field is nullable because we only have what
+ * the request happens to expose; some clients/proxies strip headers,
+ * Vercel geo headers are only set in production, etc.
+ *
+ * The schema is deliberately wider than the UI displays — we store
+ * everything that arrives so future analytics can be done without
+ * back-population. The `rawHeaders` JSONB column is the catch-all for
+ * any header we haven't promoted to a typed column yet.
+ */
+export const trackingLinkClicks = pgTable("tracking_link_clicks", {
+  id: uuid("id").primaryKey().defaultRandom(),
+  linkId: uuid("link_id").notNull().references(() => trackingLinks.id, { onDelete: "cascade" }),
+  ts: timestamp("ts").defaultNow().notNull(),
+
+  // Network
+  ip: text("ip"),
+  country: text("country"),
+  region: text("region"),
+  city: text("city"),
+  timezone: text("timezone"),
+  latitude: text("latitude"),
+  longitude: text("longitude"),
+  postalCode: text("postal_code"),
+  asn: text("asn"),
+  host: text("host"),
+
+  // Client (parsed from user agent)
+  userAgent: text("user_agent"),
+  browser: text("browser"),
+  browserVersion: text("browser_version"),
+  os: text("os"),
+  osVersion: text("os_version"),
+  deviceType: text("device_type"),   // mobile | tablet | desktop | bot | undefined
+  deviceVendor: text("device_vendor"),
+  deviceModel: text("device_model"),
+
+  // Client Hints — modern replacement for UA parsing (Chrome / Edge).
+  // Captured as-is from the `sec-ch-ua-*` headers when the browser sends them.
+  chPlatform: text("ch_platform"),
+  chPlatformVersion: text("ch_platform_version"),
+  chMobile: boolean("ch_mobile"),
+  chModel: text("ch_model"),
+
+  // Page context
+  referrer: text("referrer"),
+  referrerHost: text("referrer_host"),
+
+  // UTM (from the inbound URL on the short link, if any)
+  utmSource: text("utm_source"),
+  utmMedium: text("utm_medium"),
+  utmCampaign: text("utm_campaign"),
+  utmTerm: text("utm_term"),
+  utmContent: text("utm_content"),
+
+  // Ad-platform click IDs — preserved when the inbound URL has them,
+  // so paid-ad attribution can be reconstructed later.
+  gclid: text("gclid"),
+  fbclid: text("fbclid"),
+  msclkid: text("msclkid"),
+  ttclid: text("ttclid"),
+
+  // Full inbound query string — captures anything we don't model above
+  // (e.g. custom tracking params, A/B variants, future ad-network IDs).
+  queryString: text("query_string"),
+
+  // Locale
+  language: text("language"),
+  acceptLanguage: text("accept_language"),
+
+  // Privacy signals
+  dnt: boolean("dnt"),
+  gpc: boolean("gpc"),
+
+  // Vercel request correlation
+  vercelRequestId: text("vercel_request_id"),
+
+  // Misc
+  isBot: boolean("is_bot").notNull().default(false),
+
+  // Everything else we received — kept verbatim (minus cookies / auth /
+  // forwarded chain) for future analytics or debugging.
+  rawHeaders: jsonb("raw_headers"),
+});

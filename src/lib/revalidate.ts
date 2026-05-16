@@ -81,3 +81,8 @@ export function revalidateMedia() {
 export function revalidateContactSubmission() {
   // No public-facing impact — submissions only affect the CRM.
 }
+
+export function revalidateTrackingLinks() {
+  // Tracking links are CRM-only data; the public /t/[slug] route is
+  // force-dynamic so it always reads fresh from the DB.
+}

@@ -21,6 +21,8 @@ const nav = [
     { label: "Contact Requests", href: "/crm/contact" },
     { label: "Media", href: "/crm/media" },
     { label: "Social Links", href: "/crm/social-links" },
+    { label: "Tracking Links", href: "/crm/links" },
+    { label: "Visitor Insights", href: "/crm/links/visitors" },
 ];
 
 export default function CrmSidebar() {
