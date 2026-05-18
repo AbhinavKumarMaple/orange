@@ -3,7 +3,7 @@
 import { useEffect, useMemo, useState } from "react";
 import Link from "next/link";
 import { toast } from "sonner";
-import { Copy, ExternalLink, MoreHorizontal, Trash2, Power, RotateCcw } from "lucide-react";
+import { Copy, ExternalLink, MoreHorizontal, Trash2, Power, RotateCcw, Pencil } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
@@ -38,6 +38,8 @@ export default function LinksClient() {
     const [sort, setSort] = useState<SortKey>("newest");
     const [createOpen, setCreateOpen] = useState(false);
     const [view, setView] = useState<View>("live");
+    /** When set, the form dialog opens in edit mode bound to this link. */
+    const [editing, setEditing] = useState<TrackingLink | null>(null);
 
     useEffect(() => {
         let cancelled = false;
@@ -317,6 +319,14 @@ export default function LinksClient() {
                                                     <Button
                                                         variant="ghost"
                                                         size="sm"
+                                                        onClick={() => setEditing(link)}
+                                                        title="Edit"
+                                                    >
+                                                        <Pencil size={14} />
+                                                    </Button>
+                                                    <Button
+                                                        variant="ghost"
+                                                        size="sm"
                                                         onClick={() => toggleActive(link)}
                                                         title={link.active ? "Disable" : "Enable"}
                                                     >
@@ -349,9 +359,23 @@ export default function LinksClient() {
             </div>
 
             <CreateLinkDialog
-                open={createOpen}
-                onOpenChange={setCreateOpen}
-                onCreated={(link) => setLinks((prev) => [link, ...prev])}
+                open={createOpen || !!editing}
+                onOpenChange={(o) => {
+                    if (!o) {
+                        setCreateOpen(false);
+                        setEditing(null);
+                    } else if (!editing) {
+                        setCreateOpen(true);
+                    }
+                }}
+                link={editing}
+                onSaved={(saved) =>
+                    setLinks((prev) =>
+                        editing
+                            ? prev.map((l) => (l.id === saved.id ? saved : l))
+                            : [saved, ...prev],
+                    )
+                }
             />
         </div>
     );
